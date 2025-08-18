@@ -35,14 +35,19 @@ public class CalculateStats {
                 BigDecimal dbPayoffRation = BigDecimal.valueOf(transactionsWithProfitPositive.stream().mapToDouble(Transaction::getProfit).average().getAsDouble() * -1 / transactionsWithProfitNegative.stream().mapToDouble(Transaction::getProfit).average().getAsDouble()).setScale(2, RoundingMode.HALF_UP);
                 this.payoffRatio = dbPayoffRation.doubleValue();
             }
-            BigDecimal dbCommissionRatio = new BigDecimal(totalProfit / totalCommission).setScale(2, RoundingMode.HALF_UP);
-            this.commissionRatio = dbCommissionRatio.doubleValue();
+            this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
         }
     }
 
     void populateTotals(Transaction tran) {
         this.totalProfit += tran.getProfit();
         this.totalCommission += tran.getCommission();
+    }
+
+    private Double calculateCommissionRatio(Double profit, Double commission) {
+        BigDecimal dbProfit = BigDecimal.valueOf(profit);
+        BigDecimal dbCommission = BigDecimal.valueOf(commission);
+        return dbCommission.divide(dbProfit, 2, RoundingMode.HALF_UP).doubleValue();
     }
 
     private Double averageListProfit(List<Transaction> transactions) {
