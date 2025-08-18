@@ -11,8 +11,11 @@ import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Utilities {
 
@@ -91,6 +94,14 @@ public class Utilities {
 
     public static BigDecimal calculateBalancePercentage(Double accountBalance) {
         return BigDecimal.valueOf(accountBalance).multiply(new BigDecimal("0.08")).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public static DecimalFormat getTextFormater() {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(',');
+
+        // Create DecimalFormat with the pattern and symbols
+        return new DecimalFormat("#,##0.00", symbols);
     }
 
 }

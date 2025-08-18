@@ -29,15 +29,15 @@ public class StatsController extends VBox {
     @FXML
     DatePicker toDate;
     @FXML
-    private Button currentDateFrom;
+    Button currentDateFrom;
     @FXML
-    private Button currentDateFromBeginning;
+    Button currentDateFromBeginning;
     @FXML
-    private Button currentDateTo;
+    Button currentDateTo;
     @FXML
-    private Button currentMonth;
+    Button currentMonth;
     @FXML
-    private Button currentWeek;
+    Button currentWeek;
     @FXML
     Label totalProfit;
     @FXML
@@ -83,8 +83,8 @@ public class StatsController extends VBox {
         double accountBalance = calculateAccountBalance(GlobalContext.getTransactionsMasterList());
         BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
 
-        accountBal.setText("$ " + String.format("%.2f", accountBalance));
-        accountBalPercentage.setText("$ " + String.format("%.2f", accountBalancePercentage));
+        accountBal.setText("$ " + getTextFormater().format(accountBalance));
+        accountBalPercentage.setText("$ " + getTextFormater().format(accountBalancePercentage));
 
         ///Date Filter logic
         fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -147,11 +147,11 @@ public class StatsController extends VBox {
     }
 
     public void populateStats(CalculateStats stats) {
-        totalProfit.setText("$ " + String.format("%.2f", stats.getTotalProfit()));
-        totalCommission.setText("$ " + String.format("%.2f", stats.getTotalCommission()));
-        netReturn.setText("$ " + String.format("%.2f", stats.getNetIncome()));
+        totalProfit.setText("$ " + stats.getTotalProfitFormat());
+        totalCommission.setText("$ " + stats.getTotalCommission());
+        netReturn.setText("$ " + stats.getNetIncome());
         winRate.setText(stats.getWinRate() + " %");
-        commissionRatio.setText(String.format("%.2f", stats.getTotalProfit() > 0 ? stats.getCommissionRatio() * 100 : 0) + " %");
+        commissionRatio.setText(String.format("%.2f", stats.getTotalProfit() > 0 ? stats.getCommissionRatio() : 0) + " %");
         payoffRatio.setText(String.format("%.2f", stats.getPayoffRatio()));
         winRatio.setText(String.format("%.2f", stats.getWinRatio()));
     }

@@ -6,8 +6,11 @@ import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.OptionalDouble;
+
+import static org.utilities.Utilities.getTextFormater;
 
 @Getter
 public class CalculateStats {
@@ -18,6 +21,7 @@ public class CalculateStats {
     private double winRatio = 0.0;
     private double commissionRatio = 0.0;
     private double payoffRatio = 0.0;
+    DecimalFormat df = getTextFormater();
 
     public CalculateStats(FilteredList<Transaction> filteredList) {
         if (!filteredList.isEmpty()) {
@@ -46,7 +50,7 @@ public class CalculateStats {
     private Double calculateCommissionRatio(Double profit, Double commission) {
         BigDecimal dbProfit = BigDecimal.valueOf(profit);
         BigDecimal dbCommission = BigDecimal.valueOf(commission);
-        return dbCommission.divide(dbProfit, 2, RoundingMode.HALF_UP).doubleValue();
+        return dbCommission.divide(dbProfit, 2, RoundingMode.HALF_UP).doubleValue() * 100;
     }
 
     private Double averageListProfit(List<Transaction> transactions) {
@@ -69,5 +73,21 @@ public class CalculateStats {
         BigDecimal positiveSize = new BigDecimal(positiveTransactions.size());
         BigDecimal negativeSize = new BigDecimal(negativeTransactions.size());
         return positiveSize.divide(negativeSize, 2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public String getTotalCommission() {
+        return df.format(this.totalCommission);
+    }
+
+    public String getTotalProfitFormat() {
+        return df.format(this.totalProfit);
+    }
+
+    public Double getTotalProfit() {
+        return this.totalProfit;
+    }
+
+    public String getNetIncome() {
+        return df.format(this.netIncome);
     }
 }
