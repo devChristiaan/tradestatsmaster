@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar fx:id="menuBar" layoutY="2.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#addTrade" text="Add Trade" />
+                    <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="View">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#switchViewTrade" text="Trades" />
+                    <MenuItem mnemonicParsing="false" onAction="#switchViewChart" text="Chart" />
+                </items>
+            </Menu>
+         <Menu mnemonicParsing="false" text="Data">
+            <items>
+               <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range" />
+               <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all" />
+               <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades" />
+            </items>
+         </Menu>
+        </menus>
+    </MenuBar>
+</fx:root>

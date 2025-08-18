@@ -1,0 +1,19 @@
+.chart-plot-background {
+    -fx-background-color: -color-fg-emphasis;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: -color-fg-default;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: -color-accent-emphasis;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: -color-fg-default, -color-fg-emphasis;
+}
+
+.default-color1.chart-line-symbol {
+    -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
+}
