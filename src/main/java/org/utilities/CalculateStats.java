@@ -7,6 +7,7 @@ import org.model.transaction.Transaction;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @Getter
 public class CalculateStats {
@@ -28,9 +29,9 @@ public class CalculateStats {
 
             this.netIncome = this.totalProfit - this.totalCommission;
             this.winRate = Math.round((float) transactionsWithProfitPositive.size() / filteredList.size() * 100);
+
             if (!transactionsWithProfitNegative.isEmpty()) {
-                BigDecimal dbWinRatio = new BigDecimal(transactionsWithProfitPositive.size() / transactionsWithProfitNegative.size()).setScale(2, RoundingMode.HALF_UP);
-                this.winRatio = dbWinRatio.doubleValue();
+                this.winRatio = calculateWinRate(transactionsWithProfitPositive, transactionsWithProfitNegative);
                 BigDecimal dbPayoffRation = BigDecimal.valueOf(transactionsWithProfitPositive.stream().mapToDouble(Transaction::getProfit).average().getAsDouble() * -1 / transactionsWithProfitNegative.stream().mapToDouble(Transaction::getProfit).average().getAsDouble()).setScale(2, RoundingMode.HALF_UP);
                 this.payoffRatio = dbPayoffRation.doubleValue();
             }
@@ -42,5 +43,21 @@ public class CalculateStats {
     void populateTotals(Transaction tran) {
         this.totalProfit += tran.getProfit();
         this.totalCommission += tran.getCommission();
+    }
+
+    private Double averageListProfit(List<Transaction> transactions) {
+        OptionalDouble average = transactions.stream().mapToDouble(Transaction::getProfit).average();
+
+        if (average.isPresent()) {
+            return average.getAsDouble();
+        } else {
+            return 0.0;
+        }
+    }
+
+    private Double calculateWinRate(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+        BigDecimal positiveSize = new BigDecimal(positiveTransactions.size());
+        BigDecimal negativeSize = new BigDecimal(negativeTransactions.size());
+        return positiveSize.divide(negativeSize, 2, RoundingMode.HALF_UP).doubleValue();
     }
 }
