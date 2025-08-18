@@ -32,8 +32,7 @@ public class CalculateStats {
 
             if (!transactionsWithProfitNegative.isEmpty()) {
                 this.winRatio = calculateWinRate(transactionsWithProfitPositive, transactionsWithProfitNegative);
-                BigDecimal dbPayoffRation = BigDecimal.valueOf(transactionsWithProfitPositive.stream().mapToDouble(Transaction::getProfit).average().getAsDouble() * -1 / transactionsWithProfitNegative.stream().mapToDouble(Transaction::getProfit).average().getAsDouble()).setScale(2, RoundingMode.HALF_UP);
-                this.payoffRatio = dbPayoffRation.doubleValue();
+                this.payoffRatio = calculatePayoffRatio(transactionsWithProfitPositive, transactionsWithProfitNegative);
             }
             this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
         }
@@ -58,6 +57,12 @@ public class CalculateStats {
         } else {
             return 0.0;
         }
+    }
+
+    private Double calculatePayoffRatio(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+        BigDecimal averageNegativeTrans = BigDecimal.valueOf(this.averageListProfit(negativeTransactions));
+        BigDecimal averagePositiveTrans = BigDecimal.valueOf(this.averageListProfit(positiveTransactions));
+        return averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     private Double calculateWinRate(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
