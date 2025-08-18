@@ -151,7 +151,7 @@ public class StatsController extends VBox {
         totalCommission.setText("$ " + String.format("%.2f", stats.getTotalCommission()));
         netReturn.setText("$ " + String.format("%.2f", stats.getNetIncome()));
         winRate.setText(stats.getWinRate() + " %");
-        commissionRatio.setText(String.format("%.2f", stats.getCommissionRatio()));
+        commissionRatio.setText(String.format("%.2f", stats.getTotalProfit() > 0 ? stats.getCommissionRatio() * 100 : 0) + " %");
         payoffRatio.setText(String.format("%.2f", stats.getPayoffRatio()));
         winRatio.setText(String.format("%.2f", stats.getWinRatio()));
     }
