@@ -6,7 +6,11 @@ import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.OptionalDouble;
+
+import static org.utilities.Utilities.getTextFormater;
 
 @Getter
 public class CalculateStats {
@@ -17,6 +21,7 @@ public class CalculateStats {
     private double winRatio = 0.0;
     private double commissionRatio = 0.0;
     private double payoffRatio = 0.0;
+    DecimalFormat df = getTextFormater();
 
     public CalculateStats(FilteredList<Transaction> filteredList) {
         if (!filteredList.isEmpty()) {
@@ -28,19 +33,61 @@ public class CalculateStats {
 
             this.netIncome = this.totalProfit - this.totalCommission;
             this.winRate = Math.round((float) transactionsWithProfitPositive.size() / filteredList.size() * 100);
+
             if (!transactionsWithProfitNegative.isEmpty()) {
-                BigDecimal dbWinRatio = new BigDecimal(transactionsWithProfitPositive.size() / transactionsWithProfitNegative.size()).setScale(2, RoundingMode.HALF_UP);
-                this.winRatio = dbWinRatio.doubleValue();
-                BigDecimal dbPayoffRation = BigDecimal.valueOf(transactionsWithProfitPositive.stream().mapToDouble(Transaction::getProfit).average().getAsDouble() * -1 / transactionsWithProfitNegative.stream().mapToDouble(Transaction::getProfit).average().getAsDouble()).setScale(2, RoundingMode.HALF_UP);
-                this.payoffRatio = dbPayoffRation.doubleValue();
+                this.winRatio = calculateWinRate(transactionsWithProfitPositive, transactionsWithProfitNegative);
+                this.payoffRatio = calculatePayoffRatio(transactionsWithProfitPositive, transactionsWithProfitNegative);
             }
-            BigDecimal dbCommissionRatio = new BigDecimal(totalProfit / totalCommission).setScale(2, RoundingMode.HALF_UP);
-            this.commissionRatio = dbCommissionRatio.doubleValue();
+            this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
         }
     }
 
     void populateTotals(Transaction tran) {
         this.totalProfit += tran.getProfit();
         this.totalCommission += tran.getCommission();
+    }
+
+    private Double calculateCommissionRatio(Double profit, Double commission) {
+        BigDecimal dbProfit = BigDecimal.valueOf(profit);
+        BigDecimal dbCommission = BigDecimal.valueOf(commission);
+        return dbCommission.divide(dbProfit, 2, RoundingMode.HALF_UP).doubleValue() * 100;
+    }
+
+    private Double averageListProfit(List<Transaction> transactions) {
+        OptionalDouble average = transactions.stream().mapToDouble(Transaction::getProfit).average();
+
+        if (average.isPresent()) {
+            return average.getAsDouble();
+        } else {
+            return 0.0;
+        }
+    }
+
+    private Double calculatePayoffRatio(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+        BigDecimal averageNegativeTrans = BigDecimal.valueOf(this.averageListProfit(negativeTransactions));
+        BigDecimal averagePositiveTrans = BigDecimal.valueOf(this.averageListProfit(positiveTransactions));
+        return averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    private Double calculateWinRate(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+        BigDecimal positiveSize = new BigDecimal(positiveTransactions.size());
+        BigDecimal negativeSize = new BigDecimal(negativeTransactions.size());
+        return positiveSize.divide(negativeSize, 2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public String getTotalCommission() {
+        return df.format(this.totalCommission);
+    }
+
+    public String getTotalProfitFormat() {
+        return df.format(this.totalProfit);
+    }
+
+    public Double getTotalProfit() {
+        return this.totalProfit;
+    }
+
+    public String getNetIncome() {
+        return df.format(this.netIncome);
     }
 }
