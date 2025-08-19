@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.app</groupId>
   <artifactId>TradeStatsMaster</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.2</version>
   <name>Trade Stats Master</name>
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
@@ -111,10 +111,16 @@
         <artifactId>gluonfx-maven-plugin</artifactId>
         <version>${gluonfx.plugin.version}</version>
         <configuration>
+          <mainClass>org.app/${main.class}</mainClass>
           <reflectionList>
             <list>org.controller.*</list>
+            <list>org.controller.MenuBarController</list>
+            <list>org.controller.StatsController</list>
           </reflectionList>
-          <mainClass>org.app/${main.class}</mainClass>
+          <releaseConfiguration>
+            <description>Trading statistics app</description>
+            <vendor>Hougaard</vendor>
+          </releaseConfiguration>
         </configuration>
       </plugin>
     </plugins>
@@ -128,7 +134,7 @@
         </os>
       </activation>
       <properties>
-        <gluonfx.icon>org/app/icons/TitleIcon.png</gluonfx.icon>
+        <gluonfx.icon>org/app/icons/TitleIcon.ico</gluonfx.icon>
       </properties>
     </profile>
   </profiles>

@@ -10,7 +10,6 @@ module org.app {
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.material2;
 
-
     exports org.app;
     exports org.controller;
     exports org.utilities;
