@@ -1,1648 +1,788 @@
 [
-  {
-    "name": "[B"
-  },
-  {
-    "name": "[C"
-  },
-  {
-    "name": "[D"
-  },
-  {
-    "name": "[F"
-  },
-  {
-    "name": "[I"
-  },
-  {
-    "name": "[J"
-  },
-  {
-    "name": "[Ljava.io.File;"
-  },
-  {
-    "name": "[Ljava.lang.Boolean;"
-  },
-  {
-    "name": "[Ljava.lang.Byte;"
-  },
-  {
-    "name": "[Ljava.lang.Character;"
-  },
-  {
-    "name": "[Ljava.lang.Class;"
-  },
-  {
-    "name": "[Ljava.lang.Double;"
-  },
-  {
-    "name": "[Ljava.lang.Float;"
-  },
-  {
-    "name": "[Ljava.lang.Integer;"
-  },
-  {
-    "name": "[Ljava.lang.Long;"
-  },
-  {
-    "name": "[Ljava.lang.Short;"
-  },
-  {
-    "name": "[Ljava.lang.String;"
-  },
-  {
-    "name": "[Ljava.math.BigDecimal;"
-  },
-  {
-    "name": "[Ljava.math.BigInteger;"
-  },
-  {
-    "name": "[Ljava.net.URL;"
-  },
-  {
-    "name": "[Ljava.sql.Date;"
-  },
-  {
-    "name": "[Ljava.sql.Time;"
-  },
-  {
-    "name": "[Ljava.sql.Timestamp;"
-  },
-  {
-    "name": "[Ljava.util.Calendar;"
-  },
-  {
-    "name": "[Ljava.util.Date;"
-  },
-  {
-    "name": "[Ljavafx.collections.transformation.SortedList$Element;"
-  },
-  {
-    "name": "[S"
-  },
-  {
-    "name": "[Z"
-  },
-  {
-    "name": "atlantafx.base.controls.ModalPane",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.glass.ui.Screen"
-  },
-  {
-    "name": "com.sun.javafx.font.directwrite.DWFactory",
-    "methods": [
-      {
-        "name": "getFactory",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.javafx.logging.PrintLogger",
-    "methods": [
-      {
-        "name": "createInstance",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.javafx.logging.jfr.JFRPulseLogger",
-    "methods": [
-      {
-        "name": "createInstance",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.javafx.reflect.Trampoline",
-    "methods": [
-      {
-        "name": "invoke",
-        "parameterTypes": [
-          "java.lang.reflect.Method",
-          "java.lang.Object",
-          "java.lang.Object[]"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.javafx.tk.quantum.QuantumToolkit",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.GraphicsPipeline",
-    "methods": [
-      {
-        "name": "getFontFactory",
-        "parameterTypes": []
-      },
-      {
-        "name": "getPipeline",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.DrawPgram_Color_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.FillPgram_Color_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.FillRoundRect_Color_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.Mask_TextureSuper_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.Solid_Color_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.Solid_TextureRGB_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.prism.shader.Texture_Color_Loader",
-    "methods": [
-      {
-        "name": "loadShader",
-        "parameterTypes": [
-          "com.sun.prism.ps.ShaderFactory",
-          "java.io.InputStream"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.scenario.effect.impl.prism.PrRenderer",
-    "methods": [
-      {
-        "name": "createRenderer",
-        "parameterTypes": [
-          "com.sun.scenario.effect.FilterContext"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.scenario.effect.impl.prism.ps.PPSLinearConvolveShadowPeer",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "com.sun.scenario.effect.FilterContext",
-          "com.sun.scenario.effect.impl.Renderer",
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.scenario.effect.impl.prism.ps.PPSRenderer",
-    "methods": [
-      {
-        "name": "createRenderer",
-        "parameterTypes": [
-          "com.sun.scenario.effect.FilterContext"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "java.lang.Character",
-    "methods": [
-      {
-        "name": "isIdeographic",
-        "parameterTypes": [
-          "int"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "java.lang.Class",
-    "methods": [
-      {
-        "name": "forName",
-        "parameterTypes": [
-          "java.lang.Module",
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "getModule",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "java.lang.Module",
-    "queriedMethods": [
-      {
-        "name": "getDescriptor",
-        "parameterTypes": []
-      },
-      {
-        "name": "getLayer",
-        "parameterTypes": []
-      },
-      {
-        "name": "getName",
-        "parameterTypes": []
-      },
-      {
-        "name": "getResourceAsStream",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "java.lang.ModuleLayer",
-    "methods": [
-      {
-        "name": "boot",
-        "parameterTypes": []
-      },
-      {
-        "name": "findModule",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "java.lang.Object",
-    "allDeclaredFields": true
-  },
-  {
-    "name": "java.lang.String"
-  },
-  {
-    "name": "java.lang.Throwable",
-    "queriedMethods": [
-      {
-        "name": "initCause",
-        "parameterTypes": [
-          "java.lang.Throwable"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "java.nio.ByteBuffer",
-    "methods": [
-      {
-        "name": "order",
-        "parameterTypes": [
-          "java.nio.ByteOrder"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "java.nio.ByteOrder",
-    "methods": [
-      {
-        "name": "nativeOrder",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "java.security.SecureRandomParameters"
-  },
-  {
-    "name": "java.util.Date",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "long"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.fxml.FXMLLoader"
-  },
-  {
-    "name": "javafx.geometry.Insets",
-    "queryAllPublicMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "double",
-          "double",
-          "double",
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.geometry.NodeOrientation",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.geometry.Pos",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.Camera"
-  },
-  {
-    "name": "javafx.scene.Group",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getChildren",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.Node",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "getId",
-        "parameterTypes": []
-      },
-      {
-        "name": "setId",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setLayoutX",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setLayoutY",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setNodeOrientation",
-        "parameterTypes": [
-          "javafx.geometry.NodeOrientation"
-        ]
-      },
-      {
-        "name": "setOnKeyTyped",
-        "parameterTypes": [
-          "javafx.event.EventHandler"
-        ]
-      },
-      {
-        "name": "setStyle",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setTranslateX",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setTranslateY",
-        "parameterTypes": [
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.ParallelCamera"
-  },
-  {
-    "name": "javafx.scene.Parent",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "getStylesheets",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.Scene"
-  },
-  {
-    "name": "javafx.scene.control.Button",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.ButtonBar",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getButtons",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.ButtonBase",
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "setOnAction",
-        "parameterTypes": [
-          "javafx.event.EventHandler"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.ChoiceBox",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.ComboBoxBase",
-    "queryAllDeclaredMethods": true
-  },
-  {
-    "name": "javafx.scene.control.ContentDisplay",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.Control",
-    "queryAllDeclaredMethods": true
-  },
-  {
-    "name": "javafx.scene.control.DatePicker",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.Label",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.Labeled",
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "setAlignment",
-        "parameterTypes": [
-          "javafx.geometry.Pos"
-        ]
-      },
-      {
-        "name": "setContentDisplay",
-        "parameterTypes": [
-          "javafx.scene.control.ContentDisplay"
-        ]
-      },
-      {
-        "name": "setFont",
-        "parameterTypes": [
-          "javafx.scene.text.Font"
-        ]
-      },
-      {
-        "name": "setGraphic",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      },
-      {
-        "name": "setMnemonicParsing",
-        "parameterTypes": [
-          "boolean"
-        ]
-      },
-      {
-        "name": "setText",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setTextAlignment",
-        "parameterTypes": [
-          "javafx.scene.text.TextAlignment"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.Menu",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getItems",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.MenuBar",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getMenus",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.MenuItem",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setMnemonicParsing",
-        "parameterTypes": [
-          "boolean"
-        ]
-      },
-      {
-        "name": "setOnAction",
-        "parameterTypes": [
-          "javafx.event.EventHandler"
-        ]
-      },
-      {
-        "name": "setText",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.RadioButton",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.Separator",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.TableColumn",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.TableColumnBase",
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "getId",
-        "parameterTypes": []
-      },
-      {
-        "name": "setEditable",
-        "parameterTypes": [
-          "boolean"
-        ]
-      },
-      {
-        "name": "setId",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setPrefWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setSortable",
-        "parameterTypes": [
-          "boolean"
-        ]
-      },
-      {
-        "name": "setText",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.TableView",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getColumns",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.TextField",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.TextInputControl",
-    "queryAllDeclaredMethods": true
-  },
-  {
-    "name": "javafx.scene.control.ToggleButton",
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "setToggleGroup",
-        "parameterTypes": [
-          "javafx.scene.control.ToggleGroup"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.control.ToggleGroup",
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.effect.Effect"
-  },
-  {
-    "name": "javafx.scene.image.Image"
-  },
-  {
-    "name": "javafx.scene.image.ImageView"
-  },
-  {
-    "name": "javafx.scene.layout.AnchorPane",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.BorderPane",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setAlignment",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.geometry.Pos"
-        ]
-      },
-      {
-        "name": "setCenter",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      },
-      {
-        "name": "setMargin",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.geometry.Insets"
-        ]
-      },
-      {
-        "name": "setRight",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      },
-      {
-        "name": "setTop",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "getAlignment",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.ColumnConstraints",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setHgrow",
-        "parameterTypes": [
-          "javafx.scene.layout.Priority"
-        ]
-      },
-      {
-        "name": "setMinWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setPrefWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.ConstraintsBase",
-    "queryAllDeclaredMethods": true
-  },
-  {
-    "name": "javafx.scene.layout.GridPane",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "getColumnConstraints",
-        "parameterTypes": []
-      },
-      {
-        "name": "getRowConstraints",
-        "parameterTypes": []
-      },
-      {
-        "name": "setColumnIndex",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "java.lang.Integer"
-        ]
-      },
-      {
-        "name": "setMargin",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.geometry.Insets"
-        ]
-      },
-      {
-        "name": "setRowIndex",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "java.lang.Integer"
-        ]
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "getColumnIndex",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      },
-      {
-        "name": "getRowIndex",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.Pane",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "getChildren",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.Priority",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.Region",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "setMaxHeight",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setMaxWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setOpaqueInsets",
-        "parameterTypes": [
-          "javafx.geometry.Insets"
-        ]
-      },
-      {
-        "name": "setPrefHeight",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setPrefWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.RowConstraints",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setMinHeight",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setPrefHeight",
-        "parameterTypes": [
-          "double"
-        ]
-      },
-      {
-        "name": "setVgrow",
-        "parameterTypes": [
-          "javafx.scene.layout.Priority"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.StackPane",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setMargin",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.geometry.Insets"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.layout.VBox",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setAlignment",
-        "parameterTypes": [
-          "javafx.geometry.Pos"
-        ]
-      },
-      {
-        "name": "setMargin",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.geometry.Insets"
-        ]
-      },
-      {
-        "name": "setVgrow",
-        "parameterTypes": [
-          "javafx.scene.Node",
-          "javafx.scene.layout.Priority"
-        ]
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "getVgrow",
-        "parameterTypes": [
-          "javafx.scene.Node"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.shape.LineTo"
-  },
-  {
-    "name": "javafx.scene.shape.MoveTo"
-  },
-  {
-    "name": "javafx.scene.shape.Path"
-  },
-  {
-    "name": "javafx.scene.shape.PathElement"
-  },
-  {
-    "name": "javafx.scene.shape.Rectangle"
-  },
-  {
-    "name": "javafx.scene.shape.SVGPath"
-  },
-  {
-    "name": "javafx.scene.shape.Shape",
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "setStrokeType",
-        "parameterTypes": [
-          "javafx.scene.shape.StrokeType"
-        ]
-      },
-      {
-        "name": "setStrokeWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.shape.StrokeType",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.text.Font"
-  },
-  {
-    "name": "javafx.scene.text.Text",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setFont",
-        "parameterTypes": [
-          "javafx.scene.text.Font"
-        ]
-      },
-      {
-        "name": "setText",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setWrappingWidth",
-        "parameterTypes": [
-          "double"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.text.TextAlignment",
-    "methods": [
-      {
-        "name": "valueOf",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "javafx.scene.transform.Transform"
-  },
-  {
-    "name": "javafx.stage.PopupWindow"
-  },
-  {
-    "name": "javafx.stage.Stage"
-  },
-  {
-    "name": "javafx.stage.Window"
-  },
-  {
-    "name": "org.apache.commons.logging.LogFactory"
-  },
-  {
-    "name": "org.apache.commons.logging.impl.Jdk14Logger",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "org.apache.commons.logging.impl.Log4JLogger"
-  },
-  {
-    "name": "org.apache.commons.logging.impl.LogFactoryImpl",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.apache.commons.logging.impl.WeakHashtable",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.app.App",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "main",
-        "parameterTypes": [
-          "java.lang.String[]"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "org.controller.AddTransactionDialog",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.controller.MenuBarController",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "exportSelection",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.controller.StatsController",
-    "allDeclaredFields": true,
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "initialize",
-        "parameterTypes": []
-      },
-      {
-        "name": "setCurrentMonth",
-        "parameterTypes": []
-      },
-      {
-        "name": "setCurrentWeek",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.controller.TradeController",
-    "allDeclaredFields": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.kordamp.ikonli.javafx.FontIcon",
-    "queryAllDeclaredMethods": true,
-    "queryAllPublicConstructors": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setIconLiteral",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setIconSize",
-        "parameterTypes": [
-          "int"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "org.model.Formation",
-    "allDeclaredFields": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setFormation",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "getFormation",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.model.Symbol",
-    "allDeclaredFields": true,
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      },
-      {
-        "name": "setCommission",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setDate",
-        "parameterTypes": [
-          "java.util.Date"
-        ]
-      },
-      {
-        "name": "setFluctuation",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setSymbol",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setTickValue",
-        "parameterTypes": [
-          "java.lang.Float"
-        ]
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "getCommission",
-        "parameterTypes": []
-      },
-      {
-        "name": "getDate",
-        "parameterTypes": []
-      },
-      {
-        "name": "getFluctuation",
-        "parameterTypes": []
-      },
-      {
-        "name": "getSymbol",
-        "parameterTypes": []
-      },
-      {
-        "name": "getTickValue",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.model.transaction.Transaction",
-    "allDeclaredFields": true,
-    "methods": [
-      {
-        "name": "getClose",
-        "parameterTypes": []
-      },
-      {
-        "name": "getCommission",
-        "parameterTypes": []
-      },
-      {
-        "name": "getDate",
-        "parameterTypes": []
-      },
-      {
-        "name": "getDirection",
-        "parameterTypes": []
-      },
-      {
-        "name": "getFormation",
-        "parameterTypes": []
-      },
-      {
-        "name": "getOpen",
-        "parameterTypes": []
-      },
-      {
-        "name": "getProfit",
-        "parameterTypes": []
-      },
-      {
-        "name": "getQuantity",
-        "parameterTypes": []
-      },
-      {
-        "name": "getSymbol",
-        "parameterTypes": []
-      }
-    ],
-    "queriedMethods": [
-      {
-        "name": "setClose",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setCommission",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setDate",
-        "parameterTypes": [
-          "java.time.LocalDate"
-        ]
-      },
-      {
-        "name": "setDirection",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setFormation",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      },
-      {
-        "name": "setOpen",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setProfit",
-        "parameterTypes": [
-          "java.lang.Double"
-        ]
-      },
-      {
-        "name": "setQuantity",
-        "parameterTypes": [
-          "java.lang.Integer"
-        ]
-      },
-      {
-        "name": "setSymbol",
-        "parameterTypes": [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "org.sqlite.JDBC"
-  },
-  {
-    "name": "sun.misc.Unsafe",
-    "fields": [
-      {
-        "name": "theUnsafe"
-      }
-    ]
-  },
-  {
-    "name": "sun.security.provider.DRBG",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": [
-          "java.security.SecureRandomParameters"
-        ]
-      }
-    ]
-  },
-  {
-    "name": "sun.security.provider.MD5",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "sun.security.provider.SHA",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "sun.security.provider.SHA2$SHA256",
-    "methods": [
-      {
-        "name": "<init>",
-        "parameterTypes": []
-      }
-    ]
-  },
-  {
-    "name": "org.controller",
-    "allDeclaredConstructors": true,
-    "allDeclaredMethods": true,
-    "allDeclaredFields": true
-  }
+{
+  "name":"[B"
+},
+{
+  "name":"[C"
+},
+{
+  "name":"[D"
+},
+{
+  "name":"[F"
+},
+{
+  "name":"[I"
+},
+{
+  "name":"[J"
+},
+{
+  "name":"[Ljava.io.File;"
+},
+{
+  "name":"[Ljava.lang.Boolean;"
+},
+{
+  "name":"[Ljava.lang.Byte;"
+},
+{
+  "name":"[Ljava.lang.Character;"
+},
+{
+  "name":"[Ljava.lang.Class;"
+},
+{
+  "name":"[Ljava.lang.Double;"
+},
+{
+  "name":"[Ljava.lang.Float;"
+},
+{
+  "name":"[Ljava.lang.Integer;"
+},
+{
+  "name":"[Ljava.lang.Long;"
+},
+{
+  "name":"[Ljava.lang.Short;"
+},
+{
+  "name":"[Ljava.lang.String;"
+},
+{
+  "name":"[Ljava.math.BigDecimal;"
+},
+{
+  "name":"[Ljava.math.BigInteger;"
+},
+{
+  "name":"[Ljava.net.URL;"
+},
+{
+  "name":"[Ljava.sql.Date;"
+},
+{
+  "name":"[Ljava.sql.Time;"
+},
+{
+  "name":"[Ljava.sql.Timestamp;"
+},
+{
+  "name":"[Ljava.util.Calendar;"
+},
+{
+  "name":"[Ljava.util.Date;"
+},
+{
+  "name":"[Ljavafx.collections.transformation.SortedList$Element;"
+},
+{
+  "name":"[S"
+},
+{
+  "name":"[Z"
+},
+{
+  "name":"atlantafx.base.controls.ModalPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.glass.ui.Screen"
+},
+{
+  "name":"com.sun.javafx.font.directwrite.DWFactory",
+  "methods":[{"name":"getFactory","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.logging.PrintLogger",
+  "methods":[{"name":"createInstance","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.logging.jfr.JFRPulseLogger",
+  "methods":[{"name":"createInstance","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.javafx.reflect.Trampoline",
+  "methods":[{"name":"invoke","parameterTypes":["java.lang.reflect.Method","java.lang.Object","java.lang.Object[]"] }]
+},
+{
+  "name":"com.sun.javafx.tk.quantum.QuantumToolkit",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.prism.GraphicsPipeline",
+  "methods":[
+    {"name":"getFontFactory","parameterTypes":[] }, 
+    {"name":"getPipeline","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.sun.prism.shader.DrawPgram_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.FillPgram_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.FillRoundRect_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.Mask_TextureSuper_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.Solid_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.Solid_TextureRGB_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.prism.shader.Texture_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
+  "name":"com.sun.scenario.effect.impl.prism.PrRenderer",
+  "methods":[{"name":"createRenderer","parameterTypes":["com.sun.scenario.effect.FilterContext"] }]
+},
+{
+  "name":"com.sun.scenario.effect.impl.prism.ps.PPSLinearConvolveShadowPeer",
+  "methods":[{"name":"<init>","parameterTypes":["com.sun.scenario.effect.FilterContext","com.sun.scenario.effect.impl.Renderer","java.lang.String"] }]
+},
+{
+  "name":"com.sun.scenario.effect.impl.prism.ps.PPSRenderer",
+  "methods":[{"name":"createRenderer","parameterTypes":["com.sun.scenario.effect.FilterContext"] }]
+},
+{
+  "name":"com.sun.xml.internal.stream.XMLInputFactoryImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Character",
+  "methods":[{"name":"isIdeographic","parameterTypes":["int"] }]
+},
+{
+  "name":"java.lang.Class",
+  "methods":[
+    {"name":"forName","parameterTypes":["java.lang.Module","java.lang.String"] }, 
+    {"name":"getModule","parameterTypes":[] }
+  ]
+},
+{
+  "name":"java.lang.Module",
+  "queriedMethods":[
+    {"name":"getDescriptor","parameterTypes":[] }, 
+    {"name":"getLayer","parameterTypes":[] }, 
+    {"name":"getName","parameterTypes":[] }, 
+    {"name":"getResourceAsStream","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"java.lang.ModuleLayer",
+  "methods":[
+    {"name":"boot","parameterTypes":[] }, 
+    {"name":"findModule","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"java.lang.Object",
+  "allDeclaredFields":true
+},
+{
+  "name":"java.lang.String"
+},
+{
+  "name":"java.lang.Throwable",
+  "queriedMethods":[{"name":"initCause","parameterTypes":["java.lang.Throwable"] }]
+},
+{
+  "name":"java.nio.ByteBuffer",
+  "methods":[{"name":"order","parameterTypes":["java.nio.ByteOrder"] }]
+},
+{
+  "name":"java.nio.ByteOrder",
+  "methods":[{"name":"nativeOrder","parameterTypes":[] }]
+},
+{
+  "name":"java.security.SecureRandomParameters"
+},
+{
+  "name":"java.util.Date",
+  "methods":[{"name":"<init>","parameterTypes":["long"] }]
+},
+{
+  "name":"javafx.animation.KeyValue"
+},
+{
+  "name":"javafx.fxml.FXMLLoader"
+},
+{
+  "name":"javafx.geometry.Insets",
+  "queryAllPublicMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":["double"] }, 
+    {"name":"<init>","parameterTypes":["double","double","double","double"] }
+  ]
+},
+{
+  "name":"javafx.geometry.NodeOrientation",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.geometry.Pos",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.scene.Camera"
+},
+{
+  "name":"javafx.scene.Group",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getChildren","parameterTypes":[] }
+  ]
+},
+{
+  "name":"javafx.scene.Node",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getId","parameterTypes":[] }, 
+    {"name":"setId","parameterTypes":["java.lang.String"] }, 
+    {"name":"setLayoutX","parameterTypes":["double"] }, 
+    {"name":"setLayoutY","parameterTypes":["double"] }, 
+    {"name":"setNodeOrientation","parameterTypes":["javafx.geometry.NodeOrientation"] }, 
+    {"name":"setOnKeyTyped","parameterTypes":["javafx.event.EventHandler"] }, 
+    {"name":"setScaleX","parameterTypes":["double"] }, 
+    {"name":"setScaleY","parameterTypes":["double"] }, 
+    {"name":"setStyle","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTranslateX","parameterTypes":["double"] }, 
+    {"name":"setTranslateY","parameterTypes":["double"] }
+  ]
+},
+{
+  "name":"javafx.scene.ParallelCamera"
+},
+{
+  "name":"javafx.scene.Parent",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getStylesheets","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.Scene"
+},
+{
+  "name":"javafx.scene.control.Button",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.ButtonBar",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getButtons","parameterTypes":[] }
+  ]
+},
+{
+  "name":"javafx.scene.control.ButtonBase",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"setOnAction","parameterTypes":["javafx.event.EventHandler"] }]
+},
+{
+  "name":"javafx.scene.control.ChoiceBox",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.ComboBoxBase",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javafx.scene.control.ContentDisplay",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.scene.control.Control",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"setTooltip","parameterTypes":["javafx.scene.control.Tooltip"] }]
+},
+{
+  "name":"javafx.scene.control.DatePicker",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.Label",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.Labeled",
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, 
+    {"name":"setContentDisplay","parameterTypes":["javafx.scene.control.ContentDisplay"] }, 
+    {"name":"setFont","parameterTypes":["javafx.scene.text.Font"] }, 
+    {"name":"setGraphic","parameterTypes":["javafx.scene.Node"] }, 
+    {"name":"setMnemonicParsing","parameterTypes":["boolean"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTextAlignment","parameterTypes":["javafx.scene.text.TextAlignment"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.Menu",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getItems","parameterTypes":[] }
+  ]
+},
+{
+  "name":"javafx.scene.control.MenuBar",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getMenus","parameterTypes":[] }
+  ]
+},
+{
+  "name":"javafx.scene.control.MenuItem",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setMnemonicParsing","parameterTypes":["boolean"] }, 
+    {"name":"setOnAction","parameterTypes":["javafx.event.EventHandler"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.PopupControl",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javafx.scene.control.RadioButton",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.Separator",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.TableColumn",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.TableColumnBase",
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getId","parameterTypes":[] }, 
+    {"name":"setEditable","parameterTypes":["boolean"] }, 
+    {"name":"setId","parameterTypes":["java.lang.String"] }, 
+    {"name":"setPrefWidth","parameterTypes":["double"] }, 
+    {"name":"setSortable","parameterTypes":["boolean"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.TableView",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getColumns","parameterTypes":[] }
+  ]
+},
+{
+  "name":"javafx.scene.control.TextField",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.TextInputControl",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javafx.scene.control.ToggleButton",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"setToggleGroup","parameterTypes":["javafx.scene.control.ToggleGroup"] }]
+},
+{
+  "name":"javafx.scene.control.ToggleGroup",
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.Tooltip",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setContentDisplay","parameterTypes":["javafx.scene.control.ContentDisplay"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTextAlignment","parameterTypes":["javafx.scene.text.TextAlignment"] }, 
+    {"name":"setWrapText","parameterTypes":["boolean"] }
+  ]
+},
+{
+  "name":"javafx.scene.effect.Effect"
+},
+{
+  "name":"javafx.scene.image.Image"
+},
+{
+  "name":"javafx.scene.image.ImageView"
+},
+{
+  "name":"javafx.scene.layout.AnchorPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.layout.BorderPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setAlignment","parameterTypes":["javafx.scene.Node","javafx.geometry.Pos"] }, 
+    {"name":"setCenter","parameterTypes":["javafx.scene.Node"] }, 
+    {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }, 
+    {"name":"setRight","parameterTypes":["javafx.scene.Node"] }, 
+    {"name":"setTop","parameterTypes":["javafx.scene.Node"] }
+  ],
+  "queriedMethods":[{"name":"getAlignment","parameterTypes":["javafx.scene.Node"] }]
+},
+{
+  "name":"javafx.scene.layout.ColumnConstraints",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setHgrow","parameterTypes":["javafx.scene.layout.Priority"] }, 
+    {"name":"setMinWidth","parameterTypes":["double"] }, 
+    {"name":"setPrefWidth","parameterTypes":["double"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.ConstraintsBase",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javafx.scene.layout.GridPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getColumnConstraints","parameterTypes":[] }, 
+    {"name":"getRowConstraints","parameterTypes":[] }, 
+    {"name":"setColumnIndex","parameterTypes":["javafx.scene.Node","java.lang.Integer"] }, 
+    {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }, 
+    {"name":"setRowIndex","parameterTypes":["javafx.scene.Node","java.lang.Integer"] }
+  ],
+  "queriedMethods":[
+    {"name":"getColumnIndex","parameterTypes":["javafx.scene.Node"] }, 
+    {"name":"getRowIndex","parameterTypes":["javafx.scene.Node"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.Pane",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getChildren","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.layout.Priority",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.scene.layout.Region",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"setMaxHeight","parameterTypes":["double"] }, 
+    {"name":"setMaxWidth","parameterTypes":["double"] }, 
+    {"name":"setOpaqueInsets","parameterTypes":["javafx.geometry.Insets"] }, 
+    {"name":"setPrefHeight","parameterTypes":["double"] }, 
+    {"name":"setPrefWidth","parameterTypes":["double"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.RowConstraints",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setMinHeight","parameterTypes":["double"] }, 
+    {"name":"setPrefHeight","parameterTypes":["double"] }, 
+    {"name":"setVgrow","parameterTypes":["javafx.scene.layout.Priority"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.StackPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.VBox",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, 
+    {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }, 
+    {"name":"setVgrow","parameterTypes":["javafx.scene.Node","javafx.scene.layout.Priority"] }
+  ],
+  "queriedMethods":[{"name":"getVgrow","parameterTypes":["javafx.scene.Node"] }]
+},
+{
+  "name":"javafx.scene.shape.LineTo"
+},
+{
+  "name":"javafx.scene.shape.MoveTo"
+},
+{
+  "name":"javafx.scene.shape.Path"
+},
+{
+  "name":"javafx.scene.shape.PathElement"
+},
+{
+  "name":"javafx.scene.shape.Rectangle"
+},
+{
+  "name":"javafx.scene.shape.SVGPath"
+},
+{
+  "name":"javafx.scene.shape.Shape",
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"setStrokeType","parameterTypes":["javafx.scene.shape.StrokeType"] }, 
+    {"name":"setStrokeWidth","parameterTypes":["double"] }
+  ]
+},
+{
+  "name":"javafx.scene.shape.StrokeType",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.scene.text.Font"
+},
+{
+  "name":"javafx.scene.text.Text",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setFont","parameterTypes":["javafx.scene.text.Font"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }, 
+    {"name":"setWrappingWidth","parameterTypes":["double"] }
+  ]
+},
+{
+  "name":"javafx.scene.text.TextAlignment",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.scene.transform.Transform"
+},
+{
+  "name":"javafx.stage.PopupWindow",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javafx.stage.Stage"
+},
+{
+  "name":"javafx.stage.Window",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.apache.commons.logging.LogFactory"
+},
+{
+  "name":"org.apache.commons.logging.impl.Jdk14Logger",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.apache.commons.logging.impl.Log4JLogger"
+},
+{
+  "name":"org.apache.commons.logging.impl.LogFactoryImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.apache.commons.logging.impl.WeakHashtable",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.app.App",
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"main","parameterTypes":["java.lang.String[]"] }
+  ]
+},
+{
+  "name":"org.controller",
+  "allDeclaredFields":true,
+  "allDeclaredMethods":true,
+  "allDeclaredConstructors":true
+},
+{
+  "name":"org.controller.AddTransactionDialog",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"cancel","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.controller.MenuBarController",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"addTrade","parameterTypes":[] }, 
+    {"name":"exportSelection","parameterTypes":[] }, 
+    {"name":"switchViewTrade","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.controller.StatsController",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"initialize","parameterTypes":[] }, 
+    {"name":"setCurrentDateFromBeginning","parameterTypes":[] }, 
+    {"name":"setCurrentMonth","parameterTypes":[] }, 
+    {"name":"setCurrentWeek","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.controller.TradeController",
+  "allDeclaredFields":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.kordamp.ikonli.javafx.FontIcon",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setIconLiteral","parameterTypes":["java.lang.String"] }, 
+    {"name":"setIconSize","parameterTypes":["int"] }
+  ]
+},
+{
+  "name":"org.model.Formation",
+  "allDeclaredFields":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setFormation","parameterTypes":["java.lang.String"] }
+  ],
+  "queriedMethods":[{"name":"getFormation","parameterTypes":[] }]
+},
+{
+  "name":"org.model.Symbol",
+  "allDeclaredFields":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setCommission","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setDate","parameterTypes":["java.util.Date"] }, 
+    {"name":"setFluctuation","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setSymbol","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTickValue","parameterTypes":["java.lang.Float"] }
+  ],
+  "queriedMethods":[
+    {"name":"getCommission","parameterTypes":[] }, 
+    {"name":"getDate","parameterTypes":[] }, 
+    {"name":"getFluctuation","parameterTypes":[] }, 
+    {"name":"getSymbol","parameterTypes":[] }, 
+    {"name":"getTickValue","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.model.transaction.Transaction",
+  "allDeclaredFields":true,
+  "methods":[
+    {"name":"getClose","parameterTypes":[] }, 
+    {"name":"getCommission","parameterTypes":[] }, 
+    {"name":"getDate","parameterTypes":[] }, 
+    {"name":"getDirection","parameterTypes":[] }, 
+    {"name":"getFormation","parameterTypes":[] }, 
+    {"name":"getOpen","parameterTypes":[] }, 
+    {"name":"getProfit","parameterTypes":[] }, 
+    {"name":"getQuantity","parameterTypes":[] }, 
+    {"name":"getSymbol","parameterTypes":[] }
+  ],
+  "queriedMethods":[
+    {"name":"setClose","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setCommission","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, 
+    {"name":"setDirection","parameterTypes":["java.lang.String"] }, 
+    {"name":"setFormation","parameterTypes":["java.lang.String"] }, 
+    {"name":"setOpen","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setProfit","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setQuantity","parameterTypes":["java.lang.Integer"] }, 
+    {"name":"setSymbol","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"org.sqlite.JDBC"
+},
+{
+  "name":"sun.misc.Unsafe",
+  "fields":[{"name":"theUnsafe"}]
+},
+{
+  "name":"sun.security.provider.DRBG",
+  "methods":[{"name":"<init>","parameterTypes":["java.security.SecureRandomParameters"] }]
+},
+{
+  "name":"sun.security.provider.MD5",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA2$SHA256",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+}
 ]

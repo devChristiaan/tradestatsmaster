@@ -16,6 +16,7 @@ import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.Scenes;
 import org.model.transaction.Transaction;
+import org.utilities.AppProperties;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class MenuBarController extends VBox {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     Alert fileFailureAlert = new Alert(Alert.AlertType.ERROR);
     Alert fileSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
+    Alert alertAbout = new Alert(Alert.AlertType.INFORMATION);
 
     DbManager db = new DbManager();
 
@@ -159,6 +161,30 @@ public class MenuBarController extends VBox {
             System.out.println("No File Selected");
         }
         return null;
+    }
+
+    @FXML
+    void showAboutChartExpense() {
+        alertAbout.setTitle("About Charting Expenses");
+        alertAbout.setHeaderText("Sierra Chart");
+        alertAbout.setContentText("Sierra Chart software:  $432.00 \n" +
+                "Data Service:  $66.00 \n" +
+                "Total Software Expense:  $498.00 \n" +
+                "The above calculation is for 12 months");
+        alertAbout.showAndWait();
+    }
+
+    @FXML
+    void showAboutApp() {
+        String title = AppProperties.getName();
+
+        alertAbout.setTitle("About");
+        alertAbout.setHeaderText(title);
+        alertAbout.setContentText("Version: " + AppProperties.getVersion() + "\n" +
+                "Author: Christiaan Hougaard\n" +
+                "© 2025 " + title + "\n" +
+                "All rights reserved.");
+        alertAbout.showAndWait();
     }
 
 }
