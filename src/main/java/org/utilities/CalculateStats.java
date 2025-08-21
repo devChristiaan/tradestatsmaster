@@ -2,11 +2,14 @@ package org.utilities;
 
 import javafx.collections.transformation.FilteredList;
 import lombok.Getter;
+import org.context.GlobalContext;
+import org.model.Formation;
 import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -21,6 +24,8 @@ public class CalculateStats {
     private double winRatio = 0.0;
     private double commissionRatio = 0.0;
     private double payoffRatio = 0.0;
+    private final List<Formation> formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
+    private List<Formation> formationsWinRate = new ArrayList<>();
     DecimalFormat df = getTextFormater();
 
     public CalculateStats(FilteredList<Transaction> filteredList) {
@@ -40,6 +45,8 @@ public class CalculateStats {
             }
             this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
         }
+
+        formationList.forEach(formation -> calculateWinRateFormation(filteredList, formation.getFormation()));
     }
 
     void populateTotals(Transaction tran) {
@@ -73,6 +80,12 @@ public class CalculateStats {
         BigDecimal positiveSize = new BigDecimal(positiveTransactions.size());
         BigDecimal negativeSize = new BigDecimal(negativeTransactions.size());
         return positiveSize.divide(negativeSize, 2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    private void calculateWinRateFormation(List<Transaction> transactions, String formation) {
+        BigDecimal amountOfTradesWon = new BigDecimal(transactions.stream().filter(transaction -> transaction.getProfit() > 0 && transaction.getFormation().equals(formation)).toList().size());
+        BigDecimal amountOfOccurrences = new BigDecimal(transactions.stream().filter(transaction -> transaction.getFormation().equals(formation)).toList().size());
+        formationsWinRate.add(new Formation(formation, amountOfOccurrences.intValueExact() == 0 ? 0.00 : amountOfTradesWon.divide(amountOfOccurrences, 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).doubleValue()));
     }
 
     public String getTotalCommission() {
