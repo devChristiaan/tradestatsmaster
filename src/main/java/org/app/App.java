@@ -25,9 +25,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
+            Application.setUserAgentStylesheet(Objects.requireNonNull(App.class.getResource("/org/app/CSS/cupertino-light.css")).toExternalForm());
             Image appIcon = new Image(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/icons/TitleIcon.png")));
-            Scene scene = new Scene(loadFXML("/org/app/fxml/trades.fxml"));
+            Scene scene = new Scene(loadFXML("/org/app/fxml/main.fxml"));
             stage.setTitle("Trade Stats Master");
             stage.setMaximized(true);
             stage.getIcons().add(appIcon);

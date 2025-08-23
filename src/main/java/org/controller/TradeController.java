@@ -1,19 +1,14 @@
 package org.controller;
 
-import atlantafx.base.controls.ModalPane;
 import atlantafx.base.theme.Styles;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.kordamp.ikonli.javafx.FontIcon;
 import org.manager.DbManager;
 import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
@@ -26,14 +21,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class TradeController implements Initializable {
-    @FXML
-    public StackPane mainStack;
-    @FXML
-    public BorderPane tradesBorderPane;
-    @FXML
-    private ModalPane modal;
-    private Node addTransactionDialog;
+public class TradeController extends VBox implements Initializable {
 
     @FXML
     public TableView<Transaction> tradesTable;
@@ -64,6 +52,7 @@ public class TradeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         ///Init Controllers
         ControllerRegistry.register(TradeController.class, this);
         statsController = ControllerRegistry.get(StatsController.class);
@@ -146,28 +135,15 @@ public class TradeController implements Initializable {
             }
         });
 
-        ///Load Dialog
-        try {
-            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/addTransactionDialog.fxml")).load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-
         ///Style Table
         tradesTable.getStyleClass().add(Styles.STRIPED);
+
     }
 
-    public void addTransaction(Transaction transaction) {
-        GlobalContext.addTransactionToMasterList(transaction);
-    }
-
-    public void showModal() {
-        modal.setPersistent(true);
-        this.modal.show(addTransactionDialog);
-    }
-
-    public void hideModal() {
-        this.modal.hide(true);
+    @FXML
+    private void addTrade() {
+        MainController mainController = ControllerRegistry.get(MainController.class);
+        mainController.showModal();
     }
 
 }

@@ -1,5 +1,6 @@
 module org.app {
     requires javafx.fxml;
+    requires javafx.web;
     requires static lombok;
     requires jakarta.annotation;
     requires atlantafx.base;

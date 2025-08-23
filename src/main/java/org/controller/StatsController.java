@@ -4,6 +4,7 @@ import atlantafx.base.theme.Styles;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -14,16 +15,17 @@ import org.context.GlobalContext;
 import org.model.transaction.Transaction;
 import org.utilities.CalculateStats;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.ResourceBundle;
 
 import static org.context.GlobalContext.datePattern;
 import static org.utilities.Utilities.*;
 
-public class StatsController extends VBox {
+public class StatsController extends VBox implements Initializable {
     @FXML
     DatePicker fromDate;
     @FXML
@@ -76,20 +78,8 @@ public class StatsController extends VBox {
     @FXML
     Label HH_LL_3_Days;
 
-
-    public StatsController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/org/app/fxml/stats.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        this.getStylesheets().add(getClass().getResource("/org/app/CSS/stats.css").toExternalForm());
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         ControllerRegistry.register(StatsController.class, this);
 
         ///Set default date values and patterns

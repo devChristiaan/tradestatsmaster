@@ -1,69 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import atlantafx.base.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import org.controller.MenuBarController?>
-<?import org.controller.StatsController?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainStack" stylesheets="@../CSS/trades.css" xmlns="http://javafx.com/javafx/21"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.TradeController">
-    <ModalPane fx:id="modal">
-    </ModalPane>
-    <BorderPane fx:id="tradesBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                prefHeight="1080.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/21"
-                xmlns:fx="http://javafx.com/fxml/1">
-        <top>
-            <MenuBarController>
-                <BorderPane.margin>
-                    <Insets/>
-                </BorderPane.margin>
-            </MenuBarController>
-        </top>
-        <center>
-            <VBox fx:id="backgroundStyling" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308"
-                  maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1470.0"
-                  BorderPane.alignment="TOP_CENTER">
-                <children>
-                    <TableView fx:id="tradesTable" prefHeight="800.0" prefWidth="1470.0" VBox.vgrow="ALWAYS">
-                        <columns>
-                            <TableColumn fx:id="tradeDate" editable="false" prefWidth="150" text="Date"
-                                         sortable="false"/>
-                            <TableColumn fx:id="tradeSymbol" editable="false" prefWidth="100" sortable="false"
-                                         text="Symbol"/>
-                            <TableColumn fx:id="tradeOpen" editable="false" prefWidth="100" sortable="false"
-                                         text="Open"/>
-                            <TableColumn fx:id="tradeClose" editable="false" prefWidth="100" sortable="false"
-                                         text="Close"/>
-                            <TableColumn fx:id="tradeDirection" editable="false" prefWidth="100" sortable="false"
-                                         text="Direction"/>
-                            <TableColumn fx:id="tradeProfit" editable="false" prefWidth="100" sortable="false"
-                                         text="Profit"/>
-                            <TableColumn fx:id="tradeQuantity" editable="false" prefWidth="100" sortable="false"
-                                         text="Quantity"/>
-                            <TableColumn fx:id="tradeCommission" editable="false" prefWidth="100" sortable="false"
-                                         text="Commission"/>
-                            <TableColumn fx:id="tradeFormation" editable="false" prefWidth="200" sortable="false"
-                                         text="Formation"/>
-                            <TableColumn fx:id="edit" editable="false" prefWidth="200" sortable="false" text="Edit"/>
-                        </columns>
-                    </TableView>
-                </children>
-                <BorderPane.margin>
-                    <Insets/>
-                </BorderPane.margin>
-            </VBox>
-        </center>
-        <right>
-            <StatsController>
-                <BorderPane.margin>
-                    <Insets/>
-                </BorderPane.margin>
-            </StatsController>
-        </right>
-        <StackPane.margin>
-            <Insets/>
-        </StackPane.margin>
-    </BorderPane>
-</StackPane>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox fx:id="backgroundStyling" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308"
+      maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1470.0" stylesheets="@../CSS/trades.css"
+      BorderPane.alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/21.0.8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.controller.TradeController">
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <Button mnemonicParsing="false" text="Add Trade" onAction="#addTrade" style="-fx-padding: 8px;">
+            <graphic>
+                <FontIcon iconLiteral="mdmz-plus" iconSize="12"/>
+            </graphic>
+        </Button>
+    </ToolBar>
+    <TableView fx:id="tradesTable" prefHeight="800.0" prefWidth="1470.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="tradeDate" editable="false" prefWidth="150" sortable="false" text="Date"/>
+            <TableColumn fx:id="tradeSymbol" editable="false" prefWidth="100" sortable="false" text="Symbol"/>
+            <TableColumn fx:id="tradeOpen" editable="false" prefWidth="100" sortable="false" text="Open"/>
+            <TableColumn fx:id="tradeClose" editable="false" prefWidth="100" sortable="false" text="Close"/>
+            <TableColumn fx:id="tradeDirection" editable="false" prefWidth="100" sortable="false" text="Direction"/>
+            <TableColumn fx:id="tradeProfit" editable="false" prefWidth="100" sortable="false" text="Profit"/>
+            <TableColumn fx:id="tradeQuantity" editable="false" prefWidth="100" sortable="false" text="Quantity"/>
+            <TableColumn fx:id="tradeCommission" editable="false" prefWidth="100" sortable="false" text="Commission"/>
+            <TableColumn fx:id="tradeFormation" editable="false" prefWidth="200" sortable="false" text="Formation"/>
+            <TableColumn fx:id="edit" editable="false" prefWidth="200" sortable="false" text="Edit"/>
+        </columns>
+    </TableView>
+</VBox>

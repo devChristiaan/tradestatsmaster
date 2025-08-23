@@ -7,411 +7,422 @@
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<fx:root fx:id="dateFilter" alignment="TOP_CENTER" prefWidth="450.0" stylesheets="@../CSS/stats.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" prefWidth="450.0" stylesheets="@../CSS/stats.css"
+      xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.controller.StatsController">
     <Label layoutX="120.0" layoutY="4.0" prefHeight="25.0" prefWidth="180.0" text="Filter Trades By Date:">
         <font>
-            <Font size="18.0" />
+            <Font size="18.0"/>
         </font>
         <VBox.margin>
-            <Insets bottom="10.0" top="16.0" />
+            <Insets bottom="10.0" top="16.0"/>
         </VBox.margin>
     </Label>
     <AnchorPane prefHeight="109.0" prefWidth="450.0">
-        <children>
-            <Label alignment="TOP_CENTER" layoutX="74.0" layoutY="32.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="42.0" text="From:">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label contentDisplay="RIGHT" layoutX="82.0" layoutY="104.0" prefHeight="17.0" prefWidth="26.0" text="To:">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <DatePicker fx:id="toDate" layoutX="125.0" layoutY="90.0" prefHeight="44.0" prefWidth="172.0" />
-            <DatePicker fx:id="fromDate" layoutX="124.0" layoutY="18.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="172.0" />
-            <Button fx:id="currentDateTo" layoutX="307.0" layoutY="110.0" mnemonicParsing="false" onAction="#setCurrentDateToDate">
+        <Label alignment="TOP_CENTER" layoutX="74.0" layoutY="32.0" nodeOrientation="RIGHT_TO_LEFT"
+               prefHeight="25.0" prefWidth="42.0" text="From:">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label contentDisplay="RIGHT" layoutX="82.0" layoutY="104.0" prefHeight="17.0" prefWidth="26.0" text="To:">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <DatePicker fx:id="toDate" layoutX="125.0" layoutY="90.0" prefHeight="44.0" prefWidth="172.0"/>
+        <DatePicker fx:id="fromDate" layoutX="124.0" layoutY="18.0" nodeOrientation="LEFT_TO_RIGHT"
+                    prefHeight="44.0" prefWidth="172.0"/>
+        <Button fx:id="currentDateTo" layoutX="307.0" layoutY="110.0" mnemonicParsing="false"
+                onAction="#setCurrentDateToDate">
+            <graphic>
+                <FontIcon iconLiteral="mdal-last_page" iconSize="12" layoutY="-6.0"/>
+            </graphic>
+            <tooltip>
+                <Tooltip contentDisplay="RIGHT" text="Today's date" textAlignment="CENTER" wrapText="true"/>
+            </tooltip>
+        </Button>
+        <Group layoutX="307.0" layoutY="18.0">
+            <Button fx:id="currentDateFrom" layoutY="24.0" mnemonicParsing="false"
+                    onAction="#setCurrentDateFromDate">
                 <graphic>
-                    <FontIcon iconLiteral="mdal-last_page" iconSize="12" layoutY="-6.0" />
+                    <FontIcon iconLiteral="mdal-last_page" iconSize="12" scaleZ="0.0"/>
                 </graphic>
                 <tooltip>
-                    <Tooltip contentDisplay="RIGHT" text="Today's date" textAlignment="CENTER" wrapText="true" />
+                    <Tooltip contentDisplay="RIGHT" text="Today's date" textAlignment="CENTER" wrapText="true"/>
                 </tooltip>
             </Button>
-            <Group layoutX="307.0" layoutY="18.0">
-                <children>
-                    <Button fx:id="currentDateFrom" layoutY="24.0" mnemonicParsing="false" onAction="#setCurrentDateFromDate">
-                        <graphic>
-                            <FontIcon iconLiteral="mdal-last_page" iconSize="12" scaleZ="0.0" />
-                        </graphic>
-                        <tooltip>
-                            <Tooltip contentDisplay="RIGHT" text="Today's date" textAlignment="CENTER" wrapText="true" />
-                        </tooltip>
-                    </Button>
-                    <Button fx:id="currentDateFromBeginning" layoutY="-3.0" mnemonicParsing="false" onAction="#setCurrentDateFromBeginning" prefHeight="2.0" prefWidth="2.0">
-                        <graphic>
-                            <FontIcon iconLiteral="mdal-first_page" iconSize="12" />
-                        </graphic>
-                        <tooltip>
-                            <Tooltip contentDisplay="RIGHT" text="Set Year to Date" textAlignment="CENTER" wrapText="true" />
-                        </tooltip>
-                    </Button>
-                </children>
-            </Group>
-            <Group layoutX="-18.0" layoutY="-5.0">
-                <Button fx:id="currentWeek" layoutX="363.0" layoutY="47.0" mnemonicParsing="false" onAction="#setCurrentWeek" prefHeight="4.0" prefWidth="4.0">
-                    <graphic>
-                        <FontIcon iconLiteral="mdmz-view_week" iconSize="12" />
-                    </graphic>
-                    <tooltip>
-                        <Tooltip contentDisplay="RIGHT" text="Set Week to Date" textAlignment="CENTER" wrapText="true" />
-                    </tooltip>
-                </Button>
-                <Button fx:id="currentMonth" layoutX="363.0" layoutY="20.0" mnemonicParsing="false" onAction="#setCurrentMonth" prefHeight="4.0" prefWidth="4.0">
-                    <graphic>
-                        <FontIcon iconLiteral="mdal-calendar_today" iconSize="12" />
-                    </graphic>
-                    <tooltip>
-                        <Tooltip contentDisplay="RIGHT" text="Set Month to Date" textAlignment="CENTER" wrapText="true" />
-                    </tooltip>
-                </Button>
-            </Group>
-        </children>
+            <Button fx:id="currentDateFromBeginning" layoutY="-3.0" mnemonicParsing="false"
+                    onAction="#setCurrentDateFromBeginning" prefHeight="2.0" prefWidth="2.0">
+                <graphic>
+                    <FontIcon iconLiteral="mdal-first_page" iconSize="12"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip contentDisplay="RIGHT" text="Set Year to Date" textAlignment="CENTER"
+                             wrapText="true"/>
+                </tooltip>
+            </Button>
+        </Group>
+        <Group layoutX="-18.0" layoutY="-5.0">
+            <Button fx:id="currentWeek" layoutX="363.0" layoutY="47.0" mnemonicParsing="false"
+                    onAction="#setCurrentWeek" prefHeight="4.0" prefWidth="4.0">
+                <graphic>
+                    <FontIcon iconLiteral="mdmz-view_week" iconSize="12"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip contentDisplay="RIGHT" text="Set Week to Date" textAlignment="CENTER" wrapText="true"/>
+                </tooltip>
+            </Button>
+            <Button fx:id="currentMonth" layoutX="363.0" layoutY="20.0" mnemonicParsing="false"
+                    onAction="#setCurrentMonth" prefHeight="4.0" prefWidth="4.0">
+                <graphic>
+                    <FontIcon iconLiteral="mdal-calendar_today" iconSize="12"/>
+                </graphic>
+                <tooltip>
+                    <Tooltip contentDisplay="RIGHT" text="Set Month to Date" textAlignment="CENTER"
+                             wrapText="true"/>
+                </tooltip>
+            </Button>
+        </Group>
     </AnchorPane>
     <Separator prefHeight="2.0" prefWidth="299.0">
         <VBox.margin>
-            <Insets bottom="8.0" top="12.0" />
+            <Insets bottom="8.0" top="12.0"/>
         </VBox.margin>
     </Separator>
     <GridPane>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <Label contentDisplay="RIGHT" text="Payoff Ratio">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <graphic>
-                    <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0" />
-                </graphic>
-                <tooltip>
-                    <Tooltip contentDisplay="RIGHT" text="Calculated by dividing the average dollars lost by average dollars won" textAlignment="CENTER" wrapText="true" />
-                </tooltip>
-            </Label>
-            <Label contentDisplay="RIGHT" text="Win/loss ratio" GridPane.rowIndex="1">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <graphic>
-                    <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0" />
-                </graphic>
-                <tooltip>
-                    <Tooltip contentDisplay="RIGHT" text="Total wins divided by total losses" textAlignment="CENTER" wrapText="true" />
-                </tooltip>
-            </Label>
-            <Label text="Win Rate" GridPane.rowIndex="2">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="winRate" text="0 %" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label contentDisplay="RIGHT" text="Commission Ratio" GridPane.rowIndex="3">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <graphic>
-                    <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0" />
-                </graphic>
-                <tooltip>
-                    <Tooltip contentDisplay="RIGHT" text="Total commissions divided by total gross profit. Note: can only be calculated when profit is positive." textAlignment="CENTER" wrapText="true" />
-                </tooltip>
-            </Label>
-            <Label fx:id="commissionRatio" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="payoffRatio" text="0.00" GridPane.columnIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="winRatio" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-        </children>
         <opaqueInsets>
-            <Insets />
+            <Insets/>
         </opaqueInsets>
+        <Label contentDisplay="RIGHT" text="Payoff Ratio">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <graphic>
+                <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0"/>
+            </graphic>
+            <tooltip>
+                <Tooltip contentDisplay="RIGHT"
+                         text="Calculated by dividing the average dollars lost by average dollars won"
+                         textAlignment="CENTER" wrapText="true"/>
+            </tooltip>
+        </Label>
+        <Label contentDisplay="RIGHT" text="Win/loss ratio" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <graphic>
+                <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0"/>
+            </graphic>
+            <tooltip>
+                <Tooltip contentDisplay="RIGHT" text="Total wins divided by total losses" textAlignment="CENTER"
+                         wrapText="true"/>
+            </tooltip>
+        </Label>
+        <Label text="Win Rate" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="winRate" text="0 %" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label contentDisplay="RIGHT" text="Commission Ratio" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <graphic>
+                <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0"/>
+            </graphic>
+            <tooltip>
+                <Tooltip contentDisplay="RIGHT"
+                         text="Total commissions divided by total gross profit. Note: can only be calculated when profit is positive."
+                         textAlignment="CENTER" wrapText="true"/>
+            </tooltip>
+        </Label>
+        <Label fx:id="commissionRatio" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="payoffRatio" text="0.00" GridPane.columnIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="winRatio" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
     </GridPane>
     <Separator layoutX="10.0" layoutY="253.0" prefHeight="2.0" prefWidth="299.0">
         <VBox.margin>
-            <Insets bottom="8.0" top="8.0" />
+            <Insets bottom="8.0" top="8.0"/>
         </VBox.margin>
     </Separator>
     <GridPane>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="260.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="195.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.0" minWidth="10.0" prefWidth="260.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="195.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <Label text="Ross Hook">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label text="Ross Hook - TTE" GridPane.rowIndex="1">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label text="1 2 3" GridPane.rowIndex="2">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="rh" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="rh_TTE" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="oneTwoThree" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="oneTwoThree_TTE" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="reversalBar" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="consolidation" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="insideReversalBar" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="HH_LL" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="HH_LL_3_Days" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="1 2 3 - TTE" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="Reversal/Gimme Bar" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="Consolidation" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="Inside Reversal Bar" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="Highest High/Lowest Low" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-            <Label layoutX="30.0" layoutY="75.0" text="Highest High/Lowest Low of 3 days" GridPane.columnIndex="0" GridPane.rowIndex="8">
-                <font>
-                    <Font size="14.0" />
-                </font>
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-            </Label>
-        </children>
+        <Label text="Ross Hook">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label text="Ross Hook - TTE" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label text="1 2 3" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="rh" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="rh_TTE" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="oneTwoThree" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="oneTwoThree_TTE" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="reversalBar" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="consolidation" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="insideReversalBar" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="HH_LL" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="HH_LL_3_Days" text="0 %" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="1 2 3 - TTE" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="Reversal/Gimme Bar" GridPane.columnIndex="0"
+               GridPane.rowIndex="4">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="Consolidation" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="Inside Reversal Bar" GridPane.columnIndex="0"
+               GridPane.rowIndex="6">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="Highest High/Lowest Low" GridPane.columnIndex="0"
+               GridPane.rowIndex="7">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
+        <Label layoutX="30.0" layoutY="75.0" text="Highest High/Lowest Low of 3 days" GridPane.columnIndex="0"
+               GridPane.rowIndex="8">
+            <font>
+                <Font size="14.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Label>
     </GridPane>
     <Separator layoutX="10.0" layoutY="396.0" prefHeight="2.0" prefWidth="299.0">
         <VBox.margin>
-            <Insets bottom="8.0" top="8.0" />
+            <Insets bottom="8.0" top="8.0"/>
         </VBox.margin>
     </Separator>
     <GridPane>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <Label text="Total Profit">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label text="Total Commission" GridPane.rowIndex="1">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label text="Net return" GridPane.rowIndex="2">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="totalProfit" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="totalCommission" layoutX="260.0" layoutY="15.0" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="netReturn" layoutX="260.0" layoutY="45.0" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-        </children>
         <VBox.margin>
-            <Insets />
+            <Insets/>
         </VBox.margin>
+        <Label text="Total Profit">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label text="Total Commission" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label text="Net return" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="totalProfit" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="totalCommission" layoutX="260.0" layoutY="15.0" text="\$ 0" textAlignment="CENTER"
+               GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="netReturn" layoutX="260.0" layoutY="45.0" text="\$ 0" textAlignment="CENTER"
+               GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
     </GridPane>
     <Separator layoutX="10.0" layoutY="531.0" prefHeight="2.0" prefWidth="299.0">
         <VBox.margin>
-            <Insets bottom="8.0" top="8.0" />
+            <Insets bottom="8.0" top="8.0"/>
         </VBox.margin>
     </Separator>
     <GridPane layoutX="10.0" layoutY="548.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="260.0" prefWidth="260.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="195.0" prefWidth="195.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <Label text="Account Balance">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="accountBal" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label text="8% off Account Balance" GridPane.rowIndex="1">
-                <GridPane.margin>
-                    <Insets left="20.0" />
-                </GridPane.margin>
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <Label fx:id="accountBalPercentage" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-        </children>
         <VBox.margin>
-            <Insets bottom="14.0" />
+            <Insets bottom="14.0"/>
         </VBox.margin>
+        <Label text="Account Balance">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="accountBal" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label text="8% off Account Balance" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="accountBalPercentage" text="\$ 0" textAlignment="CENTER" GridPane.columnIndex="1"
+               GridPane.rowIndex="1">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
     </GridPane>
-</fx:root>
+</VBox>

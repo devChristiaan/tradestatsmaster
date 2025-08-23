@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.context.ControllerRegistry;
 import org.model.transaction.Transaction;
 import org.utilities.CalculateStats;
@@ -19,7 +20,7 @@ import static org.context.GlobalContext.getFilteredTransactions;
 import static org.context.GlobalContext.movingAvgNr;
 import static org.utilities.Utilities.calculateRunningTotal;
 
-public class ChartController implements Initializable {
+public class ChartController extends Pane implements Initializable {
 
     @FXML
     private AnchorPane chartAnchorPane;

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import atlantafx.base.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="main" prefHeight="1080.0" prefWidth="1220.0" stylesheets="@../CSS/main.css"
+           xmlns="http://javafx.com/javafx/21.0.8" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.controller.MainController">
+    <ModalPane fx:id="modal"/>
+    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0"
+                prefWidth="1220.0">
+        <top>
+            <fx:include source="menubar.fxml"/>
+        </top>
+        <right>
+            <fx:include source="stats.fxml"/>
+        </right>
+        <center>
+            <TabPane fx:id="tabPane" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Trades" style="-fx-padding: 8px;">
+                    <fx:include source="trades.fxml"/>
+                </Tab>
+            </TabPane>
+        </center>
+    </BorderPane>
+    <BorderPane.margin>
+        <Insets/>
+    </BorderPane.margin>
+</StackPane>

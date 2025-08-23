@@ -54,7 +54,7 @@ public class AddTransactionDialog implements Initializable {
     @FXML
     Button closeModal;
 
-    TradeController tradeController;
+    MainController mainController;
 
     List<Symbol> symbolList;
     List<Formation> formationList;
@@ -69,7 +69,7 @@ public class AddTransactionDialog implements Initializable {
         this.formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
         this.transactionList = (LinkedList<Transaction>) GlobalContext.get(GlobalContext.ContextItems.TRANSACTION_LIST);
 
-        this.tradeController = ControllerRegistry.get(TradeController.class);
+        this.mainController = ControllerRegistry.get(MainController.class);
 
         this.date.setConverter(calendarToStringConverter(datePattern));
         this.date.setValue(LocalDate.now());
@@ -81,8 +81,7 @@ public class AddTransactionDialog implements Initializable {
 
     @FXML
     public void cancel() {
-        TradeController tradeController = ControllerRegistry.get(org.controller.TradeController.class);
-        tradeController.hideModal();
+        mainController.hideModal();
     }
 
     @FXML
@@ -125,9 +124,9 @@ public class AddTransactionDialog implements Initializable {
             String formation = formationList.stream().filter(item -> item.getFormation().equals(formations.getValue())).findFirst().get().getFormation();
             try {
                 db.addTransaction(date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
-                tradeController.addTransaction(db.getLatestTransaction());
+                mainController.addTransaction(db.getLatestTransaction());
                 db.closeBdConnection();
-                tradeController.hideModal();
+                mainController.hideModal();
                 resetForm();
                 System.out.println("Transaction added successfully!!");
             } catch (SQLException e) {
