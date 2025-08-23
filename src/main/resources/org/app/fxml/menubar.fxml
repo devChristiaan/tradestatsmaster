@@ -3,34 +3,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.controller.MenuBarController">
     <MenuBar fx:id="menuBar" layoutY="2.0">
         <menus>
             <Menu mnemonicParsing="false" text="File">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#addTrade" text="Add Trade" />
-                    <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close" />
+                    <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close"/>
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="View">
+            <Menu mnemonicParsing="false" text="Data">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#switchViewTrade" text="Trades" />
-                    <MenuItem mnemonicParsing="false" onAction="#switchViewChart" text="Chart" />
+                    <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all"/>
+                    <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades"/>
                 </items>
             </Menu>
-         <Menu mnemonicParsing="false" text="Data">
-            <items>
-               <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range" />
-               <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all" />
-               <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades" />
-            </items>
-         </Menu>
-         <Menu mnemonicParsing="false" text="Help">
-            <items>
-               <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About" />
-               <MenuItem mnemonicParsing="false" onAction="#showAboutChartExpense" text="About charting service" />
-            </items>
-         </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showAboutChartExpense" text="About charting service"/>
+                </items>
+            </Menu>
         </menus>
     </MenuBar>
-</fx:root>
+</VBox>

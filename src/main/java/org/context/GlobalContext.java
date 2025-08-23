@@ -12,7 +12,6 @@ import java.util.*;
 public class GlobalContext {
     //Zero index for 5 trades moving average
     public static int movingAvgNr = 4;
-    private static Scenes scene = Scenes.TRADES;
     public static String datePattern = "dd/MM/yyyy"; // Global Date Format
     private static final Map<ContextItems, Object> globalContext = new HashMap<>();
     private static ObservableList<Transaction> transactionsMasterList = FXCollections.observableList(new ArrayList<>());
@@ -64,11 +63,4 @@ public class GlobalContext {
         return filteredTransactions;
     }
 
-    public static void setScene(Scenes scene) {
-        GlobalContext.scene = scene;
-    }
-
-    public static Scenes getScene() {
-        return scene;
-    }
 }

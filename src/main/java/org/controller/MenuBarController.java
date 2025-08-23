@@ -1,34 +1,31 @@
 package org.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import org.app.App;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
-import org.model.Scenes;
 import org.model.transaction.Transaction;
 import org.utilities.AppProperties;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
+import java.util.ResourceBundle;
 
 import static org.service.csvReader.getAllTransactions;
 import static org.service.csvReader.writeTransactionsToCSV;
 import static org.utilities.Utilities.closeApp;
 
-public class MenuBarController extends VBox {
+public class MenuBarController extends VBox implements Initializable {
 
     @FXML
     MenuBar menuBar;
@@ -41,16 +38,8 @@ public class MenuBarController extends VBox {
 
     DbManager db = new DbManager();
 
-    public MenuBarController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "/org/app/fxml/menubar.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
         ///Set full width for menubar
         AnchorPane.setRightAnchor(this, 0.0);
@@ -65,35 +54,6 @@ public class MenuBarController extends VBox {
 
         fileSuccessAlert.setTitle("File done");
         fileSuccessAlert.setHeaderText(null);
-
-        //TODO
-        ///Disable add Trade if not on the right scene
-    }
-
-    @FXML
-    private void addTrade() throws IOException {
-        if (GlobalContext.getScene() != Scenes.TRADES) {
-            GlobalContext.setScene(Scenes.TRADES);
-            switchViewTrade();
-        }
-        TradeController tradeController = ControllerRegistry.get(org.controller.TradeController.class);
-        tradeController.showModal();
-    }
-
-    @FXML
-    private void switchViewChart() throws IOException {
-        GlobalContext.setScene(Scenes.CHART);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("/org/app/fxml/chart.fxml")));
-        Scene scene = menuBar.getScene();
-        scene.setRoot(root);
-    }
-
-    @FXML
-    private void switchViewTrade() throws IOException {
-        GlobalContext.setScene(Scenes.TRADES);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(App.class.getResource("/org/app/fxml/trades.fxml")));
-        Scene scene = menuBar.getScene();
-        scene.setRoot(root);
     }
 
     @FXML
@@ -125,17 +85,21 @@ public class MenuBarController extends VBox {
     @FXML
     public void exportAll() throws IOException {
         String path = csvDirectorySelector();
-        writeTransactionsToCSV((List<Transaction>) GlobalContext.getTransactionsMasterList(), path);
-        fileSuccessAlert.setContentText("File successfully exported!");
-        fileSuccessAlert.showAndWait();
+        if (path != null) {
+            writeTransactionsToCSV((List<Transaction>) GlobalContext.getTransactionsMasterList(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
     }
 
     @FXML
     public void exportSelection() throws IOException {
         String path = csvDirectorySelector();
-        writeTransactionsToCSV((List<Transaction>) GlobalContext.getFilteredTransactions(), path);
-        fileSuccessAlert.setContentText("File successfully exported!");
-        fileSuccessAlert.showAndWait();
+        if (path != null) {
+            writeTransactionsToCSV((List<Transaction>) GlobalContext.getFilteredTransactions(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
     }
 
     private String csvFileSelector() {
@@ -159,8 +123,8 @@ public class MenuBarController extends VBox {
             return selectedFile.getPath();
         } else {
             System.out.println("No File Selected");
+            return null;
         }
-        return null;
     }
 
     @FXML

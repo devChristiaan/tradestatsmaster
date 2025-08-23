@@ -36,6 +36,11 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
@@ -115,6 +120,7 @@
                         <list>org.controller.StatsController</list>
                         <list>org.controller.TradeController</list>
                         <list>org.controller.ChartController</list>
+                        <list>org.controller.MainController</list>
                     </reflectionList>
                     <releaseConfiguration>
                         <description>Trading statistics app</description>
