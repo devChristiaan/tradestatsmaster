@@ -3,10 +3,10 @@
   "includes":[
     {
       "pattern":".*\\.csv$"
-    },
+    }, 
     {
       "pattern":".*\\.properties$"
-    },
+    }, 
     {
       "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
     }, 

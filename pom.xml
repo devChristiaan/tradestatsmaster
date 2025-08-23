@@ -145,7 +145,7 @@
                 </os>
             </activation>
             <properties>
-                <gluonfx.icon>org/app/icons/TitleIcon.ico</gluonfx.icon>
+                <gluonfx.icon>/org/app/icons/TitleIcon.ico</gluonfx.icon>
             </properties>
         </profile>
     </profiles>

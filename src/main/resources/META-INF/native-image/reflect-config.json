@@ -125,6 +125,10 @@
   "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
 },
 {
+  "name":"com.sun.prism.shader.DrawRoundRect_Color_Loader",
+  "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
+},
+{
   "name":"com.sun.prism.shader.FillPgram_Color_Loader",
   "methods":[{"name":"loadShader","parameterTypes":["com.sun.prism.ps.ShaderFactory","java.io.InputStream"] }]
 },
@@ -241,6 +245,10 @@
   "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
+  "name":"javafx.geometry.Side",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
   "name":"javafx.scene.Camera"
 },
 {
@@ -265,6 +273,7 @@
     {"name":"setOnKeyTyped","parameterTypes":["javafx.event.EventHandler"] }, 
     {"name":"setScaleX","parameterTypes":["double"] }, 
     {"name":"setScaleY","parameterTypes":["double"] }, 
+    {"name":"setScaleZ","parameterTypes":["double"] }, 
     {"name":"setStyle","parameterTypes":["java.lang.String"] }, 
     {"name":"setTranslateX","parameterTypes":["double"] }, 
     {"name":"setTranslateY","parameterTypes":["double"] }
@@ -286,7 +295,11 @@
   "name":"javafx.scene.control.Button",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setCancelButton","parameterTypes":["boolean"] }, 
+    {"name":"setDefaultButton","parameterTypes":["boolean"] }
+  ]
 },
 {
   "name":"javafx.scene.control.ButtonBar",
@@ -392,6 +405,32 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"javafx.scene.control.Tab",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setContent","parameterTypes":["javafx.scene.Node"] }, 
+    {"name":"setStyle","parameterTypes":["java.lang.String"] }, 
+    {"name":"setText","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.TabPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getTabs","parameterTypes":[] }, 
+    {"name":"setSide","parameterTypes":["javafx.geometry.Side"] }, 
+    {"name":"setTabClosingPolicy","parameterTypes":["javafx.scene.control.TabPane$TabClosingPolicy"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.TabPane$TabClosingPolicy",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
   "name":"javafx.scene.control.TableColumn",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
@@ -437,6 +476,15 @@
   "name":"javafx.scene.control.ToggleGroup",
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.ToolBar",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getItems","parameterTypes":[] }
+  ]
 },
 {
   "name":"javafx.scene.control.Tooltip",
@@ -486,6 +534,7 @@
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
     {"name":"setHgrow","parameterTypes":["javafx.scene.layout.Priority"] }, 
+    {"name":"setMaxWidth","parameterTypes":["double"] }, 
     {"name":"setMinWidth","parameterTypes":["double"] }, 
     {"name":"setPrefWidth","parameterTypes":["double"] }
   ]
@@ -618,6 +667,9 @@
   "name":"javafx.scene.transform.Transform"
 },
 {
+  "name":"javafx.scene.web.WebView"
+},
+{
   "name":"javafx.stage.PopupWindow",
   "queryAllDeclaredMethods":true
 },
@@ -669,6 +721,11 @@
   ]
 },
 {
+  "name":"org.controller.MainController",
+  "allDeclaredFields":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"org.controller.MenuBarController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -696,6 +753,7 @@
 {
   "name":"org.controller.TradeController",
   "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {

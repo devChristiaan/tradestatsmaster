@@ -13,7 +13,7 @@
       BorderPane.alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/21.0.8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.controller.TradeController">
     <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <Button mnemonicParsing="false" text="Add Trade" onAction="#addTrade">
+        <Button mnemonicParsing="false" text="Add Trade" onAction="#addTrade" style="-fx-padding: 8px;">
             <graphic>
                 <FontIcon iconLiteral="mdmz-plus" iconSize="12"/>
             </graphic>

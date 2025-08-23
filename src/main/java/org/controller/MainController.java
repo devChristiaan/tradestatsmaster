@@ -21,7 +21,7 @@ public class MainController implements Initializable {
     @FXML
     public ModalPane modal;
 
-    private Node addTransactionDialog;
+    Node addTransactionDialog;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
