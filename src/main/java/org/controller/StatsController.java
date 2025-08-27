@@ -90,6 +90,12 @@ public class StatsController extends VBox implements Initializable {
         fromDate.setPromptText(datePattern.toUpperCase());
         toDate.setPromptText(datePattern.toUpperCase());
 
+        double accountBalance = calculateAccountBalance(GlobalContext.getTransactionsMasterList());
+        BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
+
+        accountBal.setText("$ " + getTextFormater().format(accountBalance));
+        accountBalPercentage.setText("$ " + getTextFormater().format(accountBalancePercentage));
+
         ///Date Filter logic
         fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             GlobalContext.getFilteredTransactions().setPredicate(transaction -> {
@@ -98,12 +104,6 @@ public class StatsController extends VBox implements Initializable {
                 }
                 return transaction.getDate().isAfter(newValue.minusDays(1)) && transaction.getDate().isBefore(toDate.getValue().plusDays(1));
             });
-            GlobalContext.getFilteredDailyPrepDates().setPredicate(dailyPrepDate -> {
-                if (dailyPrepDate == null) {
-                    return true;
-                }
-                return dailyPrepDate.getDate().isAfter(newValue.minusDays(1)) && dailyPrepDate.getDate().isBefore(toDate.getValue().plusDays(1));
-            });
         });
         toDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             GlobalContext.getFilteredTransactions().setPredicate(transaction -> {
@@ -111,12 +111,6 @@ public class StatsController extends VBox implements Initializable {
                     return true;
                 }
                 return transaction.getDate().isBefore(newValue.plusDays(1)) && transaction.getDate().isAfter(fromDate.getValue().minusDays(1));
-            });
-            GlobalContext.getFilteredDailyPrepDates().setPredicate(dailyPrepDate -> {
-                if (dailyPrepDate == null) {
-                    return true;
-                }
-                return dailyPrepDate.getDate().isBefore(newValue.plusDays(1)) && dailyPrepDate.getDate().isAfter(fromDate.getValue().minusDays(1));
             });
         });
 
@@ -170,13 +164,6 @@ public class StatsController extends VBox implements Initializable {
         commissionRatio.setText(String.format("%.2f", stats.getTotalProfit() > 0 ? stats.getCommissionRatio() : 0) + " %");
         payoffRatio.setText(String.format("%.2f", stats.getPayoffRatio()));
         winRatio.setText(String.format("%.2f", stats.getWinRatio()));
-
-        //Fix totals now working correctly on transaction delete
-        double accountBalance = calculateAccountBalance(GlobalContext.getTransactionsMasterList());
-        BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
-
-        accountBal.setText("$ " + getTextFormater().format(accountBalance));
-        accountBalPercentage.setText("$ " + getTextFormater().format(accountBalancePercentage));
 
         rh.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook")).findFirst().get().getWinRate() + " %");
         rh_TTE.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook - TTE")).findFirst().get().getWinRate() + " %");

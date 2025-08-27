@@ -2,9 +2,7 @@ package org.controller;
 
 import atlantafx.base.theme.Styles;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -47,16 +45,13 @@ public class TradeController extends VBox implements Initializable {
     public TableColumn<Transaction, String> tradeFormation;
     @FXML
     public TableColumn<Transaction, Void> edit;
-    @FXML
-    public Button toolbarDeleteBtn;
 
-    Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
     StatsController statsController;
+
     DbManager db = new DbManager();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
         ///Init Controllers
         ControllerRegistry.register(TradeController.class, this);
@@ -76,12 +71,51 @@ public class TradeController extends VBox implements Initializable {
         tradeCommission.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("commission"));
         tradeFormation.setCellValueFactory(new PropertyValueFactory<Transaction, String>("formation"));
 
-        //Enable delete btn on select
-        tradesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            toolbarDeleteBtn.setDisable(false);
+        //Format Column data
+        edit.setCellFactory(col -> new TableCell<>() {
+            private final Button btn = new Button("Delete");
+
+            {
+                btn.getStyleClass().addAll(Styles.BUTTON_OUTLINED, Styles.DANGER);
+                btn.setOnAction(e -> {
+                    Transaction transaction = getTableView().getItems().get(getIndex());
+                    try {
+                        db.setBdConnection();
+                        db.deleteTransaction(transaction);
+                        GlobalContext.replaceMasterList(db.getAllTransactions());
+                        db.closeBdConnection();
+                    } catch (IOException | SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    // Show button only if this row is the selected one
+                    TableView.TableViewSelectionModel<Transaction> selectionModel = getTableView().getSelectionModel();
+                    if (selectionModel.getSelectedIndex() == getIndex()) {
+                        setGraphic(btn);
+                    } else {
+                        setGraphic(null);
+                    }
+
+                    // Update when selection changes
+                    selectionModel.selectedIndexProperty().addListener((obs, oldSel, newSel) -> {
+                        if (newSel.intValue() == getIndex()) {
+                            setGraphic(btn);
+                        } else {
+                            setGraphic(null);
+                        }
+                    });
+                }
+            }
         });
 
-        //Format Column data
         tradeProfit.setCellFactory(new Callback<TableColumn<Transaction, Double>, TableCell<Transaction, Double>>() {
             @Override
             public TableCell<Transaction, Double> call(TableColumn<Transaction, Double> param) {
@@ -103,47 +137,13 @@ public class TradeController extends VBox implements Initializable {
 
         ///Style Table
         tradesTable.getStyleClass().add(Styles.STRIPED);
-        toolbarDeleteBtn.setDisable(true);
 
     }
 
     @FXML
     private void addTrade() {
-        Node addTransactionDialog;
-        ///Load Dialog
-        try {
-            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/addTransactionDialog.fxml")).load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
         MainController mainController = ControllerRegistry.get(MainController.class);
-        mainController.showModal(addTransactionDialog);
-    }
-
-    @FXML
-    private void deleteTrade() throws IOException {
-        Transaction transaction = tradesTable.getSelectionModel().getSelectedItem();
-        confirmDelete.setTitle("Delete Trade?");
-        confirmDelete.setHeaderText(null);
-        confirmDelete.setContentText("Are you sure you want to delete trade: \n" +
-                "Date: " + transaction.getDate().toString() + "\n" +
-                "Symbol: " + transaction.getSymbol() + "\n" +
-                "Direction: " + transaction.getDirection() + "\n" +
-                "Open: " + transaction.getOpen() + "\n" +
-                "Close: " + transaction.getClose() + "\n" +
-                "Formation: " + transaction.getFormation() + "\n");
-
-        if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            try {
-                db.setBdConnection();
-                db.deleteTransaction(transaction);
-                GlobalContext.replaceMasterList(db.getAllTransactions());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-        toolbarDeleteBtn.setDisable(true);
+        mainController.showModal();
     }
 
 }
