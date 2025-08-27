@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="800.0" prefWidth="1470.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.DailyPrepController">
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <items>
+                <Button mnemonicParsing="false" onAction="#addDay" text="Add day"/>
+            </items>
+        </ToolBar>
+        <SplitPane dividerPositions="0.10, 0.10" prefHeight="900.0">
+            <items>
+                <VBox minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="30.0">
+                    <ListView fx:id="dateList"/>
+                </VBox>
+                <VBox minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="60.0">
+                    <ListView fx:id="symbolList"/>
+                </VBox>
+                <VBox minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="800.0">
+                    <GridPane>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="10.0" prefWidth="100.0"/>
+                            <ColumnConstraints minWidth="10.0" prefWidth="100.0"/>
+                        </columnConstraints>
+                    </GridPane>
+                </VBox>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

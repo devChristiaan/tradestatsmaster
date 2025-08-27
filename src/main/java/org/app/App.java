@@ -1,6 +1,5 @@
 package org.app;
 
-import atlantafx.base.theme.CupertinoLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,17 +43,16 @@ public class App extends Application {
 
     @Override
     public void init() throws Exception {
-        ///runs before app starts. Can be used to unpack data and classes
         System.out.println("Loading resources....");
         GlobalContext.add(GlobalContext.ContextItems.SYMBOL_LIST, csvReader.getAllSymbols());
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
+
         DbManager db = new DbManager();
         db.setBdConnection();
-        if (db.transactionTableExists()) {
-            GlobalContext.setTransactionsMasterList(db.getAllTransactions());
-        } else {
-            db.createTransactionTable();
-        }
+        db.dbStartUpChecks(db);
+        GlobalContext.setTransactionsMasterList(db.getAllTransactions());
+        GlobalContext.setDailyPrepDateMasterList(db.getAllDailyPrepDates());
+        db.closeBdConnection();
     }
 
     public static void main(String[] args) {

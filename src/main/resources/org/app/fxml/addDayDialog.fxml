@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="400.0" maxWidth="600.0" style="-fx-background-color: -color-bg-default;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.AddDayDialogController">
+    <AnchorPane prefHeight="400.0" prefWidth="600.0">
+        <children>
+            <Text layoutX="43.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daily Prep Setup" wrappingWidth="184.0859375">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Text>
+            <Text layoutX="43.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose the day you want and check the symbols to add" translateY="30.0" wrappingWidth="184.0859375">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Text>
+            <Label layoutX="358.0" layoutY="14.0" text="Date">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+            <DatePicker fx:id="date" layoutX="358.0" layoutY="45.0" prefHeight="40.0" prefWidth="152.0" />
+            <Separator layoutX="43.0" layoutY="105.0" prefHeight="3.0" prefWidth="465.0" />
+            <FlowPane fx:id="symbolBox" hgap="16.0" layoutX="42.0" layoutY="114.0" prefHeight="143.0" prefWidth="465.0" rowValignment="TOP" vgap="16.0">
+                <padding>
+                    <Insets bottom="16.0" left="4.0" right="4.0" top="16.0" />
+                </padding>
+            </FlowPane>
+            <Separator layoutX="43.0" layoutY="264.0" prefHeight="3.0" prefWidth="465.0" />
+            <ButtonBar layoutX="158.0" layoutY="282.0" prefHeight="40.0" prefWidth="248.0">
+                <buttons>
+                    <Button fx:id="save" defaultButton="true" mnemonicParsing="false" onAction="#saveTransaction" prefHeight="25.0" prefWidth="121.0" text="Save" />
+                    <Button cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="121.0" text="Cancel" />
+                </buttons>
+            </ButtonBar>
+            <VBox fx:id="errorContainer" layoutX="178.0" layoutY="322.0" prefHeight="69.0" prefWidth="229.0">
+            <padding>
+               <Insets top="8.0" />
+            </padding></VBox>
+        </children>
+    </AnchorPane>
+</VBox>

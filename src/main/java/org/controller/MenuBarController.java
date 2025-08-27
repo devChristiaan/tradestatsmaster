@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.transaction.Transaction;

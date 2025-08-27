@@ -17,6 +17,7 @@ module org.app {
     exports org.service;
     exports org.model;
     exports org.model.transaction;
+    exports org.model.dailyPrep;
     exports org.context;
     exports org.manager;
     opens org.app to javafx.fxml;

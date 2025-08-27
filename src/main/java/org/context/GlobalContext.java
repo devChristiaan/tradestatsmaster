@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import org.model.Scenes;
+import org.model.dailyPrep.DailyPrepDate;
+import org.model.dailyPrep.DailyPrepItems;
 import org.model.transaction.Transaction;
 
 import java.util.*;
@@ -14,10 +16,17 @@ public class GlobalContext {
     public static int movingAvgNr = 4;
     public static String datePattern = "dd/MM/yyyy"; // Global Date Format
     private static final Map<ContextItems, Object> globalContext = new HashMap<>();
+
+    /// Trade Vars
     private static ObservableList<Transaction> transactionsMasterList = FXCollections.observableList(new ArrayList<>());
     private static SortedList<Transaction> sortedData = new SortedList<>(transactionsMasterList);
     private static FilteredList<Transaction> filteredTransactions = new FilteredList<>(sortedData, p -> true);
-    ///Temp solution -- need to fix with a user entered number
+
+    /// Daily Prep Date Vars
+    private static ObservableList<DailyPrepDate> dailyPrepDateMasterList = FXCollections.observableList(new ArrayList<>());
+    private static FilteredList<DailyPrepDate> filteredDailyPrepDates = new FilteredList<>(dailyPrepDateMasterList, p -> true);
+
+    /// Temp solution -- need to fix with a user entered number
     public static double openingBalance = 30683.88;
 
     public enum ContextItems {
@@ -44,6 +53,18 @@ public class GlobalContext {
 
     public static void setTransactionsMasterList(List<Transaction> list) {
         transactionsMasterList.addAll(list);
+    }
+
+    public static void setDailyPrepDateMasterList(List<DailyPrepDate> list) {
+        dailyPrepDateMasterList.addAll(list);
+    }
+
+    public static List<DailyPrepDate> getDailyPrepDateMasterList() {
+        return dailyPrepDateMasterList;
+    }
+
+    public static FilteredList<DailyPrepDate> getFilteredDailyPrepDates() {
+        return filteredDailyPrepDates;
     }
 
     public static void replaceMasterList(List<Transaction> list) {

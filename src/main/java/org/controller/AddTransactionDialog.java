@@ -81,7 +81,7 @@ public class AddTransactionDialog implements Initializable {
 
     @FXML
     public void cancel() {
-        mainController.hideModal();
+        this.mainController.hideModal();
     }
 
     @FXML

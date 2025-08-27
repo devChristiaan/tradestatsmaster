@@ -116,10 +116,12 @@
                     <mainClass>org.app/${main.class}</mainClass>
                     <reflectionList>
                         <list>org.controller.AddTransactionDialog</list>
+                        <list>org.controller.AddDayDialogController</list>
                         <list>org.controller.MenuBarController</list>
                         <list>org.controller.StatsController</list>
                         <list>org.controller.TradeController</list>
                         <list>org.controller.ChartController</list>
+                        <list>org.controller.DailyPrepController</list>
                         <list>org.controller.MainController</list>
                     </reflectionList>
                     <releaseConfiguration>
