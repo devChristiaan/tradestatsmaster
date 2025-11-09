@@ -21,30 +21,21 @@ public class MainController implements Initializable {
     @FXML
     public ModalPane modal;
 
-    Node addTransactionDialog;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ControllerRegistry.register(MainController.class, this);
 
         tabPane.getStyleClass().add(Styles.TABS_FLOATING);
         tabPane.setTabMaxWidth(80);
-
-        ///Load Dialog
-        try {
-            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/addTransactionDialog.fxml")).load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
     }
 
     public void addTransaction(Transaction transaction) {
         GlobalContext.addTransactionToMasterList(transaction);
     }
 
-    public void showModal() {
+    public void showModal(Node node) {
         modal.setPersistent(true);
-        this.modal.show(addTransactionDialog);
+        this.modal.show(node);
     }
 
     public void hideModal() {

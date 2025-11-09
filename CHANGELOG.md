@@ -21,10 +21,12 @@ Major updated on visual elements and statics component.
 - Internalized CSS style sheet and customized tabs and toolbar buttons.
 - Reorganised the scene management and moved to tab system.
 
+## [1.0.3] - 2025-11-09
+
+Major functionality update for daily preparations.
+- Added tab for daily prep
+- Daily symbol filtering is based on date range selected in the stats comp.
 
 ### Fixed
 
-## [1.0.3] - 2025-08-19
-
-Initial MVP 1 release. With some minor bug fixes.
 

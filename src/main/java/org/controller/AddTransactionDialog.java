@@ -81,7 +81,7 @@ public class AddTransactionDialog implements Initializable {
 
     @FXML
     public void cancel() {
-        mainController.hideModal();
+        this.mainController.hideModal();
     }
 
     @FXML
@@ -173,6 +173,7 @@ public class AddTransactionDialog implements Initializable {
         quantity.setText("");
         openAmount.setText("");
         closeAmount.setText("");
+        this.date.setValue(LocalDate.now());
     }
 
 }

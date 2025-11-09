@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import org.model.Scenes;
+import org.model.dailyPrep.DailyPrep;
 import org.model.transaction.Transaction;
 
 import java.util.*;
@@ -14,11 +14,18 @@ public class GlobalContext {
     public static int movingAvgNr = 4;
     public static String datePattern = "dd/MM/yyyy"; // Global Date Format
     private static final Map<ContextItems, Object> globalContext = new HashMap<>();
+
+    /// Trade Vars
     private static ObservableList<Transaction> transactionsMasterList = FXCollections.observableList(new ArrayList<>());
     private static SortedList<Transaction> sortedData = new SortedList<>(transactionsMasterList);
     private static FilteredList<Transaction> filteredTransactions = new FilteredList<>(sortedData, p -> true);
-    ///Temp solution -- need to fix with a user entered number
-    public static double openingBalance = 30683.88;
+
+    /// Daily Prep Date Vars
+    private static ObservableList<DailyPrep> dailyPrepMasterList = FXCollections.observableList(new ArrayList<>());
+    private static FilteredList<DailyPrep> filteredDailyPrep = new FilteredList<>(dailyPrepMasterList, p -> true);
+
+    /// Temp solution -- need to fix with a user entered number
+    public static double openingBalance = 30683.89;
 
     public enum ContextItems {
         SYMBOL_LIST,
@@ -44,6 +51,23 @@ public class GlobalContext {
 
     public static void setTransactionsMasterList(List<Transaction> list) {
         transactionsMasterList.addAll(list);
+    }
+
+    public static void setDailyPrepMasterList(List<DailyPrep> list) {
+        dailyPrepMasterList.addAll(list);
+    }
+
+    public static void reSetDailyPrepMasterList(List<DailyPrep> list) {
+        dailyPrepMasterList.clear();
+        dailyPrepMasterList.addAll(list);
+    }
+
+    public static List<DailyPrep> getDailyPrepMasterList() {
+        return dailyPrepMasterList;
+    }
+
+    public static FilteredList<DailyPrep> getFilteredDailyPrep() {
+        return filteredDailyPrep;
     }
 
     public static void replaceMasterList(List<Transaction> list) {

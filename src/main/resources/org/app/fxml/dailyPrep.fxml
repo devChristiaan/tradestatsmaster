@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox fx:id="backgroundStyling" prefHeight="1080.0" prefWidth="1470.0" stylesheets="@../CSS/dailyPrep.css"
+      xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.controller.DailyPrepController">
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <items>
+                <Button mnemonicParsing="false" onAction="#addDay" text="Add Day / Symbol">
+                    <graphic>
+                        <FontIcon iconLiteral="mdmz-plus" iconSize="12"/>
+                    </graphic>
+                </Button>
+                <Separator orientation="VERTICAL">
+                    <padding>
+                        <Insets left="8.0" right="8.0"/>
+                    </padding>
+                </Separator>
+                <Button mnemonicParsing="false" text="Delete Symbol" onAction="#deleteSymbol" disable="${symbolLabel.text.empty}">
+                    <graphic>
+                        <FontIcon iconLiteral="mdal-delete_outline" iconSize="12"/>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" text="Delete Day" onAction="#deleteDay" disable="${symbolLabel.text.empty}">
+                    <graphic>
+                        <FontIcon iconLiteral="mdal-delete_outline" iconSize="12"/>
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+        <SplitPane dividerPositions="0.0" prefHeight="1080.0" prefWidth="1470.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1080.0" prefWidth="800.0">
+                    <children>
+                        <TreeTableView fx:id="tableView" layoutY="-2.0" minHeight="1080.0" minWidth="275.0"
+                                       prefWidth="600.0">
+                            <columns>
+                                <TreeTableColumn fx:id="dateColumn" editable="false" prefWidth="132.0" sortable="false"
+                                                 text="Date"/>
+                                <TreeTableColumn fx:id="symbolColumn" prefWidth="142.0" text="Symbol"/>
+                            </columns>
+                        </TreeTableView>
+                    </children>
+                </AnchorPane>
+                <VBox prefHeight="1080.0" prefWidth="800.0">
+                    <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="1462.0">
+                            <children>
+                                <Label prefHeight="27.0" prefWidth="153.0" text="Daily Checklist For:">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                </Label>
+                                <Label fx:id="symbolLabel" prefHeight="27.0" prefWidth="68.0">
+                                    <font>
+                                        <Font size="18.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="4.0"/>
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="16.0"/>
+                            </VBox.margin>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </Separator>
+                        <HBox alignment="CENTER" prefHeight="66.0" prefWidth="1376.0">
+                            <children>
+                                <VBox prefHeight="328.0" prefWidth="222.0">
+                                    <children>
+                                        <Label text="Daily Economic Events: ">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label text="30 Min Trend:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="43.0" text="60 Min Trend:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="76.0" text="Daily Trend:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="109.0" text="Highest High 3 Bar Group:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="142.0" text="Lowest Low 3 Bar Group:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="175.0" text="Any High 3 Bar Group:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                        <Label layoutX="10.0" layoutY="208.0" text="Any Low 3 Bar Group:">
+                                            <font>
+                                                <Font size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="6.0"/>
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="40.0"/>
+                                    </VBox.margin>
+                                </VBox>
+                                <Separator orientation="VERTICAL" prefHeight="200.0">
+                                    <HBox.margin>
+                                        <Insets right="24.0"/>
+                                    </HBox.margin>
+                                </Separator>
+                                <VBox layoutX="10.0" layoutY="41.0" prefHeight="50.0" prefWidth="386.0">
+                                    <children>
+                                        <TextField fx:id="dailyEvents" disable="${symbolLabel.text.empty}"
+                                                   prefHeight="25.0" prefWidth="360.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="halfHourlyTrend" disable="${symbolLabel.text.empty}"
+                                                   prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="hourlyTrend" disable="${symbolLabel.text.empty}"
+                                                   layoutX="10.0" layoutY="43.0" prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="dailyTrend" disable="${symbolLabel.text.empty}" layoutX="10.0"
+                                                   layoutY="76.0" prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="hh_ll_3_bars_high" disable="${symbolLabel.text.empty}"
+                                                   layoutX="10.0" layoutY="109.0" onKeyTyped="#validateDouble"
+                                                   prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="hh_ll_3_bars_low" disable="${symbolLabel.text.empty}"
+                                                   layoutX="10.0" layoutY="142.0" onKeyTyped="#validateDouble"
+                                                   prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="hh_ll_any_high" disable="${symbolLabel.text.empty}"
+                                                   layoutX="10.0" layoutY="175.0" onKeyTyped="#validateDouble"
+                                                   prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets bottom="8.0" right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                        <TextField fx:id="hh_ll_any_low" disable="${symbolLabel.text.empty}"
+                                                   layoutX="10.0" layoutY="208.0" onKeyTyped="#validateDouble"
+                                                   prefHeight="25.0" prefWidth="281.0">
+                                            <VBox.margin>
+                                                <Insets right="8.0"/>
+                                            </VBox.margin>
+                                        </TextField>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="40.0"/>
+                                    </VBox.margin>
+                                </VBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="32.0" right="32.0" top="40.0"/>
+                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <VBox.margin>
+                                <Insets top="50.0"/>
+                            </VBox.margin>
+                            <children>
+                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                                        onAction="#cancelBtn" prefWidth="80.0" text="Clear">
+                                    <HBox.margin>
+                                        <Insets right="32.0"/>
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Button>
+                                <Button fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER"
+                                        disable="${symbolLabel.text.empty}" mnemonicParsing="false" onAction="#saveForm"
+                                        prefWidth="80.0" text="Save">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>
