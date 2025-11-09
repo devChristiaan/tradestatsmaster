@@ -200,7 +200,9 @@
   "allDeclaredFields":true
 },
 {
-  "name":"java.lang.String"
+  "name":"java.lang.String",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"isEmpty","parameterTypes":[] }]
 },
 {
   "name":"java.lang.Throwable",
@@ -241,11 +243,19 @@
   "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
+  "name":"javafx.geometry.Orientation",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
   "name":"javafx.geometry.Pos",
   "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
   "name":"javafx.geometry.Side",
+  "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"javafx.geometry.VPos",
   "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
@@ -265,6 +275,7 @@
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
+    {"name":"disableProperty","parameterTypes":[] }, 
     {"name":"getId","parameterTypes":[] }, 
     {"name":"setId","parameterTypes":["java.lang.String"] }, 
     {"name":"setLayoutX","parameterTypes":["double"] }, 
@@ -350,13 +361,15 @@
   "name":"javafx.scene.control.Labeled",
   "queryAllDeclaredMethods":true,
   "methods":[
+    {"name":"getText","parameterTypes":[] }, 
     {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, 
     {"name":"setContentDisplay","parameterTypes":["javafx.scene.control.ContentDisplay"] }, 
     {"name":"setFont","parameterTypes":["javafx.scene.text.Font"] }, 
     {"name":"setGraphic","parameterTypes":["javafx.scene.Node"] }, 
     {"name":"setMnemonicParsing","parameterTypes":["boolean"] }, 
     {"name":"setText","parameterTypes":["java.lang.String"] }, 
-    {"name":"setTextAlignment","parameterTypes":["javafx.scene.text.TextAlignment"] }
+    {"name":"setTextAlignment","parameterTypes":["javafx.scene.text.TextAlignment"] }, 
+    {"name":"textProperty","parameterTypes":[] }
   ]
 },
 {
@@ -402,7 +415,20 @@
   "name":"javafx.scene.control.Separator",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setOrientation","parameterTypes":["javafx.geometry.Orientation"] }
+  ]
+},
+{
+  "name":"javafx.scene.control.SplitPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getItems","parameterTypes":[] }, 
+    {"name":"setDividerPositions","parameterTypes":["double[]"] }
+  ]
 },
 {
   "name":"javafx.scene.control.Tab",
@@ -410,6 +436,8 @@
   "queryAllPublicConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getContent","parameterTypes":[] }, 
+    {"name":"setClosable","parameterTypes":["boolean"] }, 
     {"name":"setContent","parameterTypes":["javafx.scene.Node"] }, 
     {"name":"setStyle","parameterTypes":["java.lang.String"] }, 
     {"name":"setText","parameterTypes":["java.lang.String"] }
@@ -499,6 +527,21 @@
   ]
 },
 {
+  "name":"javafx.scene.control.TreeTableColumn",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.TreeTableView",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getColumns","parameterTypes":[] }
+  ]
+},
+{
   "name":"javafx.scene.effect.Effect"
 },
 {
@@ -544,6 +587,17 @@
   "queryAllDeclaredMethods":true
 },
 {
+  "name":"javafx.scene.layout.FlowPane",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setHgap","parameterTypes":["double"] }, 
+    {"name":"setRowValignment","parameterTypes":["javafx.geometry.VPos"] }, 
+    {"name":"setVgap","parameterTypes":["double"] }
+  ]
+},
+{
   "name":"javafx.scene.layout.GridPane",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
@@ -558,6 +612,16 @@
   "queriedMethods":[
     {"name":"getColumnIndex","parameterTypes":["javafx.scene.Node"] }, 
     {"name":"getRowIndex","parameterTypes":["javafx.scene.Node"] }
+  ]
+},
+{
+  "name":"javafx.scene.layout.HBox",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, 
+    {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }
   ]
 },
 {
@@ -577,7 +641,10 @@
   "methods":[
     {"name":"setMaxHeight","parameterTypes":["double"] }, 
     {"name":"setMaxWidth","parameterTypes":["double"] }, 
+    {"name":"setMinHeight","parameterTypes":["double"] }, 
+    {"name":"setMinWidth","parameterTypes":["double"] }, 
     {"name":"setOpaqueInsets","parameterTypes":["javafx.geometry.Insets"] }, 
+    {"name":"setPadding","parameterTypes":["javafx.geometry.Insets"] }, 
     {"name":"setPrefHeight","parameterTypes":["double"] }, 
     {"name":"setPrefWidth","parameterTypes":["double"] }
   ]
@@ -712,12 +779,32 @@
   "allDeclaredConstructors":true
 },
 {
+  "name":"org.controller.AddDayDialogController",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"cancel","parameterTypes":[] }
+  ]
+},
+{
   "name":"org.controller.AddTransactionDialog",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
     {"name":"cancel","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.controller.DailyPrepController",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"addDay","parameterTypes":[] }, 
+    {"name":"deleteDay","parameterTypes":[] }, 
+    {"name":"deleteSymbol","parameterTypes":[] }
   ]
 },
 {
@@ -754,7 +841,10 @@
   "name":"org.controller.TradeController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"addTrade","parameterTypes":[] }
+  ]
 },
 {
   "name":"org.kordamp.ikonli.javafx.FontIcon",
@@ -792,6 +882,24 @@
     {"name":"getFluctuation","parameterTypes":[] }, 
     {"name":"getSymbol","parameterTypes":[] }, 
     {"name":"getTickValue","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.model.dailyPrep.DailyPrep",
+  "methods":[
+    {"name":"getDate","parameterTypes":[] }, 
+    {"name":"getSymbol","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.model.dailyPrep.DailyPrepItems",
+  "methods":[
+    {"name":"getDate","parameterTypes":[] }, 
+    {"name":"getSymbol","parameterTypes":[] }
+  ],
+  "queriedMethods":[
+    {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, 
+    {"name":"setSymbol","parameterTypes":["java.lang.String"] }
   ]
 },
 {
