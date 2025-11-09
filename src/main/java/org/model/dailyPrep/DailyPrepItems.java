@@ -22,11 +22,4 @@ public class DailyPrepItems {
     Double hh_ll_3_bars_low;
     Double hh_ll_any_high;
     Double hh_ll_any_low;
-
-//    public DailyPrepItems(String symbol, int dailyPrepDateId, int dailyPrepId) {
-//        this.date = null;
-//        this.symbol = symbol;
-//        this.dailyPrepId = dailyPrepId;
-//        this.dailyPrepDateId = dailyPrepDateId;
-//    }
 }

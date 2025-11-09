@@ -38,9 +38,9 @@
                 </buttons>
             </ButtonBar>
             <VBox fx:id="errorContainer" layoutX="178.0" layoutY="322.0" prefHeight="69.0" prefWidth="229.0">
-            <padding>
-               <Insets top="8.0" />
-            </padding></VBox>
+                <padding>
+                    <Insets top="8.0" />
+                </padding></VBox>
         </children>
     </AnchorPane>
 </VBox>

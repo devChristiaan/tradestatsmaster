@@ -10,6 +10,10 @@ Next minor release will focus on moving the delete button to the toolbar and sta
 
 ### Changed
 
+## [1.2.0] - 2025-08-27
+
+Minor bugfix. Fixed divide by zero issue causing calculation to fail.
+
 ## [1.2.0] - 2025-08-22
 
 Major updated on visual elements and statics component.

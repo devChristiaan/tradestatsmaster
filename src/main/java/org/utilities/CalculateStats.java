@@ -73,7 +73,7 @@ public class CalculateStats {
     private Double calculatePayoffRatio(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
         BigDecimal averageNegativeTrans = BigDecimal.valueOf(this.averageListProfit(negativeTransactions));
         BigDecimal averagePositiveTrans = BigDecimal.valueOf(this.averageListProfit(positiveTransactions));
-        return averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        return averagePositiveTrans.doubleValue() == 0 ? 0.00 : averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     private Double calculateWinRate(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
