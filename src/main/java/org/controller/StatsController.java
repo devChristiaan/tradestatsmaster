@@ -3,13 +3,11 @@ package org.controller;
 import atlantafx.base.theme.Styles;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import org.app.App;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.model.transaction.Transaction;
@@ -98,7 +96,7 @@ public class StatsController extends VBox implements Initializable {
                 }
                 return transaction.getDate().isAfter(newValue.minusDays(1)) && transaction.getDate().isBefore(toDate.getValue().plusDays(1));
             });
-            GlobalContext.getFilteredDailyPrepDates().setPredicate(dailyPrepDate -> {
+            GlobalContext.getFilteredDailyPrep().setPredicate(dailyPrepDate -> {
                 if (dailyPrepDate == null) {
                     return true;
                 }
@@ -112,7 +110,7 @@ public class StatsController extends VBox implements Initializable {
                 }
                 return transaction.getDate().isBefore(newValue.plusDays(1)) && transaction.getDate().isAfter(fromDate.getValue().minusDays(1));
             });
-            GlobalContext.getFilteredDailyPrepDates().setPredicate(dailyPrepDate -> {
+            GlobalContext.getFilteredDailyPrep().setPredicate(dailyPrepDate -> {
                 if (dailyPrepDate == null) {
                     return true;
                 }

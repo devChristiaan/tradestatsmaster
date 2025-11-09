@@ -1,0 +1,4 @@
+#backgroundStyling {
+    -fx-border-width: .8px;
+    -fx-border-color: -color-border-default;
+}

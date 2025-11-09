@@ -56,8 +56,6 @@ public class TradeController extends VBox implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
         ///Init Controllers
         ControllerRegistry.register(TradeController.class, this);
         statsController = ControllerRegistry.get(StatsController.class);

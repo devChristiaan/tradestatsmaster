@@ -3,25 +3,23 @@ package org.controller;
 import atlantafx.base.theme.Styles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.WeakEventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.kordamp.ikonli.material2.Material2MZ;
-import org.kordamp.ikonli.material2.Material2OutlinedAL;
 import org.manager.DbManager;
 import org.model.Symbol;
-import org.model.dailyPrep.DailyPrepDate;
+import org.model.dailyPrep.DailyPrep;
+import org.model.dailyPrep.DailyPrepItems;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +48,6 @@ public class AddDayDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ///Fix
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
         this.symbolList = (List<Symbol>) GlobalContext.get(GlobalContext.ContextItems.SYMBOL_LIST);
 
@@ -58,86 +55,75 @@ public class AddDayDialogController implements Initializable {
 
         this.date.setConverter(calendarToStringConverter(datePattern));
         this.date.setValue(LocalDate.now());
-        symbolList.forEach(item -> {
-                    CheckBox checkBox = new CheckBox(item.getSymbol());
-                    checkBox.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            if (checkBox.isSelected()) {
-                                checkedSymbolList.add(checkBox.getText());
-                            } else {
-                                checkedSymbolList.remove(checkBox.getText());
-                            }
-                        }
-                    });
-                    symbolBox.getChildren().add(checkBox);
-                }
-        );
 
+        populateSymbolCheckBoxes();
+        ///Rest checked default items
+        this.date.setOnAction(event -> {
+            errorContainer.getChildren().clear();
+            populateSymbolCheckBoxes();
+        });
     }
 
     @FXML
     public void cancel() {
+        this.resetForm();
         mainController.hideModal();
     }
 
     @FXML
-    public void saveTransaction() {
-        if (isValid()) {
-            System.out.println("Form is valid");
+    public void saveDailyPrepDate() {
+        DailyPrep selectedDate = getSelectedDateObject();
+        List<String> newlyCheckedSymbolList = new LinkedList<>();
+        if (Objects.nonNull(selectedDate)) {
+            for (String symbol : checkedSymbolList) {
+                if (selectedDate.getDailyPrepItemsList().stream().noneMatch(p -> p.getSymbol().equals(symbol))) {
+                    newlyCheckedSymbolList.add(symbol);
+                }
+            }
+        } else {
+            newlyCheckedSymbolList = checkedSymbolList;
         }
-//        DbManager db = new DbManager();
-//        try {
-//            db.setBdConnection();
-//        } catch (IOException e) {
-//            System.out.println("Failed to connect to DB");
-//            throw new RuntimeException(e);
-//        }
-//        Symbol selectedSymbol = symbolList.stream().filter(item -> item.getSymbol().equals(symbol.getValue())).findFirst().get();
-//        if (isValid()) {
-//            Double profit = calculateProfit(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()), new BigDecimal(quantity.getText()));
-//            Double commission = calculateCommission(selectedSymbol.getCommission(), Integer.parseInt(quantity.getText()));
-//            String formation = formationList.stream().filter(item -> item.getFormation().equals(formations.getValue())).findFirst().get().getFormation();
-//            try {
-//                db.addTransaction(date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
-//                mainController.addTransaction(db.getLatestTransaction());
-//                db.closeBdConnection();
-//                mainController.hideModal();
-//                resetForm();
-//                System.out.println("Transaction added successfully!!");
-//            } catch (SQLException e) {
-//                System.out.println("Saving Transaction Failed");
-//                throw new RuntimeException(e);
-//            }
-//        } else {
-//            System.out.println("Form validation failed");
-//        }
+        if (isValid(newlyCheckedSymbolList)) {
+            System.out.println("Form is valid");
+            DbManager db = new DbManager();
+            try {
+                db.setBdConnection();
+                if (Objects.isNull(selectedDate)) {
+                    selectedDate = db.addDailyPrepDate(date.getValue());
+                }
+                for (String symbol : newlyCheckedSymbolList) {
+                    DailyPrepItems item = db.addDailyPrepItem(selectedDate.getDailyPrepDateId(), symbol, selectedDate.getDate());
+                    selectedDate.getDailyPrepItemsList().add(item);
+                }
+                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                db.closeBdConnection();
+                this.cancel();
+            } catch (IOException | SQLException e) {
+                System.out.println("Failed to connect to DB");
+                throw new RuntimeException(e);
+            }
+        }
     }
 
-    private boolean isValid() {
+    private boolean isValid(List<String> symbolList) {
         boolean isDateError = Objects.isNull(date.getValue());
-        List<DailyPrepDate> existingDates = GlobalContext.getDailyPrepDateMasterList();
-        boolean dateExist = existingDates.stream().anyMatch(dp -> dp.getDate().equals(date.getValue()));
-        boolean symbolSelected = checkedSymbolList.isEmpty();
+        boolean selectSymbol = symbolList.isEmpty();
 
-        if (isDateError || dateExist || symbolSelected) {
+        if (isDateError || selectSymbol) {
             if (isDateError) {
                 errorContainer.getChildren().add(createErrorLabel("Select a valid date"));
             }
-            if (dateExist) {
-                errorContainer.getChildren().add(createErrorLabel("Date already exists"));
-            }
-            if (symbolSelected) {
+            if (selectSymbol) {
                 errorContainer.getChildren().add(createErrorLabel("Select a symbol"));
             }
             return false;
         }
-
         return true;
     }
 
     private void resetForm() {
-
+        this.date.setValue(LocalDate.now());
+        this.checkedSymbolList = new LinkedList<>();
     }
 
     private Label createErrorLabel(String error) {
@@ -146,4 +132,35 @@ public class AddDayDialogController implements Initializable {
         return label;
     }
 
+    private DailyPrep getSelectedDateObject() {
+        List<DailyPrep> existingDates = GlobalContext.getDailyPrepMasterList();
+        return existingDates.stream().filter(dp -> dp.getDate().equals(date.getValue())).findFirst().orElse(null);
+    }
+
+    private void populateSymbolCheckBoxes() {
+        symbolBox.getChildren().clear();
+        DailyPrep selectedDate = getSelectedDateObject();
+        symbolList.forEach(item -> {
+                    boolean symbolExist = selectedDate != null && selectedDate.getDailyPrepItemsList().stream().anyMatch(p -> p.getSymbol().equals(item.getSymbol()));
+                    CheckBox checkBox = new CheckBox(item.getSymbol());
+                    if (symbolExist) {
+                        checkBox.setSelected(true);
+                        checkBox.setDisable(true);
+                    }
+                    checkBox.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            errorContainer.getChildren().clear();
+                            if (checkBox.isSelected()) {
+                                checkedSymbolList.add(checkBox.getText());
+                            } else {
+                                checkedSymbolList.remove(checkBox.getText());
+                            }
+                        }
+
+                    });
+                    symbolBox.getChildren().add(checkBox);
+                }
+        );
+    }
 }

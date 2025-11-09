@@ -33,7 +33,7 @@
             <Separator layoutX="43.0" layoutY="264.0" prefHeight="3.0" prefWidth="465.0" />
             <ButtonBar layoutX="158.0" layoutY="282.0" prefHeight="40.0" prefWidth="248.0">
                 <buttons>
-                    <Button fx:id="save" defaultButton="true" mnemonicParsing="false" onAction="#saveTransaction" prefHeight="25.0" prefWidth="121.0" text="Save" />
+                    <Button fx:id="save" defaultButton="true" mnemonicParsing="false" onAction="#saveDailyPrepDate" prefHeight="25.0" prefWidth="121.0" text="Save" />
                     <Button cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="121.0" text="Cancel" />
                 </buttons>
             </ButtonBar>

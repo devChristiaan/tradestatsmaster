@@ -173,6 +173,7 @@ public class AddTransactionDialog implements Initializable {
         quantity.setText("");
         openAmount.setText("");
         closeAmount.setText("");
+        this.date.setValue(LocalDate.now());
     }
 
 }

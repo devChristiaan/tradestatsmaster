@@ -1,104 +1,105 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import javafx.collections.ListChangeListener;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
-import org.model.dailyPrep.DailyPrepDate;
+import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import static org.utilities.Utilities.*;
 
 public class DailyPrepController extends Pane implements Initializable {
 
     @FXML
-    public ListView<DailyPrepDate> dateList;
+    public TreeTableView<Object> tableView;
     @FXML
-    public ListView<DailyPrepItems> symbolList;
+    public TreeTableColumn<DailyPrep, LocalDate> dateColumn;
     @FXML
-    public Label dailyEvents;
-    @FXML
-    public Label symbol;
-    @FXML
-    public Label hourlyTrend;
-    @FXML
-    public Label halfHourlyTrend;
-    @FXML
-    public Label dailyTrend;
-    @FXML
-    public Label hh_ll_3_bars_high;
-    @FXML
-    public Label hh_ll_3_bars_low;
-    @FXML
-    public Label hh_ll_any_high;
-    @FXML
-    public Label hh_ll_any_low;
+    public TreeTableColumn<DailyPrep, DailyPrepItems> symbolColumn;
+    public TreeItem<Object> rootItem = new TreeItem<>();
 
-    Node addDailyPrep;
+    @FXML
+    public Label symbolLabel;
+
+    @FXML
+    public TextField dailyEvents;
+    @FXML
+    public TextField hourlyTrend;
+    @FXML
+    public TextField halfHourlyTrend;
+    @FXML
+    public TextField dailyTrend;
+    @FXML
+    public TextField hh_ll_3_bars_high;
+    @FXML
+    public TextField hh_ll_3_bars_low;
+    @FXML
+    public TextField hh_ll_any_high;
+    @FXML
+    public TextField hh_ll_any_low;
+
+    @FXML
+    public Button cancelBtn;
+    @FXML
+    public Button saveBtn;
+
+    FilteredList<DailyPrep> dailyPrep = GlobalContext.getFilteredDailyPrep();
+    private Node addDailyPrep;
+    private DailyPrepItems selectedSymbol;
+    MainController mainController;
+    Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        ///Default styles
-        dateList.getStyleClass().addAll(Styles.BORDERED, Styles.STRIPED);
-        symbolList.getStyleClass().addAll(Styles.BORDERED, Styles.STRIPED);
+        ///Defaults
+        ControllerRegistry.register(DailyPrepController.class, this);
+        this.mainController = ControllerRegistry.get(MainController.class);
+        saveBtn.getStyleClass().add(Styles.ACCENT);
 
         ///Populate list
-        dateList.setItems(GlobalContext.getFilteredDailyPrepDates());
+        dateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("date"));
+        symbolColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("symbol"));
 
-        dateList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                DailyPrepItems item = db.getDailyPrepItem(newValue.getDailyPrepDateId());
-                db.closeBdConnection();
-                symbolList.getItems().add(item);
-            } catch (IOException | SQLException ex) {
-                throw new RuntimeException(ex);
+        ///Populate table Initially - On first load
+        populateDailyPrep(dailyPrep, rootItem);
+
+        ///Listen to filter changes
+        dailyPrep.addListener((ListChangeListener<DailyPrep>) c -> {
+            rootItem.getChildren().clear();
+            populateDailyPrep(dailyPrep, rootItem);
+        });
+
+        ///Selection model
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
+            if (newItem != null && newItem.getValue() instanceof DailyPrepItems) {
+                selectedSymbol = (DailyPrepItems) newItem.getValue();
+                resetForm(selectedSymbol);
+                symbolLabel.setText(selectedSymbol.getSymbol());
             }
         });
 
-        symbolList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            dailyEvents.setText(newValue.getDailyEvents());
-            symbol.setText(newValue.getSymbol());
-            hourlyTrend.setText(newValue.getHalfHourlyTrend());
-            halfHourlyTrend.setText(newValue.getHourlyTrend());
-            dailyTrend.setText(newValue.getDailyTrend());
-            hh_ll_3_bars_high.setText(newValue.getHh_ll_3_bars_high().toString());
-            hh_ll_3_bars_low.setText(newValue.getHh_ll_3_bars_low().toString());
-            hh_ll_any_high.setText(newValue.getHh_ll_any_high().toString());
-            hh_ll_any_low.setText(newValue.getHh_ll_any_low().toString());
-        });
-
-        ///Choose item to display
-        symbolList.setCellFactory(new Callback<ListView<DailyPrepItems>, ListCell<DailyPrepItems>>() {
-            @Override
-            public ListCell<DailyPrepItems> call(ListView<DailyPrepItems> param) {
-                return new ListCell<DailyPrepItems>() {
-                    @Override
-                    protected void updateItem(DailyPrepItems item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getSymbol());
-                        }
-                    }
-                };
-            }
-        });
+        ///Setup table
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.setShowRoot(false);
+        tableView.setRoot(rootItem);
     }
 
     @FXML
@@ -112,4 +113,114 @@ public class DailyPrepController extends Pane implements Initializable {
         MainController mainController = ControllerRegistry.get(MainController.class);
         mainController.showModal(addDailyPrep);
     }
+
+    void populateDailyPrep(FilteredList<DailyPrep> dailyPrep, TreeItem<Object> rootTreeItem) {
+        dailyPrep.forEach(item -> {
+                    TreeItem<Object> date = new TreeItem<>(item);
+                    for (DailyPrepItems symbol : item.getDailyPrepItemsList()) {
+                        date.getChildren().add(new TreeItem(new DailyPrepItems(null, symbol.getDailyPrepId(), symbol.getDailyPrepDateId(), symbol.getDailyEvents(), symbol.getSymbol(), symbol.getHourlyTrend(), symbol.getHalfHourlyTrend(), symbol.getDailyTrend(), symbol.getHh_ll_3_bars_high(), symbol.getHh_ll_3_bars_low(), symbol.getHh_ll_any_high(), symbol.getHh_ll_any_low())));
+                    }
+                    rootTreeItem.getChildren().add(date);
+                }
+        );
+    }
+
+    @FXML
+    public void saveForm() {
+        selectedSymbol.setDailyEvents(dailyEvents.getText());
+        selectedSymbol.setHourlyTrend(hourlyTrend.getText());
+        selectedSymbol.setHalfHourlyTrend(halfHourlyTrend.getText());
+        selectedSymbol.setDailyTrend(dailyTrend.getText());
+
+        selectedSymbol.setHh_ll_3_bars_high(Double.parseDouble(hh_ll_3_bars_high.getText()));
+        selectedSymbol.setHh_ll_3_bars_low(Double.parseDouble(hh_ll_3_bars_low.getText()));
+        selectedSymbol.setHh_ll_any_high(Double.parseDouble(hh_ll_any_high.getText()));
+        selectedSymbol.setHh_ll_any_low(Double.parseDouble(hh_ll_any_low.getText()));
+
+        DbManager db = new DbManager();
+        try {
+            db.setBdConnection();
+            db.addDailyPrepItem(selectedSymbol);
+            GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+            db.closeBdConnection();
+            System.out.println("Symbol updated successfully!!");
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void validateDouble(KeyEvent event) {
+        var targetItem = (TextField) event.getTarget();
+        targetItem.pseudoClassStateChanged(Styles.STATE_DANGER, !isDoubleNumeric(targetItem.getText()));
+    }
+
+    @FXML
+    void cancelBtn(ActionEvent event) {
+        resetForm();
+    }
+
+    void resetForm() {
+        dailyEvents.setText("");
+        hourlyTrend.setText("");
+        halfHourlyTrend.setText("");
+        dailyTrend.setText("");
+        hh_ll_3_bars_high.setText("");
+        hh_ll_3_bars_low.setText("");
+        hh_ll_any_high.setText("");
+        hh_ll_any_low.setText("");
+    }
+
+    void resetForm(DailyPrepItems dailyPrepItems) {
+        dailyEvents.setText(dailyPrepItems.getDailyEvents());
+        hourlyTrend.setText(dailyPrepItems.getHourlyTrend());
+        halfHourlyTrend.setText(dailyPrepItems.getHalfHourlyTrend());
+        dailyTrend.setText(dailyPrepItems.getDailyTrend());
+        hh_ll_3_bars_high.setText(dailyPrepItems.getHh_ll_3_bars_high() != null ? dailyPrepItems.getHh_ll_3_bars_high().toString() : "");
+        hh_ll_3_bars_low.setText(dailyPrepItems.getHh_ll_3_bars_high() != null ? dailyPrepItems.getHh_ll_3_bars_low().toString() : "");
+        hh_ll_any_high.setText(dailyPrepItems.getHh_ll_3_bars_high() != null ? dailyPrepItems.getHh_ll_any_high().toString() : "");
+        hh_ll_any_low.setText(dailyPrepItems.getHh_ll_3_bars_high() != null ? dailyPrepItems.getHh_ll_any_low().toString() : "");
+    }
+
+    @FXML
+    public void deleteSymbol() {
+        alertDialog("Symbol");
+        if (confirmDelete.showAndWait().get() == ButtonType.OK) {
+            DbManager db = new DbManager();
+            try {
+                db.setBdConnection();
+                db.deleteSymbol(selectedSymbol.getDailyPrepId());
+                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                db.closeBdConnection();
+                System.out.println("Symbol deleted successfully!!");
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @FXML
+    public void deleteDay() {
+        alertDialog("Date");
+        if (confirmDelete.showAndWait().get() == ButtonType.OK) {
+            DbManager db = new DbManager();
+            try {
+                db.setBdConnection();
+                db.deleteSymbolByDay(selectedSymbol.getDailyPrepDateId());
+                db.deleteDay(selectedSymbol.getDailyPrepDateId());
+                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                db.closeBdConnection();
+                System.out.println("Day deleted successfully!!");
+            } catch (IOException | SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void alertDialog(String item) {
+        confirmDelete.setTitle("Delete " + item + " ?");
+        confirmDelete.setHeaderText(null);
+        confirmDelete.setContentText("Are you sure you want to delete selected " + item + " \n");
+    }
+
 }

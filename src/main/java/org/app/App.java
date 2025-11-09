@@ -51,7 +51,7 @@ public class App extends Application {
         db.setBdConnection();
         db.dbStartUpChecks(db);
         GlobalContext.setTransactionsMasterList(db.getAllTransactions());
-        GlobalContext.setDailyPrepDateMasterList(db.getAllDailyPrepDates());
+        GlobalContext.setDailyPrepMasterList(db.getAllDailyPrepData());
         db.closeBdConnection();
     }
 
