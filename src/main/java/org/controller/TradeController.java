@@ -49,10 +49,13 @@ public class TradeController extends VBox implements Initializable {
     public TableColumn<Transaction, Void> edit;
     @FXML
     public Button toolbarDeleteBtn;
+    @FXML
+    public Button toolbarEditBtn;
 
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
     StatsController statsController;
     DbManager db = new DbManager();
+    Transaction selectedTransaction;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,6 +80,7 @@ public class TradeController extends VBox implements Initializable {
         //Enable delete btn on select
         tradesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             toolbarDeleteBtn.setDisable(false);
+            toolbarEditBtn.setDisable(false);
         });
 
         //Format Column data
@@ -102,7 +106,7 @@ public class TradeController extends VBox implements Initializable {
         ///Style Table
         tradesTable.getStyleClass().add(Styles.STRIPED);
         toolbarDeleteBtn.setDisable(true);
-
+        toolbarEditBtn.setDisable(true);
     }
 
     @FXML
@@ -142,6 +146,13 @@ public class TradeController extends VBox implements Initializable {
             }
         }
         toolbarDeleteBtn.setDisable(true);
+        toolbarEditBtn.setDisable(true);
+    }
+
+    @FXML
+    private void editTrade() throws IOException {
+        selectedTransaction = tradesTable.getSelectionModel().getSelectedItem();
+        addTrade();
     }
 
 }

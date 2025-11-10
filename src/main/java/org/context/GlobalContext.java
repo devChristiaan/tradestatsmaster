@@ -79,6 +79,10 @@ public class GlobalContext {
         transactionsMasterList.add(transaction);
     }
 
+    public static void replaceTransactionInMasterList(Transaction transaction) {
+        transactionsMasterList.set(transactionsMasterList.indexOf(transaction), transaction);
+    }
+
     public static ObservableList<Transaction> getTransactionsMasterList() {
         return transactionsMasterList;
     }

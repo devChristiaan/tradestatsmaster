@@ -230,6 +230,28 @@ public class DbManager {
         }
     }
 
+    public void updateTransaction(Transaction transaction) throws SQLException {
+        PreparedStatement ps = null;
+        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?  WHERE id = ?";
+        try {
+            ps = bdConnection.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(transaction.getDate()));
+            ps.setString(2, transaction.getSymbol());
+            ps.setInt(3, transaction.getQuantity());
+            ps.setDouble(4, transaction.getCommission());
+            ps.setString(5, transaction.getDirection());
+            ps.setDouble(6, transaction.getOpen());
+            ps.setDouble(7, transaction.getClose());
+            ps.setDouble(8, transaction.getProfit());
+            ps.setString(9, transaction.getFormation());
+            ps.setInt(10, transaction.getId());
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void addDailyPrepItem(
             DailyPrepItems dailyPrepItem) throws SQLException {
         PreparedStatement ps = null;

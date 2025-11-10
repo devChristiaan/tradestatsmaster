@@ -22,6 +22,11 @@
                 <FontIcon iconLiteral="mdal-delete_outline" iconSize="12" />
             </graphic>
         </Button>
+        <Button fx:id="toolbarEditBtn" mnemonicParsing="false" onAction="#editTrade" style="-fx-padding: 8px;" text="Edit Trade">
+            <graphic>
+                <FontIcon iconLiteral="mdal-edit" iconSize="12" />
+            </graphic>
+        </Button>
     </ToolBar>
     <TableView fx:id="tradesTable" prefHeight="800.0" prefWidth="1470.0" VBox.vgrow="ALWAYS">
         <columns>

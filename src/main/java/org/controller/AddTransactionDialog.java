@@ -55,6 +55,7 @@ public class AddTransactionDialog implements Initializable {
     Button closeModal;
 
     MainController mainController;
+    TradeController tradeController;
 
     List<Symbol> symbolList;
     List<Formation> formationList;
@@ -70,13 +71,31 @@ public class AddTransactionDialog implements Initializable {
         this.transactionList = (LinkedList<Transaction>) GlobalContext.get(GlobalContext.ContextItems.TRANSACTION_LIST);
 
         this.mainController = ControllerRegistry.get(MainController.class);
+        this.tradeController = ControllerRegistry.get(TradeController.class);
 
         this.date.setConverter(calendarToStringConverter(datePattern));
-        this.date.setValue(LocalDate.now());
         symbolList.forEach(item -> symbol.getItems().add(item.getSymbol()));
         formationList.forEach(item -> formations.getItems().add(item.getFormation()));
         symbol.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> symbol.pseudoClassStateChanged(Styles.STATE_DANGER, false));
         formations.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> formations.pseudoClassStateChanged(Styles.STATE_DANGER, false));
+
+        if (tradeController.selectedTransaction != null) {
+            date.setValue(tradeController.selectedTransaction.getDate());
+            if (Formation.Direction.valueOf(tradeController.selectedTransaction.getDirection()) == Formation.Direction.LONG) {
+                direction = Formation.Direction.LONG;
+                longEntry.setSelected(true);
+            } else {
+                direction = Formation.Direction.SHORT;
+                shortEntry.setSelected(true);
+            }
+            symbol.setValue(tradeController.selectedTransaction.getSymbol());
+            formations.setValue(tradeController.selectedTransaction.getFormation());
+            quantity.setText(String.valueOf(tradeController.selectedTransaction.getQuantity()));
+            openAmount.setText(String.valueOf(tradeController.selectedTransaction.getOpen()));
+            closeAmount.setText(String.valueOf(tradeController.selectedTransaction.getClose()));
+        } else {
+            this.date.setValue(LocalDate.now());
+        }
     }
 
     @FXML
@@ -111,25 +130,27 @@ public class AddTransactionDialog implements Initializable {
     @FXML
     public void saveTransaction() {
         DbManager db = new DbManager();
-        try {
-            db.setBdConnection();
-        } catch (IOException e) {
-            System.out.println("Failed to connect to DB");
-            throw new RuntimeException(e);
-        }
         Symbol selectedSymbol = symbolList.stream().filter(item -> item.getSymbol().equals(symbol.getValue())).findFirst().get();
         if (isValid()) {
             Double profit = calculateProfit(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()), new BigDecimal(quantity.getText()));
             Double commission = calculateCommission(selectedSymbol.getCommission(), Integer.parseInt(quantity.getText()));
             String formation = formationList.stream().filter(item -> item.getFormation().equals(formations.getValue())).findFirst().get().getFormation();
             try {
-                db.addTransaction(date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
-                mainController.addTransaction(db.getLatestTransaction());
+                db.setBdConnection();
+                if (tradeController.selectedTransaction != null) {
+                    Transaction transaction = updateTransaction(tradeController.selectedTransaction, date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
+                    db.updateTransaction(transaction);
+                    mainController.replaceTransaction(transaction);
+                    tradeController.selectedTransaction = null;
+                } else {
+                    db.addTransaction(date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
+                    mainController.addTransaction(db.getLatestTransaction());
+                }
                 db.closeBdConnection();
                 mainController.hideModal();
                 resetForm();
                 System.out.println("Transaction added successfully!!");
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 System.out.println("Saving Transaction Failed");
                 throw new RuntimeException(e);
             }
@@ -176,4 +197,25 @@ public class AddTransactionDialog implements Initializable {
         this.date.setValue(LocalDate.now());
     }
 
+    private Transaction updateTransaction(Transaction transaction,
+                                          LocalDate date,
+                                          String symbol,
+                                          Integer quantity,
+                                          Double commission,
+                                          String direction,
+                                          Double open,
+                                          Double close,
+                                          Double profit,
+                                          String formation) {
+        transaction.setDate(date);
+        transaction.setSymbol(symbol);
+        transaction.setQuantity(quantity);
+        transaction.setCommission(commission);
+        transaction.setDirection(direction);
+        transaction.setOpen(open);
+        transaction.setClose(close);
+        transaction.setProfit(profit);
+        transaction.setFormation(formation);
+        return transaction;
+    }
 }

@@ -33,6 +33,10 @@ public class MainController implements Initializable {
         GlobalContext.addTransactionToMasterList(transaction);
     }
 
+    public void replaceTransaction(Transaction transaction) {
+        GlobalContext.replaceTransactionInMasterList(transaction);
+    }
+
     public void showModal(Node node) {
         modal.setPersistent(true);
         this.modal.show(node);
