@@ -46,7 +46,15 @@ public class TradeController extends VBox implements Initializable {
     @FXML
     public TableColumn<Transaction, String> tradeFormation;
     @FXML
-    public TableColumn<Transaction, Void> edit;
+    public TableColumn<Transaction, Double> ATR;
+    @FXML
+    public TableColumn<Transaction, Double> possibleProfitTicks;
+    @FXML
+    public TableColumn<Transaction, Double> possibleLossTicks;
+    @FXML
+    public TableColumn<Transaction, Double> actualLossTicks;
+    @FXML
+    public TableColumn<Transaction, String> timePeriod;
     @FXML
     public Button toolbarDeleteBtn;
     @FXML
@@ -76,6 +84,11 @@ public class TradeController extends VBox implements Initializable {
         tradeQuantity.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("quantity"));
         tradeCommission.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("commission"));
         tradeFormation.setCellValueFactory(new PropertyValueFactory<Transaction, String>("formation"));
+        ATR.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("ATR"));
+        possibleProfitTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleProfitTicks"));
+        possibleLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleLossTicks"));
+        actualLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("actualLossTicks"));
+        timePeriod.setCellValueFactory(new PropertyValueFactory<Transaction, String>("timePeriod"));
 
         //Enable delete btn on select
         tradesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

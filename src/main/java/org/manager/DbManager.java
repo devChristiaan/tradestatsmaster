@@ -94,6 +94,11 @@ public class DbManager {
                         "close REAL NOT NULL," +
                         "profit REAL NOT NULL," +
                         "formation TEXT NOT NULL" +
+                        "ATR REAL NOT NULL" +
+                        "possibleProfitTicks REAL NOT NULL" +
+                        "possibleLossTicks REAL NOT NULL" +
+                        "actualLossTicks REAL NOT NULL" +
+                        "timePeriod TEXT NOT NULL," +
                         ");";
                 statement.execute(createTableSQL);
             } catch (SQLException e) {
@@ -186,7 +191,13 @@ public class DbManager {
                             rs.getDouble("open"),
                             rs.getDouble("close"),
                             rs.getDouble("profit"),
-                            rs.getString("formation")));
+                            rs.getString("formation"),
+                            rs.getDouble("ATR"),
+                            rs.getDouble("possibleProfitTicks"),
+                            rs.getDouble("possibleLossTicks"),
+                            rs.getDouble("actualLossTicks"),
+                            rs.getString("timePeriod")
+                    ));
                 }
                 return transactions;
             } catch (Exception e) {
@@ -200,39 +211,9 @@ public class DbManager {
         return null;
     }
 
-    public void addTransaction(
-            LocalDate date,
-            String symbol,
-            Integer quantity,
-            Double commission,
-            String direction,
-            Double open,
-            Double close,
-            Double profit,
-            String formation) throws SQLException {
+    public void addTransaction(Transaction transaction) throws SQLException {
         PreparedStatement ps = null;
-        String query = "insert into transactions(date,symbol,quantity,commission,direction,open,close,profit,formation) VALUES(?,?,?,?,?,?,?,?,?)";
-        try {
-            ps = bdConnection.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(date));
-            ps.setString(2, symbol);
-            ps.setInt(3, quantity);
-            ps.setDouble(4, commission);
-            ps.setString(5, direction);
-            ps.setDouble(6, open);
-            ps.setDouble(7, close);
-            ps.setDouble(8, profit);
-            ps.setString(9, formation);
-            ps.executeUpdate();
-            ps.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void updateTransaction(Transaction transaction) throws SQLException {
-        PreparedStatement ps = null;
-        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?  WHERE id = ?";
+        String query = "insert into transactions(date,symbol,quantity,commission,direction,open,close,profit,formation,ATR,possibleProfitTicks,possibleLossTicks,actualLossTicks,timePeriod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = bdConnection.prepareStatement(query);
             ps.setDate(1, Date.valueOf(transaction.getDate()));
@@ -244,7 +225,38 @@ public class DbManager {
             ps.setDouble(7, transaction.getClose());
             ps.setDouble(8, transaction.getProfit());
             ps.setString(9, transaction.getFormation());
-            ps.setInt(10, transaction.getId());
+            ps.setDouble(10, transaction.getATR());
+            ps.setDouble(11, transaction.getPossibleProfitTicks());
+            ps.setDouble(12, transaction.getPossibleLossTicks());
+            ps.setDouble(13, transaction.getActualLossTicks());
+            ps.setString(13, transaction.getTimePeriod());
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateTransaction(Transaction transaction) throws SQLException {
+        PreparedStatement ps = null;
+        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?, ATR = ?, possibleProfitTicks = ?, possibleLossTicks = ?, actualLossTicks = ?, timePeriod = ? WHERE id = ?";
+        try {
+            ps = bdConnection.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(transaction.getDate()));
+            ps.setString(2, transaction.getSymbol());
+            ps.setInt(3, transaction.getQuantity());
+            ps.setDouble(4, transaction.getCommission());
+            ps.setString(5, transaction.getDirection());
+            ps.setDouble(6, transaction.getOpen());
+            ps.setDouble(7, transaction.getClose());
+            ps.setDouble(8, transaction.getProfit());
+            ps.setString(9, transaction.getFormation());
+            ps.setDouble(10, transaction.getATR());
+            ps.setDouble(11, transaction.getPossibleProfitTicks());
+            ps.setDouble(12, transaction.getPossibleLossTicks());
+            ps.setDouble(13, transaction.getActualLossTicks());
+            ps.setString(14, transaction.getTimePeriod());
+            ps.setInt(15, transaction.getId());
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
@@ -294,7 +306,13 @@ public class DbManager {
                             rs.getDouble("open"),
                             rs.getDouble("close"),
                             rs.getDouble("profit"),
-                            rs.getString("formation"));
+                            rs.getString("formation"),
+                            rs.getDouble("ATR"),
+                            rs.getDouble("possibleProfitTicks"),
+                            rs.getDouble("possibleLossTicks"),
+                            rs.getDouble("actualLossTicks"),
+                            rs.getString("timePeriod")
+                    );
                 }
                 return transaction;
             } catch (Exception e) {
@@ -375,7 +393,8 @@ public class DbManager {
         return null;
     }
 
-    public DailyPrepItems getDailyPrepItem(int id, String symbol) throws SQLException {
+    public DailyPrepItems getDailyPrepItem(int id,
+                                           String symbol) throws SQLException {
         if (isDbConnected()) {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -411,7 +430,9 @@ public class DbManager {
         return null;
     }
 
-    public DailyPrepItems addDailyPrepItem(int id, String symbol, LocalDate date) throws SQLException {
+    public DailyPrepItems addDailyPrepItem(int id,
+                                           String symbol,
+                                           LocalDate date) throws SQLException {
         if (isDbConnected()) {
             PreparedStatement ps = null;
             ResultSet rs = null;
