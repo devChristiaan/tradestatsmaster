@@ -25,7 +25,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ControllerRegistry.register(MainController.class, this);
 
-        tabPane.getStyleClass().add(Styles.TABS_FLOATING);
+        tabPane.getStyleClass().add(Styles.TABS_CLASSIC);
         tabPane.setTabMaxWidth(80);
     }
 
