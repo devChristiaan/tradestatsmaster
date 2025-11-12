@@ -36,6 +36,8 @@ public class Transaction {
     String formation;
     @CsvBindByName(column = "ATR", required = true)
     Double ATR;
+    @CsvBindByName(column = "ATRRisk", required = true)
+    Double ATRRisk;
     @CsvBindByName(column = "possibleProfitTicks", required = true)
     Double possibleProfitTicks;
     @CsvBindByName(column = "possibleLossTicks", required = true)
@@ -45,3 +47,4 @@ public class Transaction {
     @CsvBindByName(column = "timePeriod", required = true)
     String timePeriod;
 }
+

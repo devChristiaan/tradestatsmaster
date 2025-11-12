@@ -74,6 +74,12 @@ public class Utilities {
         return points.divide(fluctuation, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
     }
 
+    public static Double calculateATRRisk(BigDecimal points,
+                                          BigDecimal fluctuation,
+                                          BigDecimal tickValue) {
+        return tickDifference(points, fluctuation).multiply(tickValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+
     public static double calculateProfit(Formation.Direction direction,
                                          BigDecimal openAmount,
                                          BigDecimal closeAmount,

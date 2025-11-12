@@ -1,6 +1,8 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
+import org.model.transaction.DisplayTransaction;
 import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
 import org.utilities.DateCell;
@@ -47,6 +50,8 @@ public class TradeController extends VBox implements Initializable {
     public TableColumn<Transaction, String> tradeFormation;
     @FXML
     public TableColumn<Transaction, Double> ATR;
+    @FXML
+    public TableColumn<Transaction, Double> ATRRisk;
     @FXML
     public TableColumn<Transaction, Double> possibleProfitTicks;
     @FXML
@@ -85,6 +90,7 @@ public class TradeController extends VBox implements Initializable {
         tradeCommission.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("commission"));
         tradeFormation.setCellValueFactory(new PropertyValueFactory<Transaction, String>("formation"));
         ATR.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("ATR"));
+        ATRRisk.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("ATRRisk"));
         possibleProfitTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleProfitTicks"));
         possibleLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleLossTicks"));
         actualLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("actualLossTicks"));
@@ -113,6 +119,12 @@ public class TradeController extends VBox implements Initializable {
             @Override
             public TableCell<Transaction, LocalDate> call(TableColumn<Transaction, LocalDate> param) {
                 return new DateCell<>();
+            }
+        });
+        ATRRisk.setCellFactory(new Callback<TableColumn<Transaction, Double>, TableCell<Transaction, Double>>() {
+            @Override
+            public TableCell<Transaction, Double> call(TableColumn<Transaction, Double> param) {
+                return new CurrencyCell<>();
             }
         });
 
@@ -167,5 +179,4 @@ public class TradeController extends VBox implements Initializable {
         selectedTransaction = tradesTable.getSelectionModel().getSelectedItem();
         addTrade();
     }
-
 }

@@ -95,6 +95,7 @@ public class DbManager {
                         "profit REAL NOT NULL," +
                         "formation TEXT NOT NULL" +
                         "ATR REAL NOT NULL" +
+                        "ATRRisk REAL NOT NULL" +
                         "possibleProfitTicks REAL NOT NULL" +
                         "possibleLossTicks REAL NOT NULL" +
                         "actualLossTicks REAL NOT NULL" +
@@ -193,6 +194,7 @@ public class DbManager {
                             rs.getDouble("profit"),
                             rs.getString("formation"),
                             rs.getDouble("ATR"),
+                            rs.getDouble("ATRRisk"),
                             rs.getDouble("possibleProfitTicks"),
                             rs.getDouble("possibleLossTicks"),
                             rs.getDouble("actualLossTicks"),
@@ -213,7 +215,7 @@ public class DbManager {
 
     public void addTransaction(Transaction transaction) throws SQLException {
         PreparedStatement ps = null;
-        String query = "insert into transactions(date,symbol,quantity,commission,direction,open,close,profit,formation,ATR,possibleProfitTicks,possibleLossTicks,actualLossTicks,timePeriod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into transactions(date,symbol,quantity,commission,direction,open,close,profit,formation,ATR,ATRRisk,possibleProfitTicks,possibleLossTicks,actualLossTicks,timePeriod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = bdConnection.prepareStatement(query);
             ps.setDate(1, Date.valueOf(transaction.getDate()));
@@ -226,10 +228,11 @@ public class DbManager {
             ps.setDouble(8, transaction.getProfit());
             ps.setString(9, transaction.getFormation());
             ps.setDouble(10, transaction.getATR());
-            ps.setDouble(11, transaction.getPossibleProfitTicks());
-            ps.setDouble(12, transaction.getPossibleLossTicks());
-            ps.setDouble(13, transaction.getActualLossTicks());
-            ps.setString(13, transaction.getTimePeriod());
+            ps.setDouble(11, transaction.getATRRisk());
+            ps.setDouble(12, transaction.getPossibleProfitTicks());
+            ps.setDouble(13, transaction.getPossibleLossTicks());
+            ps.setDouble(14, transaction.getActualLossTicks());
+            ps.setString(15, transaction.getTimePeriod());
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
@@ -239,7 +242,7 @@ public class DbManager {
 
     public void updateTransaction(Transaction transaction) throws SQLException {
         PreparedStatement ps = null;
-        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?, ATR = ?, possibleProfitTicks = ?, possibleLossTicks = ?, actualLossTicks = ?, timePeriod = ? WHERE id = ?";
+        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?, ATR = ?, ATRRisk = ?, possibleProfitTicks = ?, possibleLossTicks = ?, actualLossTicks = ?, timePeriod = ? WHERE id = ?";
         try {
             ps = bdConnection.prepareStatement(query);
             ps.setDate(1, Date.valueOf(transaction.getDate()));
@@ -252,11 +255,12 @@ public class DbManager {
             ps.setDouble(8, transaction.getProfit());
             ps.setString(9, transaction.getFormation());
             ps.setDouble(10, transaction.getATR());
-            ps.setDouble(11, transaction.getPossibleProfitTicks());
-            ps.setDouble(12, transaction.getPossibleLossTicks());
-            ps.setDouble(13, transaction.getActualLossTicks());
-            ps.setString(14, transaction.getTimePeriod());
-            ps.setInt(15, transaction.getId());
+            ps.setDouble(11, transaction.getATRRisk());
+            ps.setDouble(12, transaction.getPossibleProfitTicks());
+            ps.setDouble(13, transaction.getPossibleLossTicks());
+            ps.setDouble(14, transaction.getActualLossTicks());
+            ps.setString(15, transaction.getTimePeriod());
+            ps.setInt(16, transaction.getId());
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {
@@ -308,6 +312,7 @@ public class DbManager {
                             rs.getDouble("profit"),
                             rs.getString("formation"),
                             rs.getDouble("ATR"),
+                            rs.getDouble("ATRRisk"),
                             rs.getDouble("possibleProfitTicks"),
                             rs.getDouble("possibleLossTicks"),
                             rs.getDouble("actualLossTicks"),
