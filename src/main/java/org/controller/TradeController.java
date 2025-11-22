@@ -1,8 +1,6 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +12,6 @@ import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
-import org.model.transaction.DisplayTransaction;
 import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
 import org.utilities.DateCell;
