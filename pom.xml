@@ -129,6 +129,7 @@
                     <releaseConfiguration>
                         <description>Trading statistics app</description>
                         <vendor>Hougaard</vendor>
+                        <version>${version}</version>
                     </releaseConfiguration>
                 </configuration>
             </plugin>
