@@ -93,13 +93,13 @@ public class DbManager {
                         "open REAL NOT NULL," +
                         "close REAL NOT NULL," +
                         "profit REAL NOT NULL," +
-                        "formation TEXT NOT NULL" +
-                        "ATR REAL NOT NULL" +
-                        "ATRRisk REAL NOT NULL" +
-                        "possibleProfitTicks REAL NOT NULL" +
-                        "possibleLossTicks REAL NOT NULL" +
-                        "actualLossTicks REAL NOT NULL" +
-                        "timePeriod TEXT NOT NULL," +
+                        "formation TEXT NOT NULL," +
+                        "ATR REAL NOT NULL," +
+                        "ATRRisk REAL NOT NULL," +
+                        "possibleProfitTicks REAL NOT NULL," +
+                        "possibleLossTicks REAL NOT NULL," +
+                        "actualLossTicks REAL NOT NULL," +
+                        "timePeriod TEXT NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
             } catch (SQLException e) {
