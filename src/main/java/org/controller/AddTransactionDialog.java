@@ -50,11 +50,20 @@ public class AddTransactionDialog implements Initializable {
     public TextField openAmount;
     @FXML
     public TextField closeAmount;
+    @FXML
+    public TextField ATR;
+    @FXML
+    public TextField possibleProfitTicks;
+    @FXML
+    public TextField possibleLossTicks;
+    @FXML
+    public TextField timePeriod;
 
     @FXML
     Button closeModal;
 
     MainController mainController;
+    TradeController tradeController;
 
     List<Symbol> symbolList;
     List<Formation> formationList;
@@ -70,13 +79,35 @@ public class AddTransactionDialog implements Initializable {
         this.transactionList = (LinkedList<Transaction>) GlobalContext.get(GlobalContext.ContextItems.TRANSACTION_LIST);
 
         this.mainController = ControllerRegistry.get(MainController.class);
+        this.tradeController = ControllerRegistry.get(TradeController.class);
 
         this.date.setConverter(calendarToStringConverter(datePattern));
-        this.date.setValue(LocalDate.now());
         symbolList.forEach(item -> symbol.getItems().add(item.getSymbol()));
         formationList.forEach(item -> formations.getItems().add(item.getFormation()));
         symbol.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> symbol.pseudoClassStateChanged(Styles.STATE_DANGER, false));
         formations.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> formations.pseudoClassStateChanged(Styles.STATE_DANGER, false));
+
+        if (tradeController.selectedTransaction != null) {
+            date.setValue(tradeController.selectedTransaction.getDate());
+            if (Formation.Direction.valueOf(tradeController.selectedTransaction.getDirection()) == Formation.Direction.LONG) {
+                direction = Formation.Direction.LONG;
+                longEntry.setSelected(true);
+            } else {
+                direction = Formation.Direction.SHORT;
+                shortEntry.setSelected(true);
+            }
+            symbol.setValue(tradeController.selectedTransaction.getSymbol());
+            formations.setValue(tradeController.selectedTransaction.getFormation());
+            quantity.setText(String.valueOf(tradeController.selectedTransaction.getQuantity()));
+            openAmount.setText(String.valueOf(tradeController.selectedTransaction.getOpen()));
+            closeAmount.setText(String.valueOf(tradeController.selectedTransaction.getClose()));
+            ATR.setText(String.valueOf(tradeController.selectedTransaction.getATR()));
+            possibleLossTicks.setText(String.valueOf(tradeController.selectedTransaction.getPossibleLossTicks()));
+            possibleProfitTicks.setText(String.valueOf(tradeController.selectedTransaction.getPossibleProfitTicks()));
+            timePeriod.setText(tradeController.selectedTransaction.getTimePeriod());
+        } else {
+            this.date.setValue(LocalDate.now());
+        }
     }
 
     @FXML
@@ -109,27 +140,46 @@ public class AddTransactionDialog implements Initializable {
     }
 
     @FXML
+    public void setATR() {
+        ATR.pseudoClassStateChanged(Styles.STATE_DANGER, !isDoubleNumeric(ATR.getText()));
+    }
+
+    @FXML
+    public void setPossibleProfitTicks() {
+        possibleProfitTicks.pseudoClassStateChanged(Styles.STATE_DANGER, !isDoubleNumeric(possibleProfitTicks.getText()));
+    }
+
+    @FXML
+    public void setPossibleLossTicks() {
+        possibleLossTicks.pseudoClassStateChanged(Styles.STATE_DANGER, !isDoubleNumeric(possibleLossTicks.getText()));
+    }
+
+    @FXML
     public void saveTransaction() {
         DbManager db = new DbManager();
-        try {
-            db.setBdConnection();
-        } catch (IOException e) {
-            System.out.println("Failed to connect to DB");
-            throw new RuntimeException(e);
-        }
         Symbol selectedSymbol = symbolList.stream().filter(item -> item.getSymbol().equals(symbol.getValue())).findFirst().get();
         if (isValid()) {
             Double profit = calculateProfit(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()), new BigDecimal(quantity.getText()));
             Double commission = calculateCommission(selectedSymbol.getCommission(), Integer.parseInt(quantity.getText()));
             String formation = formationList.stream().filter(item -> item.getFormation().equals(formations.getValue())).findFirst().get().getFormation();
+            Double actualLossTicks = profit < 0 ? tickDifference(pointDifference(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText())), BigDecimal.valueOf(selectedSymbol.getFluctuation())).doubleValue() : 0;
+            Double ATRRisk = calculateATRRisk(new BigDecimal(ATR.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()));
             try {
-                db.addTransaction(date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation);
-                mainController.addTransaction(db.getLatestTransaction());
+                db.setBdConnection();
+                Transaction transaction = updateTransaction(tradeController.selectedTransaction, tradeController.selectedTransaction != null ? tradeController.selectedTransaction.getDate() : date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation, Double.parseDouble(ATR.getText()), ATRRisk, Double.parseDouble(possibleProfitTicks.getText()), Double.parseDouble(possibleLossTicks.getText()), actualLossTicks, timePeriod.getText());
+                if (tradeController.selectedTransaction != null) {
+                    db.updateTransaction(transaction);
+                    mainController.replaceTransaction(transaction);
+                    tradeController.selectedTransaction = null;
+                } else {
+                    db.addTransaction(transaction);
+                    mainController.addTransaction(db.getLatestTransaction());
+                }
                 db.closeBdConnection();
                 mainController.hideModal();
                 resetForm();
                 System.out.println("Transaction added successfully!!");
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 System.out.println("Saving Transaction Failed");
                 throw new RuntimeException(e);
             }
@@ -146,8 +196,12 @@ public class AddTransactionDialog implements Initializable {
         boolean isQuantityError = quantity.getText().trim().isBlank();
         boolean isOpenError = openAmount.getText().trim().isBlank();
         boolean isCloseError = closeAmount.getText().trim().isBlank();
+        boolean isATRError = ATR.getText().trim().isBlank();
+        boolean isPossibleProfitTicksError = possibleProfitTicks.getText().trim().isBlank();
+        boolean isPossibleLossTicksError = possibleLossTicks.getText().trim().isBlank();
+        boolean isTimePeriodError = timePeriod.getText().trim().isBlank();
 
-        if (isDateError || isLongError || isSymbolError || isFormationError || isQuantityError || isOpenError || isCloseError) {
+        if (isDateError || isLongError || isSymbolError || isFormationError || isQuantityError || isOpenError || isCloseError || isATRError || isPossibleProfitTicksError || isPossibleLossTicksError || isTimePeriodError) {
             //TODO
             //Figure out how to properly display the error
 //            date.pseudoClassStateChanged(Styles.STATE_DANGER, isDateError);
@@ -158,6 +212,10 @@ public class AddTransactionDialog implements Initializable {
             quantity.pseudoClassStateChanged(Styles.STATE_DANGER, isQuantityError);
             openAmount.pseudoClassStateChanged(Styles.STATE_DANGER, isOpenError);
             closeAmount.pseudoClassStateChanged(Styles.STATE_DANGER, isCloseError);
+            ATR.pseudoClassStateChanged(Styles.STATE_DANGER, isATRError);
+            possibleProfitTicks.pseudoClassStateChanged(Styles.STATE_DANGER, isPossibleProfitTicksError);
+            possibleLossTicks.pseudoClassStateChanged(Styles.STATE_DANGER, isPossibleLossTicksError);
+            timePeriod.pseudoClassStateChanged(Styles.STATE_DANGER, isTimePeriodError);
             return false;
         }
 
@@ -173,7 +231,48 @@ public class AddTransactionDialog implements Initializable {
         quantity.setText("");
         openAmount.setText("");
         closeAmount.setText("");
+        ATR.setText("");
+        possibleLossTicks.setText("");
+        possibleProfitTicks.setText("");
+        timePeriod.setText("");
         this.date.setValue(LocalDate.now());
     }
 
+    private Transaction updateTransaction(Transaction transaction,
+                                          LocalDate date,
+                                          String symbol,
+                                          Integer quantity,
+                                          Double commission,
+                                          String direction,
+                                          Double open,
+                                          Double close,
+                                          Double profit,
+                                          String formation,
+                                          Double ATR,
+                                          Double ATRRisk,
+                                          Double possibleProfitTicks,
+                                          Double possibleLossTicks,
+                                          Double actualLossTicks,
+                                          String timePeriod) {
+
+        if (transaction == null) {
+            transaction = new Transaction();
+        }
+        transaction.setDate(date);
+        transaction.setSymbol(symbol);
+        transaction.setQuantity(quantity);
+        transaction.setCommission(commission);
+        transaction.setDirection(direction);
+        transaction.setOpen(open);
+        transaction.setClose(close);
+        transaction.setProfit(profit);
+        transaction.setFormation(formation);
+        transaction.setATR(ATR);
+        transaction.setATRRisk(ATRRisk);
+        transaction.setPossibleProfitTicks(possibleProfitTicks);
+        transaction.setPossibleLossTicks(possibleLossTicks);
+        transaction.setActualLossTicks(actualLossTicks);
+        transaction.setTimePeriod(timePeriod);
+        return transaction;
+    }
 }

@@ -63,12 +63,30 @@ public class Utilities {
         }
     }
 
-    public static BigDecimal tickDifference(Formation.Direction direction, BigDecimal openAmount, BigDecimal closeAmount) {
+    public static BigDecimal pointDifference(Formation.Direction direction,
+                                             BigDecimal openAmount,
+                                             BigDecimal closeAmount) {
         return direction == Formation.Direction.LONG ? closeAmount.subtract(openAmount) : openAmount.subtract(closeAmount);
     }
 
-    public static double calculateProfit(Formation.Direction direction, BigDecimal openAmount, BigDecimal closeAmount, BigDecimal fluctuation, BigDecimal tickValue, BigDecimal quantity) {
-        BigDecimal bd = tickDifference(direction, openAmount, closeAmount).divide(fluctuation, RoundingMode.HALF_UP).multiply(tickValue).multiply(quantity).setScale(2, RoundingMode.HALF_UP);
+    public static BigDecimal tickDifference(BigDecimal points,
+                                            BigDecimal fluctuation) {
+        return points.divide(fluctuation, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public static Double calculateATRRisk(BigDecimal points,
+                                          BigDecimal fluctuation,
+                                          BigDecimal tickValue) {
+        return tickDifference(points, fluctuation).multiply(tickValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    public static double calculateProfit(Formation.Direction direction,
+                                         BigDecimal openAmount,
+                                         BigDecimal closeAmount,
+                                         BigDecimal fluctuation,
+                                         BigDecimal tickValue,
+                                         BigDecimal quantity) {
+        BigDecimal bd = pointDifference(direction, openAmount, closeAmount).divide(fluctuation, RoundingMode.HALF_UP).multiply(tickValue).multiply(quantity).setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
@@ -78,7 +96,8 @@ public class Utilities {
         return bd.doubleValue();
     }
 
-    public static double calculateRunningTotal(double amount, double previousAmount) {
+    public static double calculateRunningTotal(double amount,
+                                               double previousAmount) {
         BigDecimal bd = BigDecimal.valueOf(previousAmount + amount).setScale(2, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }

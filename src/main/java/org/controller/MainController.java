@@ -25,12 +25,16 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ControllerRegistry.register(MainController.class, this);
 
-        tabPane.getStyleClass().add(Styles.TABS_FLOATING);
+        tabPane.getStyleClass().add(Styles.TABS_CLASSIC);
         tabPane.setTabMaxWidth(80);
     }
 
     public void addTransaction(Transaction transaction) {
         GlobalContext.addTransactionToMasterList(transaction);
+    }
+
+    public void replaceTransaction(Transaction transaction) {
+        GlobalContext.replaceTransactionInMasterList(transaction);
     }
 
     public void showModal(Node node) {

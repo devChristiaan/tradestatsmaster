@@ -46,13 +46,26 @@ public class TradeController extends VBox implements Initializable {
     @FXML
     public TableColumn<Transaction, String> tradeFormation;
     @FXML
-    public TableColumn<Transaction, Void> edit;
+    public TableColumn<Transaction, Double> ATR;
+    @FXML
+    public TableColumn<Transaction, Double> ATRRisk;
+    @FXML
+    public TableColumn<Transaction, Double> possibleProfitTicks;
+    @FXML
+    public TableColumn<Transaction, Double> possibleLossTicks;
+    @FXML
+    public TableColumn<Transaction, Double> actualLossTicks;
+    @FXML
+    public TableColumn<Transaction, String> timePeriod;
     @FXML
     public Button toolbarDeleteBtn;
+    @FXML
+    public Button toolbarEditBtn;
 
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
     StatsController statsController;
     DbManager db = new DbManager();
+    Transaction selectedTransaction;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,10 +86,17 @@ public class TradeController extends VBox implements Initializable {
         tradeQuantity.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("quantity"));
         tradeCommission.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("commission"));
         tradeFormation.setCellValueFactory(new PropertyValueFactory<Transaction, String>("formation"));
+        ATR.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("ATR"));
+        ATRRisk.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("ATRRisk"));
+        possibleProfitTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleProfitTicks"));
+        possibleLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleLossTicks"));
+        actualLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("actualLossTicks"));
+        timePeriod.setCellValueFactory(new PropertyValueFactory<Transaction, String>("timePeriod"));
 
         //Enable delete btn on select
         tradesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             toolbarDeleteBtn.setDisable(false);
+            toolbarEditBtn.setDisable(false);
         });
 
         //Format Column data
@@ -98,11 +118,17 @@ public class TradeController extends VBox implements Initializable {
                 return new DateCell<>();
             }
         });
+        ATRRisk.setCellFactory(new Callback<TableColumn<Transaction, Double>, TableCell<Transaction, Double>>() {
+            @Override
+            public TableCell<Transaction, Double> call(TableColumn<Transaction, Double> param) {
+                return new CurrencyCell<>();
+            }
+        });
 
         ///Style Table
         tradesTable.getStyleClass().add(Styles.STRIPED);
         toolbarDeleteBtn.setDisable(true);
-
+        toolbarEditBtn.setDisable(true);
     }
 
     @FXML
@@ -142,6 +168,12 @@ public class TradeController extends VBox implements Initializable {
             }
         }
         toolbarDeleteBtn.setDisable(true);
+        toolbarEditBtn.setDisable(true);
     }
 
+    @FXML
+    private void editTrade() throws IOException {
+        selectedTransaction = tradesTable.getSelectionModel().getSelectedItem();
+        addTrade();
+    }
 }

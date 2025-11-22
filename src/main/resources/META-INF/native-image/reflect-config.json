@@ -838,6 +838,17 @@
   ]
 },
 {
+  "name":"org.controller.StatsControllerOverview",
+  "allDeclaredFields":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.controller.StatsControllerProfitLoss",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"org.controller.TradeController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -906,26 +917,38 @@
   "name":"org.model.transaction.Transaction",
   "allDeclaredFields":true,
   "methods":[
+    {"name":"getATR","parameterTypes":[] }, 
+    {"name":"getATRRisk","parameterTypes":[] }, 
+    {"name":"getActualLossTicks","parameterTypes":[] }, 
     {"name":"getClose","parameterTypes":[] }, 
     {"name":"getCommission","parameterTypes":[] }, 
     {"name":"getDate","parameterTypes":[] }, 
     {"name":"getDirection","parameterTypes":[] }, 
     {"name":"getFormation","parameterTypes":[] }, 
     {"name":"getOpen","parameterTypes":[] }, 
+    {"name":"getPossibleLossTicks","parameterTypes":[] }, 
+    {"name":"getPossibleProfitTicks","parameterTypes":[] }, 
     {"name":"getProfit","parameterTypes":[] }, 
     {"name":"getQuantity","parameterTypes":[] }, 
-    {"name":"getSymbol","parameterTypes":[] }
+    {"name":"getSymbol","parameterTypes":[] }, 
+    {"name":"getTimePeriod","parameterTypes":[] }
   ],
   "queriedMethods":[
+    {"name":"setATR","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setATRRisk","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setActualLossTicks","parameterTypes":["java.lang.Double"] }, 
     {"name":"setClose","parameterTypes":["java.lang.Double"] }, 
     {"name":"setCommission","parameterTypes":["java.lang.Double"] }, 
     {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, 
     {"name":"setDirection","parameterTypes":["java.lang.String"] }, 
     {"name":"setFormation","parameterTypes":["java.lang.String"] }, 
     {"name":"setOpen","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setPossibleLossTicks","parameterTypes":["java.lang.Double"] }, 
+    {"name":"setPossibleProfitTicks","parameterTypes":["java.lang.Double"] }, 
     {"name":"setProfit","parameterTypes":["java.lang.Double"] }, 
     {"name":"setQuantity","parameterTypes":["java.lang.Integer"] }, 
-    {"name":"setSymbol","parameterTypes":["java.lang.String"] }
+    {"name":"setSymbol","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTimePeriod","parameterTypes":["java.lang.String"] }
   ]
 },
 {

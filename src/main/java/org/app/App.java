@@ -1,5 +1,6 @@
 package org.app;
 
+import atlantafx.base.theme.CupertinoLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try {
-            Application.setUserAgentStylesheet(Objects.requireNonNull(App.class.getResource("/org/app/CSS/cupertino-light.css")).toExternalForm());
+            Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
             Image appIcon = new Image(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/icons/TitleIcon.png")));
             Scene scene = new Scene(loadFXML("/org/app/fxml/main.fxml"));
             stage.setTitle("Trade Stats Master");

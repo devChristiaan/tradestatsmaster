@@ -72,7 +72,7 @@ public class MenuBarController extends VBox implements Initializable {
                 throw new RuntimeException(e);
             }
             for (Transaction tran : importedTransactions) {
-                db.addTransaction(tran.getDate(), tran.getSymbol(), tran.getQuantity(), tran.getCommission(), tran.getDirection(), tran.getOpen(), tran.getClose(), tran.getProfit(), tran.getFormation());
+                db.addTransaction(tran);
             }
             GlobalContext.replaceMasterList(db.getAllTransactions());
             db.closeBdConnection();

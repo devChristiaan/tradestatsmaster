@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.context.ControllerRegistry;
 import org.model.transaction.Transaction;
-import org.utilities.CalculateStats;
+import org.utilities.CalculateStatsOverview;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class ChartController extends Pane implements Initializable {
     XYChart.Series<String, Double> chartData = new XYChart.Series<>();
     XYChart.Series<String, Double> chartMovingAvg = new XYChart.Series<>();
 
-    StatsController statsController;
+    StatsControllerOverview statsControllerOverview;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,12 +83,12 @@ public class ChartController extends Pane implements Initializable {
 
         chart.getData().addAll(chartData, chartMovingAvg);
 
-        statsController = ControllerRegistry.get(StatsController.class);
-        this.statsController.populateStats(new CalculateStats(getFilteredTransactions()));
+        statsControllerOverview = ControllerRegistry.get(StatsControllerOverview.class);
+        this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(getFilteredTransactions()));
 
         /// Populate chart values
         getFilteredTransactions().addListener((ListChangeListener<? super Transaction>) c -> {
-            this.statsController.populateStats(new CalculateStats(getFilteredTransactions()));
+            this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(getFilteredTransactions()));
             ///TODO
             //Logic for updating the chart
 //            this.chartData.getData().add(
