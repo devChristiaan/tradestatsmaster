@@ -18,6 +18,7 @@ import static org.utilities.Utilities.getTextFormater;
 @Getter
 public class CalculateStatsOverview {
     private double totalProfit = 0.0;
+    private double totalLoss = 0.0;
     private double totalCommission = 0.0;
     private double netIncome = 0.0;
     private int winRate = 0;
@@ -36,7 +37,7 @@ public class CalculateStatsOverview {
             List<Transaction> transactionsWithProfitPositive = filteredList.stream().filter(transaction -> transaction.getProfit() > 0).toList();
             List<Transaction> transactionsWithProfitNegative = filteredList.stream().filter(transaction -> transaction.getProfit() < 0).toList();
 
-            this.netIncome = this.totalProfit - this.totalCommission;
+            this.netIncome = this.totalProfit + this.totalLoss - this.totalCommission;
             this.winRate = Math.round((float) transactionsWithProfitPositive.size() / filteredList.size() * 100);
 
             if (!transactionsWithProfitNegative.isEmpty()) {
@@ -50,7 +51,11 @@ public class CalculateStatsOverview {
     }
 
     void populateTotals(Transaction tran) {
-        this.totalProfit += tran.getProfit();
+        if (tran.getProfit() > 0) {
+            this.totalProfit += tran.getProfit();
+        } else {
+            this.totalLoss += tran.getProfit();
+        }
         this.totalCommission += tran.getCommission();
     }
 
@@ -70,19 +75,22 @@ public class CalculateStatsOverview {
         }
     }
 
-    private Double calculatePayoffRatio(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+    private Double calculatePayoffRatio(List<Transaction> positiveTransactions,
+                                        List<Transaction> negativeTransactions) {
         BigDecimal averageNegativeTrans = BigDecimal.valueOf(this.averageListProfit(negativeTransactions));
         BigDecimal averagePositiveTrans = BigDecimal.valueOf(this.averageListProfit(positiveTransactions));
         return averagePositiveTrans.doubleValue() == 0 ? 0.00 : averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
-    private Double calculateWinRate(List<Transaction> positiveTransactions, List<Transaction> negativeTransactions) {
+    private Double calculateWinRate(List<Transaction> positiveTransactions,
+                                    List<Transaction> negativeTransactions) {
         BigDecimal positiveSize = new BigDecimal(positiveTransactions.size());
         BigDecimal negativeSize = new BigDecimal(negativeTransactions.size());
         return positiveSize.divide(negativeSize, 2, RoundingMode.HALF_UP).doubleValue();
     }
 
-    private void calculateWinRateFormation(List<Transaction> transactions, String formation) {
+    private void calculateWinRateFormation(List<Transaction> transactions,
+                                           String formation) {
         BigDecimal amountOfTradesWon = new BigDecimal(transactions.stream().filter(transaction -> transaction.getProfit() > 0 && transaction.getFormation().equals(formation)).toList().size());
         BigDecimal amountOfOccurrences = new BigDecimal(transactions.stream().filter(transaction -> transaction.getFormation().equals(formation)).toList().size());
         formationsWinRate.add(new Formation(formation, amountOfOccurrences.intValueExact() == 0 ? 0.00 : amountOfTradesWon.divide(amountOfOccurrences, 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).doubleValue()));
@@ -94,6 +102,10 @@ public class CalculateStatsOverview {
 
     public String getTotalProfitFormat() {
         return df.format(this.totalProfit);
+    }
+
+    public String getTotalLossFormat() {
+        return df.format(this.totalLoss);
     }
 
     public Double getTotalProfit() {

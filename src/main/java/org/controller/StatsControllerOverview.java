@@ -14,13 +14,16 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static org.utilities.Utilities.*;
+import static org.utilities.Utilities.calculateBalancePercentage;
+import static org.utilities.Utilities.calculateAccountBalance;
 import static org.utilities.Utilities.getTextFormater;
 
 public class StatsControllerOverview extends VBox implements Initializable {
 
     @FXML
     Label totalProfit;
+    @FXML
+    Label totalLoss;
     @FXML
     Label totalCommission;
     @FXML
@@ -79,6 +82,7 @@ public class StatsControllerOverview extends VBox implements Initializable {
 
     public void populateStatsOverview(CalculateStatsOverview stats) {
         totalProfit.setText("$ " + stats.getTotalProfitFormat());
+        totalLoss.setText("$ " + stats.getTotalLossFormat());
         totalCommission.setText("$ " + stats.getTotalCommission());
         netReturn.setText("$ " + stats.getNetIncome());
         winRate.setText(stats.getWinRate() + " %");
