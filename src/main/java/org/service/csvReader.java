@@ -44,14 +44,16 @@ public class csvReader {
         return transactions;
     }
 
-    public static void writeTransactionsToCSV(List<Transaction> transactions, String path) throws IOException {
-        Writer writer = new FileWriter(path + "/" + "transactions.csv");
-        StatefulBeanToCsv<Transaction> beanToCsv = new StatefulBeanToCsvBuilder<Transaction>(writer)
+    public static <T> void writeItemsToCSV(List<T> items,
+                                           String path) throws IOException {
+        Writer writer = new FileWriter(path);
+        StatefulBeanToCsv<T> beanToCsv = new StatefulBeanToCsvBuilder<T>(writer)
                 .build();
         try {
-            beanToCsv.write(transactions);
+            beanToCsv.write(items);
             writer.close();
-        } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
+        } catch (CsvRequiredFieldEmptyException |
+                 CsvDataTypeMismatchException e) {
             throw new RuntimeException(e);
         }
     }

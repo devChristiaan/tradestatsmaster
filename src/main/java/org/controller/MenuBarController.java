@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static org.service.csvReader.getAllTransactions;
-import static org.service.csvReader.writeTransactionsToCSV;
+import static org.service.csvReader.writeItemsToCSV;
 import static org.utilities.Utilities.closeApp;
 
 public class MenuBarController extends VBox implements Initializable {
@@ -30,7 +30,7 @@ public class MenuBarController extends VBox implements Initializable {
     MenuBar menuBar;
 
     FileChooser fileChooser = new FileChooser();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
+    FileChooser exportFileChooser = new FileChooser();
     Alert fileFailureAlert = new Alert(Alert.AlertType.ERROR);
     Alert fileSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
     Alert alertAbout = new Alert(Alert.AlertType.INFORMATION);
@@ -83,9 +83,9 @@ public class MenuBarController extends VBox implements Initializable {
 
     @FXML
     public void exportAll() throws IOException {
-        String path = csvDirectorySelector();
+        String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeTransactionsToCSV((List<Transaction>) GlobalContext.getTransactionsMasterList(), path);
+            writeItemsToCSV(GlobalContext.getTransactionsMasterList(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -93,9 +93,9 @@ public class MenuBarController extends VBox implements Initializable {
 
     @FXML
     public void exportSelection() throws IOException {
-        String path = csvDirectorySelector();
+        String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeTransactionsToCSV((List<Transaction>) GlobalContext.getFilteredTransactions(), path);
+            writeItemsToCSV(GlobalContext.getFilteredTransactions(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -113,13 +113,17 @@ public class MenuBarController extends VBox implements Initializable {
         }
     }
 
-    private String csvDirectorySelector() {
-        directoryChooser.setTitle("Save CSV file");
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        File selectedFile = directoryChooser.showDialog(menuBar.getScene().getWindow());
+    private String csvDirectorySelector(String defaultFileName) {
+        exportFileChooser.setTitle("Save CSV file");
+        exportFileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        exportFileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Comma Seperated Values", "*.csv")
+        );
+        exportFileChooser.setInitialFileName(defaultFileName + ".csv");
+        File selectedFile = exportFileChooser.showSaveDialog(menuBar.getScene().getWindow());
 
         if (selectedFile != null) {
-            return selectedFile.getPath();
+            return selectedFile.getAbsolutePath();
         } else {
             System.out.println("No File Selected");
             return null;
