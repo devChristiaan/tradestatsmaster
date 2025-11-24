@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import org.model.account.Account;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.transaction.Transaction;
@@ -28,8 +29,13 @@ public class GlobalContext {
     private static ObservableList<DailyPrep> dailyPrepMasterList = FXCollections.observableList(new ArrayList<>());
     private static FilteredList<DailyPrep> filteredDailyPrep = new FilteredList<>(dailyPrepMasterList, p -> true);
 
+    /// Symbols
     private static ObservableList<Symbol> symbolsMasterList = FXCollections.observableList(new ArrayList<>());
     private static FilteredList<Symbol> filteredSymbolList = new FilteredList<>(symbolsMasterList, p -> true);
+
+    /// Account Balance Transaction
+    private static ObservableList<Account> accountMasterList = FXCollections.observableList(new ArrayList<>());
+    private static FilteredList<Account> filteredAccountList = new FilteredList<>(accountMasterList, p -> true);
 
     /// Temp solution -- need to fix with a user entered number
     public static double openingBalance = 30683.89;
@@ -44,6 +50,22 @@ public class GlobalContext {
 
     public static Object get(ContextItems itemName) {
         return globalContext.get(itemName);
+    }
+
+    public static void setAccountTransactionsMasterList(List<Account> listOfAccountTransactions) {
+        accountMasterList.addAll(listOfAccountTransactions);
+    }
+
+    public static void removeTransactionFromMasterList(Account transaction) {
+        accountMasterList.remove(transaction);
+    }
+
+    public static void addTransactionToMasterList(Account transaction) {
+        accountMasterList.add(transaction);
+    }
+
+    public static FilteredList<Account> getFilteredTransactionsList() {
+        return filteredAccountList;
     }
 
     public static void setSymbolsMasterList(List<Symbol> symbols) {

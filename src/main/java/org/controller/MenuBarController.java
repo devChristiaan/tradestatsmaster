@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
+import org.model.account.Account;
 import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 import org.utilities.AppProperties;
@@ -23,6 +24,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static org.manager.DTOManager.addAllAccountTransactions;
 import static org.manager.DTOManager.addAllSymbol;
 import static org.service.csvReader.*;
 import static org.utilities.Utilities.closeApp;
@@ -190,6 +192,41 @@ public class MenuBarController extends VBox implements Initializable {
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
+    }
+
+    @FXML
+    void manageBalance() {
+        Node addTransactionDialog;
+        try {
+            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/AccountBalanceDialog.fxml")).load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        MainController mainController = ControllerRegistry.get(MainController.class);
+        mainController.showModal(addTransactionDialog);
+    }
+
+    @FXML
+    void importTransactionsFile() {
+        String file = csvFileSelector();
+        if (file != null) {
+            List<Account> importedTransactions = getAllAccountTransactions(file);
+            addAllAccountTransactions(importedTransactions);
+            GlobalContext.setAccountTransactionsMasterList(importedTransactions);
+            fileSuccessAlert.setContentText("File successfully imported!");
+            fileSuccessAlert.showAndWait();
+        }
+    }
+
+    @FXML
+    void exportTransactions() throws IOException {
+        String path = csvDirectorySelector("Account_Transactions");
+        if (path != null) {
+            writeItemsToCSV(GlobalContext.getFilteredTransactionsList(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
+
     }
 
 }

@@ -1,5 +1,7 @@
 package org.service;
 
+import org.model.DataObjectFileType;
+
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -10,28 +12,24 @@ import java.nio.file.Path;
 public class DataObjectService {
     private static final Path dataFolder = Path.of(System.getenv("LOCALAPPDATA"), "TradeStatsMaster");
 
-    public enum DataObjectFileType {
-        SYMBOLS
-    }
-
     public static void saveObject(Object data,
-                                  DataObjectService.DataObjectFileType fileName) {
+                                  DataObjectFileType fileName) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataFolder + "/" + fileName + ".obj"))) {
             oos.writeObject(data);
-            System.out.println("Object saved");
+            System.out.println("Object " + fileName + " saved");
         } catch (IOException e) {
-            System.out.println("Object failed to save");
+            System.out.println("Object " + fileName + " failed to save");
             e.printStackTrace();
         }
     }
 
-    public static <T> T loadObject(DataObjectService.DataObjectFileType fileName) {
+    public static <T> T loadObject(DataObjectFileType fileName) {
         T object = null;
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(new FileInputStream(dataFolder + "/" + fileName + ".obj"));
             object = (T) ois.readObject();
-            System.out.println("Object loaded");
+            System.out.println("Object " + fileName + " loaded");
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading object: " + e.getMessage());
         } finally {

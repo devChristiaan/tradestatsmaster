@@ -15,6 +15,7 @@ import java.util.Objects;
 
 import org.context.GlobalContext;
 
+import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
 
@@ -59,6 +60,7 @@ public class App extends Application {
 
         ///Serialized DTO Object
         GlobalContext.setSymbolsMasterList(getAllSymbols());
+        GlobalContext.setAccountTransactionsMasterList(getAllAccountTransactions());
         db.closeBdConnection();
     }
 
