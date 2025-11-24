@@ -7,7 +7,6 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.app.App;
 import org.model.Formation;
-import org.model.Symbol;
 import org.model.transaction.Transaction;
 
 import java.io.IOException;
@@ -19,12 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class csvReader {
-    public static List<Symbol> getAllSymbols() throws IOException {
-        List<Symbol> symbols;
-        InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/data/symbol.csv")));
-        symbols = new CsvToBeanBuilder<Symbol>(reader).withType(Symbol.class).build().parse();
-        return symbols;
-    }
 
     public static List<Formation> getAllFormations() throws IOException {
         List<Formation> formations;

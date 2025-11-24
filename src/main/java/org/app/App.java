@@ -15,6 +15,7 @@ import java.util.Objects;
 
 import org.context.GlobalContext;
 
+import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
 
 /**
@@ -45,14 +46,19 @@ public class App extends Application {
     @Override
     public void init() throws Exception {
         System.out.println("Loading resources....");
-        GlobalContext.add(GlobalContext.ContextItems.SYMBOL_LIST, csvReader.getAllSymbols());
+
+        ///CSV
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
 
         DbManager db = new DbManager();
+        ///DB
         db.setBdConnection();
         db.dbStartUpChecks(db);
         GlobalContext.setTransactionsMasterList(db.getAllTransactions());
         GlobalContext.setDailyPrepMasterList(db.getAllDailyPrepData());
+
+        ///Serialized DTO Object
+        GlobalContext.setSymbolsMasterList(getAllSymbols());
         db.closeBdConnection();
     }
 

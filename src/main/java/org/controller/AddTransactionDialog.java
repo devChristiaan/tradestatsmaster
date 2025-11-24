@@ -10,7 +10,7 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.Formation;
-import org.model.Symbol;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 
 import java.io.IOException;
@@ -74,9 +74,8 @@ public class AddTransactionDialog implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ///Fix
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
-        this.symbolList = (List<Symbol>) GlobalContext.get(GlobalContext.ContextItems.SYMBOL_LIST);
+        this.symbolList = GlobalContext.getFilteredSymbolList();
         this.formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
-        this.transactionList = (LinkedList<Transaction>) GlobalContext.get(GlobalContext.ContextItems.TRANSACTION_LIST);
 
         this.mainController = ControllerRegistry.get(MainController.class);
         this.tradeController = ControllerRegistry.get(TradeController.class);
