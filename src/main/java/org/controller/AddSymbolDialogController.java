@@ -19,8 +19,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static org.context.GlobalContext.datePattern;
 import static org.manager.DTOManager.addSymbol;
 import static org.manager.DTOManager.removeSymbol;
+import static org.utilities.Utilities.calendarToStringConverter;
 import static org.utilities.Utilities.isDoubleNumeric;
 
 public class AddSymbolDialogController implements Initializable {
@@ -53,12 +55,16 @@ public class AddSymbolDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ///Defaults
         deleteBtn.setDisable(true);
         deleteBtn.getStyleClass().add(Styles.DANGER);
+        date.setConverter(calendarToStringConverter(datePattern));
 
         symbolTable.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
             deleteBtn.setDisable(false);
         });
+
+        ///Init table
         symbolTable.setItems(GlobalContext.getFilteredSymbolList());
 
         colDate.setCellValueFactory(new PropertyValueFactory<Symbol, LocalDate>("date"));
@@ -67,7 +73,7 @@ public class AddSymbolDialogController implements Initializable {
         colFluctuation.setCellValueFactory(new PropertyValueFactory<Symbol, Double>("fluctuation"));
         colTickValue.setCellValueFactory(new PropertyValueFactory<Symbol, Double>("tickValue"));
 
-        //Format Column data
+        ///Format Column data
         colDate.setCellFactory(new Callback<TableColumn<Symbol, LocalDate>, TableCell<Symbol, LocalDate>>() {
             @Override
             public TableCell<Symbol, LocalDate> call(TableColumn<Symbol, LocalDate> param) {

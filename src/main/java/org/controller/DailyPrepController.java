@@ -12,11 +12,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
+import org.utilities.DateCellTreeTable;
 
 import java.io.IOException;
 import java.net.URL;
@@ -97,6 +99,12 @@ public class DailyPrepController extends Pane implements Initializable {
         });
 
         ///Setup table
+        dateColumn.setCellFactory(new Callback<TreeTableColumn<DailyPrep, LocalDate>, TreeTableCell<DailyPrep, LocalDate>>() {
+            @Override
+            public TreeTableCell<DailyPrep, LocalDate> call(TreeTableColumn<DailyPrep, LocalDate> param) {
+                return new DateCellTreeTable<>();
+            }
+        });
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         tableView.setShowRoot(false);
         tableView.setRoot(rootItem);
@@ -114,7 +122,8 @@ public class DailyPrepController extends Pane implements Initializable {
         mainController.showModal(addDailyPrep);
     }
 
-    void populateDailyPrep(FilteredList<DailyPrep> dailyPrep, TreeItem<Object> rootTreeItem) {
+    void populateDailyPrep(FilteredList<DailyPrep> dailyPrep,
+                           TreeItem<Object> rootTreeItem) {
         dailyPrep.forEach(item -> {
                     TreeItem<Object> date = new TreeItem<>(item);
                     for (DailyPrepItems symbol : item.getDailyPrepItemsList()) {
