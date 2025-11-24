@@ -19,6 +19,13 @@
                     <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades"/>
                 </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Symbols">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#addSymbol" text="Add symbol"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exportSymbols" text="Export all symbols"/>
+                    <MenuItem mnemonicParsing="false" onAction="#importSymbolFile" text="Import symbols from file"/>
+                </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About"/>

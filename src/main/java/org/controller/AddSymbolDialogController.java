@@ -1,6 +1,7 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,6 +20,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static org.manager.DTOManager.addSymbol;
+import static org.manager.DTOManager.removeSymbol;
 import static org.utilities.Utilities.isDoubleNumeric;
 
 public class AddSymbolDialogController implements Initializable {
@@ -35,21 +37,28 @@ public class AddSymbolDialogController implements Initializable {
     @FXML
     TableView<Symbol> symbolTable;
     @FXML
-    public TableColumn<Symbol, LocalDate> colDate;
+    TableColumn<Symbol, LocalDate> colDate;
     @FXML
-    public TableColumn<Symbol, String> colSymbol;
+    TableColumn<Symbol, String> colSymbol;
     @FXML
-    public TableColumn<Symbol, Double> colCommission;
+    TableColumn<Symbol, Double> colCommission;
     @FXML
-    public TableColumn<Symbol, Double> colFluctuation;
+    TableColumn<Symbol, Double> colFluctuation;
     @FXML
-    public TableColumn<Symbol, Double> colTickValue;
+    TableColumn<Symbol, Double> colTickValue;
+    @FXML
+    Button deleteBtn;
 
     MainController mainController = ControllerRegistry.get(MainController.class);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        deleteBtn.setDisable(true);
+        deleteBtn.getStyleClass().add(Styles.DANGER);
 
+        symbolTable.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
+            deleteBtn.setDisable(false);
+        });
         symbolTable.setItems(GlobalContext.getFilteredSymbolList());
 
         colDate.setCellValueFactory(new PropertyValueFactory<Symbol, LocalDate>("date"));
@@ -116,7 +125,7 @@ public class AddSymbolDialogController implements Initializable {
 
     @FXML
     public void setSymbol() {
-        symbol.pseudoClassStateChanged(Styles.STATE_DANGER, !Objects.isNull(symbol.getText()));
+        symbol.pseudoClassStateChanged(Styles.STATE_DANGER, Objects.isNull(symbol.getText()));
     }
 
     @FXML
@@ -132,5 +141,11 @@ public class AddSymbolDialogController implements Initializable {
     @FXML
     public void setTickValue() {
         tickValue.pseudoClassStateChanged(Styles.STATE_DANGER, !isDoubleNumeric(tickValue.getText()));
+    }
+
+    public void deleteSymbol() {
+        Symbol selectedSymbol = symbolTable.getSelectionModel().getSelectedItem();
+        removeSymbol(selectedSymbol);
+        GlobalContext.removeSymbolFromMasterList(selectedSymbol);
     }
 }

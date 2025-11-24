@@ -50,6 +50,10 @@ public class GlobalContext {
         symbolsMasterList.addAll(symbols);
     }
 
+    public static void removeSymbolFromMasterList(Symbol symbol) {
+        symbolsMasterList.remove(symbol);
+    }
+
     public static void addSymbolToMasterList(Symbol symbol) {
         symbolsMasterList.add(symbol);
     }

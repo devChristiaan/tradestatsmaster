@@ -10,9 +10,13 @@ public class SymbolDTO extends Symbol implements Serializable {
         this.listOfSymbols.add(symbol);
     }
 
-    public ArrayList<Symbol> deleteSymbol(Symbol symbol) {
-        this.listOfSymbols.remove(symbol);
-        return listOfSymbols;
+    public void addAllSymbols(ArrayList<Symbol> listOfSymbols) {
+        this.listOfSymbols.addAll(listOfSymbols);
+    }
+
+    public void deleteSymbol(Symbol symbol) {
+        Symbol symbolIndex = listOfSymbols.stream().filter(p -> p.getSymbol().equals(symbol.getSymbol())).findFirst().orElse(null);
+        this.listOfSymbols.remove(symbolIndex);
     }
 
     public ArrayList<Symbol> getSymbols() {

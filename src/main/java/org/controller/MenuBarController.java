@@ -1,15 +1,18 @@
 package org.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 import org.utilities.AppProperties;
 
@@ -20,8 +23,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static org.service.csvReader.getAllTransactions;
-import static org.service.csvReader.writeItemsToCSV;
+import static org.manager.DTOManager.addAllSymbol;
+import static org.service.csvReader.*;
 import static org.utilities.Utilities.closeApp;
 
 public class MenuBarController extends VBox implements Initializable {
@@ -152,6 +155,41 @@ public class MenuBarController extends VBox implements Initializable {
                 "© 2025 " + title + "\n" +
                 "All rights reserved.");
         alertAbout.showAndWait();
+    }
+
+    @FXML
+    void addSymbol() {
+        Node addTransactionDialog;
+        try {
+            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/addSymbolDialog.fxml")).load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        MainController mainController = ControllerRegistry.get(MainController.class);
+        mainController.showModal(addTransactionDialog);
+    }
+
+    @FXML
+    void exportSymbols() throws IOException {
+        String path = csvDirectorySelector("Symbols");
+        if (path != null) {
+            writeItemsToCSV(GlobalContext.getFilteredSymbolList(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    void importSymbolFile() {
+        String file = csvFileSelector();
+        if (file != null) {
+            List<Symbol> importedSymbols = getAllSymbols(file);
+            addAllSymbol(importedSymbols);
+            GlobalContext.setSymbolsMasterList(importedSymbols);
+            fileSuccessAlert.setContentText("File successfully imported!");
+            fileSuccessAlert.showAndWait();
+        }
     }
 
 }

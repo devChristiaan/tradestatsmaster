@@ -7,6 +7,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.app.App;
 import org.model.Formation;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 
 import java.io.IOException;
@@ -35,6 +36,17 @@ public class csvReader {
             throw new RuntimeException(e);
         }
         return transactions;
+    }
+
+    public static List<Symbol> getAllSymbols(String fileLocation) {
+        List<Symbol> symbols;
+        try {
+            FileReader fileReader = new FileReader(fileLocation);
+            symbols = new CsvToBeanBuilder<Symbol>(fileReader).withType(Symbol.class).build().parse();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return symbols;
     }
 
     public static <T> void writeItemsToCSV(List<T> items,

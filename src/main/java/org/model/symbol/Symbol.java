@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Symbol implements Serializable {
-    @CsvBindByName(column = "date", required = true)
     @CsvDate("dd/MM/yyyy")
+    @CsvBindByName(column = "date", required = true)
     LocalDate date;
     @CsvBindByName(column = "symbol", required = true)
     String symbol;

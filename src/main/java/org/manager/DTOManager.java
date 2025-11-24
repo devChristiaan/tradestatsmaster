@@ -4,6 +4,7 @@ import org.model.symbol.Symbol;
 import org.model.symbol.SymbolDTO;
 import org.service.DataObjectService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DTOManager {
@@ -20,6 +21,23 @@ public class DTOManager {
         SymbolDTO symbols = DataObjectService.loadObject(DataObjectService.DataObjectFileType.SYMBOLS);
         if (symbols != null) {
             symbols.addSymbol(symbol);
+            DataObjectService.saveObject(symbols, DataObjectService.DataObjectFileType.SYMBOLS);
+        }
+    }
+
+    public static void removeSymbol(Symbol symbol) {
+        SymbolDTO symbols = DataObjectService.loadObject(DataObjectService.DataObjectFileType.SYMBOLS);
+        if (symbols != null) {
+            symbols.deleteSymbol(symbol);
+            DataObjectService.saveObject(symbols, DataObjectService.DataObjectFileType.SYMBOLS);
+        }
+    }
+
+
+    public static void addAllSymbol(List<Symbol> symbolList) {
+        SymbolDTO symbols = DataObjectService.loadObject(DataObjectService.DataObjectFileType.SYMBOLS);
+        if (symbols != null) {
+            symbols.addAllSymbols(new ArrayList<>(symbolList));
             DataObjectService.saveObject(symbols, DataObjectService.DataObjectFileType.SYMBOLS);
         }
     }
