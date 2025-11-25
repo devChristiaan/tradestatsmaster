@@ -1,10 +1,10 @@
 # Trade Stats Master
 
-An Excel replace for tracking scalping trades and calculating various statics based on the trades made.
+An Excel replacement for tracking scalping trades and calculating various statics based on performance.
 
 ## Description
 
-Trade Stats Master is used to record and analise trading performance by calculating statics about a broad range of
+Trade Stats Master is used to record and analyse trading performance by calculating statistics about a broad range of
 metrics in real time. Data can be filtered to focus on results for certain data ranges.
 
 [//]: # (## Getting Started)
