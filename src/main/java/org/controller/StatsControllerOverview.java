@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
+import org.model.account.Account;
 import org.model.transaction.Transaction;
 import org.utilities.CalculateStatsOverview;
 
@@ -64,16 +65,15 @@ public class StatsControllerOverview extends VBox implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ControllerRegistry.register(StatsControllerOverview.class, this);
+        populateAccountBalance();
 
-        double accountBalance = calculateAccountBalance(GlobalContext.getTransactionsMasterList());
-        BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
-
-        accountBal.setText("$ " + getTextFormater().format(accountBalance));
-        accountBalPercentage.setText("$ " + getTextFormater().format(accountBalancePercentage));
-
-        ///Set Transaction Listener
+        ///Set Transaction and Account Balance Listeners
+        GlobalContext.getFilteredTransactionsList().addListener((ListChangeListener<? super Account>) c -> {
+            populateAccountBalance();
+        });
         GlobalContext.getFilteredTransactions().addListener((ListChangeListener<? super Transaction>) c -> {
             this.populateStatsOverview(new CalculateStatsOverview(GlobalContext.getFilteredTransactions()));
+            populateAccountBalance();
         });
 
         ///Set Initial Stat values
@@ -99,5 +99,13 @@ public class StatsControllerOverview extends VBox implements Initializable {
         insideReversalBar.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Inside Reversal Bar")).findFirst().get().getWinRate() + " %");
         HH_LL.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest High/Lowest Low")).findFirst().get().getWinRate() + " %");
         HH_LL_3_Days.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest high/Lowest Low of 3 days")).findFirst().get().getWinRate() + " %");
+    }
+
+    private void populateAccountBalance() {
+        Double accountBalance = calculateAccountBalance(GlobalContext.getFilteredTransactionsList().stream().mapToDouble(Account::getAmount).sum());
+        BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
+
+        accountBal.setText("$ " + getTextFormater().format(accountBalance));
+        accountBalPercentage.setText("$ " + getTextFormater().format(accountBalancePercentage));
     }
 }

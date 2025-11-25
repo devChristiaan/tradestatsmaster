@@ -37,9 +37,6 @@ public class GlobalContext {
     private static ObservableList<Account> accountMasterList = FXCollections.observableList(new ArrayList<>());
     private static FilteredList<Account> filteredAccountList = new FilteredList<>(accountMasterList, p -> true);
 
-    /// Temp solution -- need to fix with a user entered number
-    public static double openingBalance = 30683.89;
-
     public enum ContextItems {
         FORMATION_LIST,
     }
