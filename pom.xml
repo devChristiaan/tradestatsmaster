@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.app</groupId>
     <artifactId>TradeStatsMaster</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
     <name>Trade Stats Master</name>
     <properties>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>io.github.mkpaz</groupId>
             <artifactId>atlantafx-base</artifactId>
-            <version>2.0.0</version>
+            <version>2.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.openjfx</groupId>
@@ -117,6 +117,8 @@
                     <reflectionList>
                         <list>org.controller.AddTransactionDialog</list>
                         <list>org.controller.AddDayDialogController</list>
+                        <list>org.controller.AddSymbolDialogController</list>
+                        <list>org.controller.AccountBalanceDialogController</list>
                         <list>org.controller.MenuBarController</list>
                         <list>org.controller.StatsController</list>
                         <list>org.controller.StatsControllerOverview</list>
@@ -129,7 +131,7 @@
                     <releaseConfiguration>
                         <description>Trading statistics app</description>
                         <vendor>Hougaard</vendor>
-                        <version>${version}</version>
+                        <version>${project.version}</version>
                     </releaseConfiguration>
                 </configuration>
             </plugin>

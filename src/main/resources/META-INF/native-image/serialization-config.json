@@ -1,5 +1,29 @@
 {
   "types":[
+    {
+      "name":"java.lang.Double"
+    },
+    {
+      "name":"java.lang.Number"
+    },
+    {
+      "name":"java.time.Ser"
+    },
+    {
+      "name":"java.util.ArrayList"
+    },
+    {
+      "name":"org.model.account.Account"
+    },
+    {
+      "name":"org.model.account.AccountDTO"
+    },
+    {
+      "name":"org.model.symbol.Symbol"
+    },
+    {
+      "name":"org.model.symbol.SymbolDTO"
+    }
   ],
   "lambdaCapturingTypes":[
   ]
