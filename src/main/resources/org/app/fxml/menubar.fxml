@@ -12,11 +12,25 @@
                     <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close"/>
                 </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Data">
+            <Menu mnemonicParsing="false" text="Trade Data">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range"/>
                     <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all"/>
                     <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades"/>
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Symbols">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#addSymbol" text="Add symbol"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exportSymbols" text="Export all symbols"/>
+                    <MenuItem mnemonicParsing="false" onAction="#importSymbolFile" text="Import symbols from file"/>
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Account Maintenance">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#manageBalance" text="Manage balance"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exportTransactions" text="Export all transactions"/>
+                    <MenuItem mnemonicParsing="false" onAction="#importTransactionsFile" text="Import transactions from file"/>
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

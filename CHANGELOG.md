@@ -4,11 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2025-11-22
+## [Unreleased] - 2025-11-24
 
-Next minor release will focus on externalizing the symbols list and the account balance section so user can manually add new symbols and update account balances.
+To be determined.
 
 ### Changed
+
+## [1.5.0] - 2025-11-24
+
+Major Features Added:
+- Added symbol maintenance in the toolbar. Users can now add symbols plus import and export to csv.
+- Added symbol maintenance in the toolbar. Users can now add symbols plus import and export to csv.
+
+Fixes included:
+- Fixed Date display format for all tables and input boxes to be consistent throughout the app.
+- Simplified some verbiage used in the stats overview section
 
 ## [1.4.0] - 2025-11-22
 

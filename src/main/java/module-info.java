@@ -18,6 +18,8 @@ module org.app {
     exports org.model;
     exports org.model.transaction;
     exports org.model.dailyPrep;
+    exports org.model.symbol;
+    exports org.model.account;
     exports org.context;
     exports org.manager;
     opens org.app to javafx.fxml;

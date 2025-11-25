@@ -1,6 +1,7 @@
 package org.utilities;
 
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TreeTableCell;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,3 +22,4 @@ public class DateCell<S> extends TableCell<S, LocalDate> {
         }
     }
 }
+

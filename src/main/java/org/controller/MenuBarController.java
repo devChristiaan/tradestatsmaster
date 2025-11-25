@@ -1,15 +1,19 @@
 package org.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
+import org.model.account.Account;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 import org.utilities.AppProperties;
 
@@ -20,8 +24,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static org.service.csvReader.getAllTransactions;
-import static org.service.csvReader.writeTransactionsToCSV;
+import static org.manager.DTOManager.addAllAccountTransactions;
+import static org.manager.DTOManager.addAllSymbol;
+import static org.service.csvReader.*;
 import static org.utilities.Utilities.closeApp;
 
 public class MenuBarController extends VBox implements Initializable {
@@ -30,7 +35,7 @@ public class MenuBarController extends VBox implements Initializable {
     MenuBar menuBar;
 
     FileChooser fileChooser = new FileChooser();
-    DirectoryChooser directoryChooser = new DirectoryChooser();
+    FileChooser exportFileChooser = new FileChooser();
     Alert fileFailureAlert = new Alert(Alert.AlertType.ERROR);
     Alert fileSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
     Alert alertAbout = new Alert(Alert.AlertType.INFORMATION);
@@ -83,9 +88,9 @@ public class MenuBarController extends VBox implements Initializable {
 
     @FXML
     public void exportAll() throws IOException {
-        String path = csvDirectorySelector();
+        String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeTransactionsToCSV((List<Transaction>) GlobalContext.getTransactionsMasterList(), path);
+            writeItemsToCSV(GlobalContext.getTransactionsMasterList(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -93,9 +98,9 @@ public class MenuBarController extends VBox implements Initializable {
 
     @FXML
     public void exportSelection() throws IOException {
-        String path = csvDirectorySelector();
+        String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeTransactionsToCSV((List<Transaction>) GlobalContext.getFilteredTransactions(), path);
+            writeItemsToCSV(GlobalContext.getFilteredTransactions(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -113,13 +118,17 @@ public class MenuBarController extends VBox implements Initializable {
         }
     }
 
-    private String csvDirectorySelector() {
-        directoryChooser.setTitle("Save CSV file");
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        File selectedFile = directoryChooser.showDialog(menuBar.getScene().getWindow());
+    private String csvDirectorySelector(String defaultFileName) {
+        exportFileChooser.setTitle("Save CSV file");
+        exportFileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        exportFileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Comma Seperated Values", "*.csv")
+        );
+        exportFileChooser.setInitialFileName(defaultFileName + ".csv");
+        File selectedFile = exportFileChooser.showSaveDialog(menuBar.getScene().getWindow());
 
         if (selectedFile != null) {
-            return selectedFile.getPath();
+            return selectedFile.getAbsolutePath();
         } else {
             System.out.println("No File Selected");
             return null;
@@ -148,6 +157,76 @@ public class MenuBarController extends VBox implements Initializable {
                 "© 2025 " + title + "\n" +
                 "All rights reserved.");
         alertAbout.showAndWait();
+    }
+
+    @FXML
+    void addSymbol() {
+        Node addTransactionDialog;
+        try {
+            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/addSymbolDialog.fxml")).load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        MainController mainController = ControllerRegistry.get(MainController.class);
+        mainController.showModal(addTransactionDialog);
+    }
+
+    @FXML
+    void exportSymbols() throws IOException {
+        String path = csvDirectorySelector("Symbols");
+        if (path != null) {
+            writeItemsToCSV(GlobalContext.getFilteredSymbolList(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    void importSymbolFile() {
+        String file = csvFileSelector();
+        if (file != null) {
+            List<Symbol> importedSymbols = getAllSymbols(file);
+            addAllSymbol(importedSymbols);
+            GlobalContext.setSymbolsMasterList(importedSymbols);
+            fileSuccessAlert.setContentText("File successfully imported!");
+            fileSuccessAlert.showAndWait();
+        }
+    }
+
+    @FXML
+    void manageBalance() {
+        Node addTransactionDialog;
+        try {
+            addTransactionDialog = new FXMLLoader(getClass().getResource("/org/app/fxml/AccountBalanceDialog.fxml")).load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        MainController mainController = ControllerRegistry.get(MainController.class);
+        mainController.showModal(addTransactionDialog);
+    }
+
+    @FXML
+    void importTransactionsFile() {
+        String file = csvFileSelector();
+        if (file != null) {
+            List<Account> importedTransactions = getAllAccountTransactions(file);
+            addAllAccountTransactions(importedTransactions);
+            GlobalContext.setAccountTransactionsMasterList(importedTransactions);
+            fileSuccessAlert.setContentText("File successfully imported!");
+            fileSuccessAlert.showAndWait();
+        }
+    }
+
+    @FXML
+    void exportTransactions() throws IOException {
+        String path = csvDirectorySelector("Account_Transactions");
+        if (path != null) {
+            writeItemsToCSV(GlobalContext.getFilteredTransactionsList(), path);
+            fileSuccessAlert.setContentText("File successfully exported!");
+            fileSuccessAlert.showAndWait();
+        }
+
     }
 
 }

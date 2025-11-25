@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="600.0" maxWidth="600.0" style="-fx-background-color: -color-bg-default;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.AddSymbolDialogController">
+    <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+        <Text layoutX="43.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new Symbol:" wrappingWidth="184.0859375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Label layoutX="302.0" layoutY="14.0" text="Date">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <DatePicker fx:id="date" layoutX="302.0" layoutY="39.0" prefHeight="25.0" prefWidth="208.0" />
+        <Separator layoutX="43.0" layoutY="230.0" prefHeight="3.0" prefWidth="465.0" />
+        <Label layoutX="43.0" layoutY="89.0" text="Symbol">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="symbol" layoutX="43.0" layoutY="116.0" onKeyTyped="#setSymbol" prefHeight="25.0" prefWidth="208.0" />
+        <Label layoutX="305.0" layoutY="90.0" text="Commission">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="commission" layoutX="305.0" layoutY="117.0" onKeyTyped="#setCommission" prefHeight="25.0" prefWidth="208.0" />
+        <Label layoutX="43.0" layoutY="157.0" text="Fluctuation">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="fluctuation" layoutX="43.0" layoutY="184.0" onKeyTyped="#setFluctuation" prefHeight="25.0" prefWidth="208.0" />
+        <Label layoutX="305.0" layoutY="158.0" text="Tick Value">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="tickValue" layoutX="305.0" layoutY="185.0" onKeyTyped="#setTickValue" prefHeight="25.0" prefWidth="208.0" />
+        <Separator layoutX="48.0" layoutY="510.0" prefHeight="3.0" prefWidth="465.0" />
+        <ButtonBar layoutX="76.0" layoutY="528.0" prefHeight="40.0" prefWidth="400.0">
+            <buttons>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#saveTransaction" prefHeight="25.0" prefWidth="121.0" text="Save" />
+                <Button cancelButton="true" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="121.0" text="Cancel" />
+                <Button fx:id="deleteBtn" defaultButton="true" minWidth="23.0" mnemonicParsing="false" onAction="#deleteSymbol" prefHeight="25.0" prefWidth="200.0" text="Delete Symbol" />
+            </buttons>
+        </ButtonBar>
+        <TableView fx:id="symbolTable" layoutX="47.0" layoutY="260.0" prefHeight="247.0" prefWidth="465.0">
+            <columns>
+                <TableColumn fx:id="colDate" prefWidth="93.0" text="Date" />
+                <TableColumn fx:id="colSymbol" prefWidth="76.0" text="Symbol" />
+                <TableColumn fx:id="colCommission" prefWidth="100.0" text="Commission" />
+                <TableColumn fx:id="colFluctuation" prefWidth="100.0" text="Fluctuation" />
+                <TableColumn fx:id="colTickValue" prefWidth="100.0" text="Tick Value" />
+            </columns>
+        </TableView>
+    </AnchorPane>
+</VBox>

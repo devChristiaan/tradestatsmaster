@@ -102,8 +102,8 @@ public class Utilities {
         return bd.doubleValue();
     }
 
-    public static double calculateAccountBalance(ObservableList<Transaction> transactions) {
-        double accountBalance = GlobalContext.openingBalance;
+    public static double calculateAccountBalance(Double openingBalance) {
+        double accountBalance = openingBalance;
         for (Transaction tran : GlobalContext.getTransactionsMasterList()) {
             accountBalance += tran.getProfit();
             accountBalance -= tran.getCommission();

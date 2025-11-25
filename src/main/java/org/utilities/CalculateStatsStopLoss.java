@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import lombok.Getter;
 import org.context.GlobalContext;
 import org.model.Formation;
-import org.model.Symbol;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ public class CalculateStatsStopLoss {
     DecimalFormat df = getTextFormater();
 
     private final List<Formation> formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
-    private final List<Symbol> symbolList = (List<Symbol>) GlobalContext.get(GlobalContext.ContextItems.SYMBOL_LIST);
+    private final List<Symbol> symbolList = GlobalContext.getFilteredSymbolList();
     private List<Formation> formationsWinRate = new ArrayList<>();
 
     private double targetProfits = 0.0;
@@ -116,7 +116,7 @@ public class CalculateStatsStopLoss {
 
     private void calculateProfits(List<Transaction> transactions) {
         for (Transaction transaction : transactions) {
-            Float symbolTickValue = symbolList.stream().filter(p -> p.getSymbol().equals(transaction.getSymbol())).findFirst().get().getTickValue();
+            Double symbolTickValue = symbolList.stream().filter(p -> p.getSymbol().equals(transaction.getSymbol())).findFirst().get().getTickValue();
             possibleProfits += transaction.getPossibleProfitTicks() * symbolTickValue;
             possibleLosses += transaction.getPossibleLossTicks() * symbolTickValue;
         }

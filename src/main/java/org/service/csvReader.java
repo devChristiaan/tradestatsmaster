@@ -7,7 +7,8 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.app.App;
 import org.model.Formation;
-import org.model.Symbol;
+import org.model.account.Account;
+import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 
 import java.io.IOException;
@@ -19,12 +20,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class csvReader {
-    public static List<Symbol> getAllSymbols() throws IOException {
-        List<Symbol> symbols;
-        InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/data/symbol.csv")));
-        symbols = new CsvToBeanBuilder<Symbol>(reader).withType(Symbol.class).build().parse();
-        return symbols;
-    }
 
     public static List<Formation> getAllFormations() throws IOException {
         List<Formation> formations;
@@ -44,14 +39,38 @@ public class csvReader {
         return transactions;
     }
 
-    public static void writeTransactionsToCSV(List<Transaction> transactions, String path) throws IOException {
-        Writer writer = new FileWriter(path + "/" + "transactions.csv");
-        StatefulBeanToCsv<Transaction> beanToCsv = new StatefulBeanToCsvBuilder<Transaction>(writer)
+    public static List<Symbol> getAllSymbols(String fileLocation) {
+        List<Symbol> symbols;
+        try {
+            FileReader fileReader = new FileReader(fileLocation);
+            symbols = new CsvToBeanBuilder<Symbol>(fileReader).withType(Symbol.class).build().parse();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return symbols;
+    }
+
+    public static List<Account> getAllAccountTransactions(String fileLocation) {
+        List<Account> transactions;
+        try {
+            FileReader fileReader = new FileReader(fileLocation);
+            transactions = new CsvToBeanBuilder<Account>(fileReader).withType(Account.class).build().parse();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return transactions;
+    }
+
+    public static <T> void writeItemsToCSV(List<T> items,
+                                           String path) throws IOException {
+        Writer writer = new FileWriter(path);
+        StatefulBeanToCsv<T> beanToCsv = new StatefulBeanToCsvBuilder<T>(writer)
                 .build();
         try {
-            beanToCsv.write(transactions);
+            beanToCsv.write(items);
             writer.close();
-        } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
+        } catch (CsvRequiredFieldEmptyException |
+                 CsvDataTypeMismatchException e) {
             throw new RuntimeException(e);
         }
     }

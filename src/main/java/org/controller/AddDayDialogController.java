@@ -13,7 +13,7 @@ import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
 import org.manager.DbManager;
-import org.model.Symbol;
+import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 
@@ -49,7 +49,7 @@ public class AddDayDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
-        this.symbolList = (List<Symbol>) GlobalContext.get(GlobalContext.ContextItems.SYMBOL_LIST);
+        this.symbolList = GlobalContext.getFilteredSymbolList();
 
         this.mainController = ControllerRegistry.get(MainController.class);
 
