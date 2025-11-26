@@ -4,11 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2025-11-24
+## [Unreleased] - 2025-11-26
 
-To be determined.
+New Features Planned:
+ - Goal setting section
+ - Business rules setting
 
 ### Changed
+
+## [1.6.0] - 2025-11-24
+
+Major Features Added:
+
+Added a trading journal. Entries are grouped by date and then further divided by symbols keep the notes specific to the symbol making it easier to keep the thoughts focused and condense.
 
 ## [1.5.0] - 2025-11-24
 
