@@ -57,6 +57,7 @@ public class App extends Application {
         db.dbStartUpChecks(db);
         GlobalContext.setTransactionsMasterList(db.getAllTransactions());
         GlobalContext.setDailyPrepMasterList(db.getAllDailyPrepData());
+        GlobalContext.setJournalEntriesMasterList(db.getAllJournalEntries());
 
         ///Serialized DTO Object
         GlobalContext.setSymbolsMasterList(getAllSymbols());

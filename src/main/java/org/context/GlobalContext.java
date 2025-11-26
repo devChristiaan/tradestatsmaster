@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import org.model.account.Account;
+import org.model.journal.Journal;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.transaction.Transaction;
@@ -29,6 +30,10 @@ public class GlobalContext {
     private static ObservableList<DailyPrep> dailyPrepMasterList = FXCollections.observableList(new ArrayList<>());
     private static FilteredList<DailyPrep> filteredDailyPrep = new FilteredList<>(dailyPrepMasterList, p -> true);
 
+    /// Journal Entries Vars
+    private static ObservableList<Journal> journalEntriesMasterList = FXCollections.observableList(new ArrayList<>());
+    private static FilteredList<Journal> filteredJournalEntries = new FilteredList<>(journalEntriesMasterList, p -> true);
+
     /// Symbols
     private static ObservableList<Symbol> symbolsMasterList = FXCollections.observableList(new ArrayList<>());
     private static FilteredList<Symbol> filteredSymbolList = new FilteredList<>(symbolsMasterList, p -> true);
@@ -47,6 +52,23 @@ public class GlobalContext {
 
     public static Object get(ContextItems itemName) {
         return globalContext.get(itemName);
+    }
+
+    public static void setJournalEntriesMasterList(List<Journal> listOfJournalEntries) {
+        journalEntriesMasterList.addAll(listOfJournalEntries);
+    }
+
+    public static List<Journal> getJournalEntriesMasterList() {
+        return journalEntriesMasterList;
+    }
+
+    public static FilteredList<Journal> getFilteredJournalEntriesList() {
+        return filteredJournalEntries;
+    }
+
+    public static void reSetJournalEntriesList(List<Journal> list) {
+        journalEntriesMasterList.clear();
+        journalEntriesMasterList.addAll(list);
     }
 
     public static void setAccountTransactionsMasterList(List<Account> listOfAccountTransactions) {

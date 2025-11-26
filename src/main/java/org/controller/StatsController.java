@@ -65,6 +65,12 @@ public class StatsController extends VBox implements Initializable {
                 }
                 return dailyPrepDate.getDate().isAfter(newValue.minusDays(1)) && dailyPrepDate.getDate().isBefore(toDate.getValue().plusDays(1));
             });
+            GlobalContext.getFilteredJournalEntriesList().setPredicate(journal -> {
+                if (journal == null) {
+                    return true;
+                }
+                return journal.getDate().isAfter(newValue.minusDays(1)) && journal.getDate().isBefore(toDate.getValue().plusDays(1));
+            });
         });
         toDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             GlobalContext.getFilteredTransactions().setPredicate(transaction -> {
@@ -78,6 +84,12 @@ public class StatsController extends VBox implements Initializable {
                     return true;
                 }
                 return dailyPrepDate.getDate().isBefore(newValue.plusDays(1)) && dailyPrepDate.getDate().isAfter(fromDate.getValue().minusDays(1));
+            });
+            GlobalContext.getFilteredJournalEntriesList().setPredicate(journal -> {
+                if (journal == null) {
+                    return true;
+                }
+                return journal.getDate().isBefore(newValue.plusDays(1)) && journal.getDate().isAfter(fromDate.getValue().minusDays(1));
             });
         });
 

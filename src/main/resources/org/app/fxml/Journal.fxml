@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox prefHeight="1080.0" prefWidth="1470.0" stylesheets="@../CSS/Journal.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.JournalController">
+    <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <Button mnemonicParsing="false" onAction="#addDay" text="Add Day / Journal Entry">
+            <graphic>
+                <FontIcon iconLiteral="mdmz-plus" iconSize="12" />
+            </graphic>
+        </Button>
+        <Separator orientation="VERTICAL">
+            <padding>
+                <Insets left="8.0" right="8.0" />
+            </padding>
+        </Separator>
+        <Button fx:id="deleteSymbol" mnemonicParsing="false" onAction="#deleteSymbol" text="Delete Symbol Entry">
+            <graphic>
+                <FontIcon iconLiteral="mdal-delete_outline" iconSize="12" />
+            </graphic>
+        </Button>
+        <Button fx:id="deleteDay" mnemonicParsing="false" onAction="#deleteDay" text="Delete Entire Day">
+            <graphic>
+                <FontIcon iconLiteral="mdal-delete_outline" iconSize="12" />
+            </graphic>
+        </Button>
+    </ToolBar>
+    <SplitPane dividerPositions="0.0" prefHeight="1080.0" prefWidth="1470.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1080.0" prefWidth="385.0">
+            <TreeTableView fx:id="tableView" layoutY="-2.0" minHeight="1080.0" minWidth="275.0" prefWidth="600.0">
+                <columns>
+                    <TreeTableColumn fx:id="dateColumn" editable="false" prefWidth="132.0" sortable="false" text="Date" />
+                    <TreeTableColumn fx:id="symbolColumn" prefWidth="142.0" text="Symbol" />
+                </columns>
+            </TreeTableView>
+        </AnchorPane>
+        <VBox prefHeight="1080.0" prefWidth="800.0">
+            <HBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="1462.0">
+                <VBox.margin>
+                    <Insets top="16.0" />
+                </VBox.margin>
+                <Label prefHeight="27.0" prefWidth="94.0" text="Journal For:">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
+                <Label fx:id="symbolLabel" prefHeight="27.0" prefWidth="68.0">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="4.0" />
+                    </HBox.margin>
+                </Label>
+            </HBox>
+            <Separator prefWidth="200.0">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </Separator>
+            <VBox prefHeight="700.0" prefWidth="1462.0">
+                <VBox.margin>
+                    <Insets top="12.0" />
+                </VBox.margin>
+                <TextArea fx:id="textArea" prefHeight="700.0" prefWidth="700.0" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font></TextArea>
+            </VBox>
+            <HBox alignment="CENTER">
+                <VBox.margin>
+                    <Insets top="24.0" />
+                </VBox.margin>
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancelBtn" prefWidth="80.0" text="Clear">
+                    <HBox.margin>
+                        <Insets right="32.0" />
+                    </HBox.margin>
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveText" prefWidth="80.0" text="Save">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </SplitPane>
+</VBox>

@@ -20,6 +20,7 @@ module org.app {
     exports org.model.dailyPrep;
     exports org.model.symbol;
     exports org.model.account;
+    exports org.model.journal;
     exports org.context;
     exports org.manager;
     opens org.app to javafx.fxml;

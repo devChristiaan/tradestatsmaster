@@ -3,6 +3,7 @@ package org.manager;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepDate;
 import org.model.dailyPrep.DailyPrepItems;
+import org.model.journal.Journal;
 import org.model.transaction.Transaction;
 import org.service.SqliteConnection;
 
@@ -162,6 +163,26 @@ public class DbManager {
                         "hh_ll_any_high REAL,\n" +
                         "hh_ll_any_low REAL,\n" +
                         "FOREIGN KEY (dailyPrepDateId) REFERENCES parent_table(DailyPrepDate) ON DELETE CASCADE ON UPDATE NO ACTION\n" +
+                        ");";
+                statement.execute(createTableSQL);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                statement.close();
+            }
+        }
+    }
+
+    public void createJournalTable(DbManager db) throws SQLException {
+        if (db.isDbConnected()) {
+            Statement statement = null;
+            try {
+                statement = bdConnection.createStatement();
+                String createTableSQL = "CREATE TABLE IF NOT EXISTS Journal (" +
+                        "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                        "date ANY NOT NULL," +
+                        "text TEXT NOT NULL," +
+                        "symbol TEXT NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
             } catch (SQLException e) {
@@ -554,26 +575,118 @@ public class DbManager {
         }
     }
 
+    public List<Journal> getAllJournalEntries() throws SQLException {
+        if (isDbConnected()) {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            String query = "select * from Journal ORDER BY date ASC";
+            try {
+                ps = bdConnection.prepareStatement(query);
+                rs = ps.executeQuery();
+                List<Journal> journalEntries = new ArrayList<>();
+                while (rs.next()) {
+                    journalEntries.add(new Journal(
+                            rs.getInt("id"),
+                            rs.getDate("date").toLocalDate(),
+                            rs.getString("symbol"),
+                            rs.getString("text")
+                    ));
+                }
+                return journalEntries;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                ps.close();
+                rs.close();
+            }
+        }
+        System.out.println("Get All Journal Entries failed! DB is not connected");
+        return null;
+    }
+
+    public void addJournalEntry(Journal journal) throws SQLException {
+        if (isDbConnected()) {
+            PreparedStatement ps = null;
+            String query = "insert into Journal(date, symbol, text) VALUES(?,?,?)";
+            try {
+                ps = bdConnection.prepareStatement(query);
+                ps.setDate(1, Date.valueOf(journal.getDate()));
+                ps.setString(2, journal.getSymbol());
+                ps.setString(3, journal.getText());
+                ps.executeUpdate();
+                ps.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void deleteJournalDay(LocalDate date) throws SQLException {
+        if (isDbConnected()) {
+            String sql = "DELETE FROM Journal WHERE date = ?";
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = bdConnection.prepareStatement(sql);
+                preparedStatement.setDate(1, Date.valueOf(date)); //
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteJourneyEntryBySymbol(int id) throws SQLException {
+        if (isDbConnected()) {
+            String sql = "DELETE FROM Journal WHERE id = ?";
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = bdConnection.prepareStatement(sql);
+                preparedStatement.setInt(1, id); // Set the ID value
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateJournalEntrySymbol(
+            Journal entry) throws SQLException {
+        PreparedStatement ps = null;
+        String query = "update Journal set text = ? WHERE id = ?";
+        try {
+            ps = bdConnection.prepareStatement(query);
+            ps.setString(1, entry.getText());
+            ps.setInt(2, entry.getId());
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void dbStartUpChecks(DbManager db) throws SQLException {
         boolean transactionTable = doesTableExist("transactions", db);
         boolean isForeignKeyEnabled = foreignKeyEnabled(db);
         boolean dailyPrepDate = doesTableExist("DailyPrepDate", db);
         boolean dailyPrep = doesTableExist("DailyPrep", db);
+        boolean journal = doesTableExist("Journal", db);
 
         if (!transactionTable) {
             createTransactionTable(db);
         }
-
         if (!isForeignKeyEnabled) {
             enableForeignKeys(db);
         }
-
         if (!dailyPrepDate) {
             createDailyPrepDateTable(db);
         }
-
         if (!dailyPrep) {
             createDailyPrepTable(db);
+        }
+        if (!journal) {
+            createJournalTable(db);
         }
     }
 }
