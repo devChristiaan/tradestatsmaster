@@ -9,12 +9,17 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
+import org.model.dailyPrep.DailyPrep;
+import org.model.journal.Journal;
+import org.model.transaction.Transaction;
 
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ResourceBundle;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static org.context.GlobalContext.datePattern;
 import static org.utilities.Utilities.*;
@@ -53,44 +58,14 @@ public class StatsController extends VBox implements Initializable {
 
         ///Date Filter logic
         fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            GlobalContext.getFilteredTransactions().setPredicate(transaction -> {
-                if (transaction == null) {
-                    return true;
-                }
-                return transaction.getDate().isAfter(newValue.minusDays(1)) && transaction.getDate().isBefore(toDate.getValue().plusDays(1));
-            });
-            GlobalContext.getFilteredDailyPrep().setPredicate(dailyPrepDate -> {
-                if (dailyPrepDate == null) {
-                    return true;
-                }
-                return dailyPrepDate.getDate().isAfter(newValue.minusDays(1)) && dailyPrepDate.getDate().isBefore(toDate.getValue().plusDays(1));
-            });
-            GlobalContext.getFilteredJournalEntriesList().setPredicate(journal -> {
-                if (journal == null) {
-                    return true;
-                }
-                return journal.getDate().isAfter(newValue.minusDays(1)) && journal.getDate().isBefore(toDate.getValue().plusDays(1));
-            });
+            GlobalContext.getFilteredTransactions().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, toDate.getValue()));
+            GlobalContext.getFilteredDailyPrep().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, toDate.getValue()));
+            GlobalContext.getFilteredJournalEntriesList().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
         });
         toDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            GlobalContext.getFilteredTransactions().setPredicate(transaction -> {
-                if (transaction == null) {
-                    return true;
-                }
-                return transaction.getDate().isBefore(newValue.plusDays(1)) && transaction.getDate().isAfter(fromDate.getValue().minusDays(1));
-            });
-            GlobalContext.getFilteredDailyPrep().setPredicate(dailyPrepDate -> {
-                if (dailyPrepDate == null) {
-                    return true;
-                }
-                return dailyPrepDate.getDate().isBefore(newValue.plusDays(1)) && dailyPrepDate.getDate().isAfter(fromDate.getValue().minusDays(1));
-            });
-            GlobalContext.getFilteredJournalEntriesList().setPredicate(journal -> {
-                if (journal == null) {
-                    return true;
-                }
-                return journal.getDate().isBefore(newValue.plusDays(1)) && journal.getDate().isAfter(fromDate.getValue().minusDays(1));
-            });
+            GlobalContext.getFilteredTransactions().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, fromDate.getValue()));
+            GlobalContext.getFilteredDailyPrep().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, fromDate.getValue()));
+            GlobalContext.getFilteredJournalEntriesList().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
         });
 
         ///Set Styling Properties
@@ -124,6 +99,14 @@ public class StatsController extends VBox implements Initializable {
     @FXML
     private void setCurrentWeek() {
         fromDate.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
+    }
+
+    private <T> Predicate<T> setStartDatePredicate(Function<T, LocalDate> getter,
+                                                   LocalDate from,
+                                                   LocalDate to) {
+        LocalDate start = from.minusDays(1);
+        LocalDate end = to.plusDays(1);
+        return item -> item != null && getter.apply(item).isAfter(start) && getter.apply(item).isBefore(end);
     }
 
 }
