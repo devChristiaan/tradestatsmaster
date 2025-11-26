@@ -489,7 +489,10 @@
   "name":"javafx.scene.control.TextArea",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setWrapText","parameterTypes":["boolean"] }
+  ]
 },
 {
   "name":"javafx.scene.control.TextField",
@@ -499,7 +502,8 @@
 },
 {
   "name":"javafx.scene.control.TextInputControl",
-  "queryAllDeclaredMethods":true
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"setFont","parameterTypes":["javafx.scene.text.Font"] }]
 },
 {
   "name":"javafx.scene.control.ToggleButton",
@@ -827,6 +831,12 @@
   ]
 },
 {
+  "name":"org.controller.JournalController",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"org.controller.MainController",
   "allDeclaredFields":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
@@ -916,6 +926,17 @@
 },
 {
   "name":"org.model.dailyPrep.DailyPrepItems",
+  "methods":[
+    {"name":"getDate","parameterTypes":[] }, 
+    {"name":"getSymbol","parameterTypes":[] }
+  ],
+  "queriedMethods":[
+    {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, 
+    {"name":"setSymbol","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"org.model.journal.Journal",
   "methods":[
     {"name":"getDate","parameterTypes":[] }, 
     {"name":"getSymbol","parameterTypes":[] }

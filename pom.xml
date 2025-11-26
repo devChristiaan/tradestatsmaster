@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.app</groupId>
     <artifactId>TradeStatsMaster</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <packaging>jar</packaging>
     <name>Trade Stats Master</name>
     <properties>
@@ -118,6 +118,7 @@
                         <list>org.controller.AddTransactionDialog</list>
                         <list>org.controller.AddDayDialogController</list>
                         <list>org.controller.AddSymbolDialogController</list>
+                        <list>org.controller.AddJournalEntryDialogController</list>
                         <list>org.controller.AccountBalanceDialogController</list>
                         <list>org.controller.MenuBarController</list>
                         <list>org.controller.StatsController</list>
@@ -126,6 +127,7 @@
                         <list>org.controller.TradeController</list>
                         <list>org.controller.ChartController</list>
                         <list>org.controller.DailyPrepController</list>
+                        <list>org.controller.JournalController</list>
                         <list>org.controller.MainController</list>
                     </reflectionList>
                     <releaseConfiguration>
