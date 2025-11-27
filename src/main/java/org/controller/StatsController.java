@@ -58,14 +58,14 @@ public class StatsController extends VBox implements Initializable {
 
         ///Date Filter logic
         fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            GlobalContext.getFilteredTransactions().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, toDate.getValue()));
-            GlobalContext.getFilteredDailyPrep().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, toDate.getValue()));
-            GlobalContext.getFilteredJournalEntriesList().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
+            GlobalContext.getTransactions().getFiltered().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, toDate.getValue()));
+            GlobalContext.getDailyPrep().getFiltered().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, toDate.getValue()));
+            GlobalContext.getJournals().getFiltered().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
         });
         toDate.valueProperty().addListener((observable, oldValue, newValue) -> {
-            GlobalContext.getFilteredTransactions().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, fromDate.getValue()));
-            GlobalContext.getFilteredDailyPrep().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, fromDate.getValue()));
-            GlobalContext.getFilteredJournalEntriesList().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
+            GlobalContext.getTransactions().getFiltered().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, fromDate.getValue()));
+            GlobalContext.getDailyPrep().getFiltered().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, fromDate.getValue()));
+            GlobalContext.getJournals().getFiltered().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
         });
 
         ///Set Styling Properties

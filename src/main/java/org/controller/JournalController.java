@@ -49,7 +49,7 @@ public class JournalController extends Pane implements Initializable {
     @FXML
     public Button deleteDay;
 
-    FilteredList<Journal> journalEntries = GlobalContext.getFilteredJournalEntriesList();
+    FilteredList<Journal> journalEntries = GlobalContext.getJournals().getFiltered();
     private Node addJournalEntry;
     private Journal selectedSymbol;
     MainController mainController;
@@ -146,7 +146,7 @@ public class JournalController extends Pane implements Initializable {
         try {
             db.setBdConnection();
             db.updateJournalEntrySymbol(selectedSymbol);
-            GlobalContext.reSetJournalEntriesList(db.getAllJournalEntries());
+            GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
             db.closeBdConnection();
             System.out.println("Symbol updated successfully!!");
         } catch (IOException | SQLException e) {
@@ -177,7 +177,7 @@ public class JournalController extends Pane implements Initializable {
             try {
                 db.setBdConnection();
                 db.deleteJourneyEntryBySymbol(selectedSymbol.getId());
-                GlobalContext.reSetJournalEntriesList(db.getAllJournalEntries());
+                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
                 System.out.println("Symbol deleted successfully!!");
             } catch (IOException | SQLException e) {
@@ -195,7 +195,7 @@ public class JournalController extends Pane implements Initializable {
             try {
                 db.setBdConnection();
                 db.deleteJournalDay(selectedSymbol.getDate());
-                GlobalContext.reSetJournalEntriesList(db.getAllJournalEntries());
+                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
                 System.out.println("Day deleted successfully!!");
             } catch (IOException | SQLException e) {

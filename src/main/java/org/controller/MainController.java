@@ -3,7 +3,6 @@ package org.controller;
 import atlantafx.base.controls.ModalPane;
 import atlantafx.base.theme.Styles;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TabPane;
@@ -11,7 +10,6 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.model.transaction.Transaction;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,11 +28,11 @@ public class MainController implements Initializable {
     }
 
     public void addTransaction(Transaction transaction) {
-        GlobalContext.addTransactionToMasterList(transaction);
+        GlobalContext.getTransactions().addToMaster(transaction);
     }
 
     public void replaceTransaction(Transaction transaction) {
-        GlobalContext.replaceTransactionInMasterList(transaction);
+        GlobalContext.getTransactions().replaceItemInMaster(transaction);
     }
 
     public void showModal(Node node) {

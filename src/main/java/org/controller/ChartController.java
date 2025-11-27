@@ -9,6 +9,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.context.ControllerRegistry;
+import org.context.GlobalContext;
 import org.model.transaction.Transaction;
 import org.utilities.CalculateStatsOverview;
 
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static org.context.GlobalContext.getFilteredTransactions;
 import static org.context.GlobalContext.movingAvgNr;
 import static org.utilities.Utilities.calculateRunningTotal;
 
@@ -43,7 +43,7 @@ public class ChartController extends Pane implements Initializable {
         ///Data not populating real time and not sure if running total works.
         Double runningTotal = 0.0;
         LocalDate currentDate = null;
-        FilteredList<Transaction> transactionList = getFilteredTransactions();
+        FilteredList<Transaction> transactionList = GlobalContext.getTransactions().getFiltered();
         Double movingAvg = 0.0;
 
         for (int i = 0; i < transactionList.size(); i++) {
@@ -84,11 +84,11 @@ public class ChartController extends Pane implements Initializable {
         chart.getData().addAll(chartData, chartMovingAvg);
 
         statsControllerOverview = ControllerRegistry.get(StatsControllerOverview.class);
-        this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(getFilteredTransactions()));
+        this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(transactionList));
 
         /// Populate chart values
-        getFilteredTransactions().addListener((ListChangeListener<? super Transaction>) c -> {
-            this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(getFilteredTransactions()));
+        GlobalContext.getTransactions().getFiltered().addListener((ListChangeListener<? super Transaction>) c -> {
+            this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(transactionList));
             ///TODO
             //Logic for updating the chart
 //            this.chartData.getData().add(

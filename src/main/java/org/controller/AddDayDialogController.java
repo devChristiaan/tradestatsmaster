@@ -49,7 +49,7 @@ public class AddDayDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
-        this.symbolList = GlobalContext.getFilteredSymbolList();
+        this.symbolList = GlobalContext.getSymbols().getFiltered();
 
         this.mainController = ControllerRegistry.get(MainController.class);
 
@@ -95,7 +95,7 @@ public class AddDayDialogController implements Initializable {
                     DailyPrepItems item = db.addDailyPrepItem(selectedDate.getDailyPrepDateId(), symbol, selectedDate.getDate());
                     selectedDate.getDailyPrepItemsList().add(item);
                 }
-                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
                 this.cancel();
             } catch (IOException | SQLException e) {
@@ -133,7 +133,7 @@ public class AddDayDialogController implements Initializable {
     }
 
     private DailyPrep getSelectedDateObject() {
-        List<DailyPrep> existingDates = GlobalContext.getDailyPrepMasterList();
+        List<DailyPrep> existingDates = GlobalContext.getDailyPrep().getMaster();
         return existingDates.stream().filter(dp -> dp.getDate().equals(date.getValue())).findFirst().orElse(null);
     }
 
