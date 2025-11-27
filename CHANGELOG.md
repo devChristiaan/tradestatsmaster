@@ -12,7 +12,11 @@ New Features Planned:
 
 ### Changed
 
-## [1.6.0] - 2025-11-24
+## [1.6.1] - 2025-11-26
+
+Under the hood update. Refactored the Global context pattern to be more stable an extensible.
+
+## [1.6.0] - 2025-11-26
 
 Major Features Added:
 
