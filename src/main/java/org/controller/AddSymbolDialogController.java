@@ -1,7 +1,6 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,7 +9,6 @@ import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.model.symbol.Symbol;
-import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
 import org.utilities.DateCell;
 
@@ -65,7 +63,7 @@ public class AddSymbolDialogController implements Initializable {
         });
 
         ///Init table
-        symbolTable.setItems(GlobalContext.getFilteredSymbolList());
+        symbolTable.setItems(GlobalContext.getSymbols().getFiltered());
 
         colDate.setCellValueFactory(new PropertyValueFactory<Symbol, LocalDate>("date"));
         colSymbol.setCellValueFactory(new PropertyValueFactory<Symbol, String>("symbol"));
@@ -102,7 +100,7 @@ public class AddSymbolDialogController implements Initializable {
         if (isValid()) {
             Symbol newSymbol = new Symbol(date.getValue(), symbol.getText(), Double.parseDouble(commission.getText()), Double.parseDouble(fluctuation.getText()), Double.parseDouble(tickValue.getText()));
             addSymbol(newSymbol);
-            GlobalContext.addSymbolToMasterList(newSymbol);
+            GlobalContext.getSymbols().addToMaster(newSymbol);
         }
         mainController.hideModal();
     }
@@ -152,6 +150,6 @@ public class AddSymbolDialogController implements Initializable {
     public void deleteSymbol() {
         Symbol selectedSymbol = symbolTable.getSelectionModel().getSelectedItem();
         removeSymbol(selectedSymbol);
-        GlobalContext.removeSymbolFromMasterList(selectedSymbol);
+        GlobalContext.getSymbols().removeFromMaster(selectedSymbol);
     }
 }

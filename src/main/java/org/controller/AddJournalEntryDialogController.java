@@ -23,7 +23,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.Objects;
 
 import static org.context.GlobalContext.datePattern;
 import static org.utilities.Utilities.calendarToStringConverter;
@@ -48,7 +52,7 @@ public class AddJournalEntryDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
-        this.symbolList = GlobalContext.getFilteredSymbolList();
+        this.symbolList = GlobalContext.getSymbols().getFiltered();
 
         this.mainController = ControllerRegistry.get(MainController.class);
 
@@ -79,7 +83,7 @@ public class AddJournalEntryDialogController implements Initializable {
                 for (Journal entry : selectedItemsForDate) {
                     db.addJournalEntry(entry);
                 }
-                GlobalContext.reSetJournalEntriesList(db.getAllJournalEntries());
+                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
                 this.cancel();
             } catch (IOException | SQLException e) {
@@ -117,7 +121,7 @@ public class AddJournalEntryDialogController implements Initializable {
     }
 
     private List<Journal> getSelectedDateObject() {
-        List<Journal> existingDates = GlobalContext.getJournalEntriesMasterList();
+        List<Journal> existingDates = GlobalContext.getJournals().getMaster();
         return existingDates.stream().filter(dp -> dp.getDate().equals(date.getValue())).toList();
     }
 

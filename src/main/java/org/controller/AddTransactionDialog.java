@@ -74,7 +74,7 @@ public class AddTransactionDialog implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ///Fix
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
-        this.symbolList = GlobalContext.getFilteredSymbolList();
+        this.symbolList = GlobalContext.getSymbols().getFiltered();
         this.formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
 
         this.mainController = ControllerRegistry.get(MainController.class);

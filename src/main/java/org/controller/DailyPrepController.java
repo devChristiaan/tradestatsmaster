@@ -59,11 +59,9 @@ public class DailyPrepController extends Pane implements Initializable {
     public TextField hh_ll_any_low;
 
     @FXML
-    public Button cancelBtn;
-    @FXML
     public Button saveBtn;
 
-    FilteredList<DailyPrep> dailyPrep = GlobalContext.getFilteredDailyPrep();
+    FilteredList<DailyPrep> dailyPrep = GlobalContext.getDailyPrep().getFiltered();
     private Node addDailyPrep;
     private DailyPrepItems selectedSymbol;
     MainController mainController;
@@ -150,7 +148,7 @@ public class DailyPrepController extends Pane implements Initializable {
         try {
             db.setBdConnection();
             db.addDailyPrepItem(selectedSymbol);
-            GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+            GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
             db.closeBdConnection();
             System.out.println("Symbol updated successfully!!");
         } catch (IOException | SQLException e) {
@@ -199,7 +197,7 @@ public class DailyPrepController extends Pane implements Initializable {
             try {
                 db.setBdConnection();
                 db.deleteSymbol(selectedSymbol.getDailyPrepId());
-                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
                 System.out.println("Symbol deleted successfully!!");
             } catch (IOException | SQLException e) {
@@ -217,7 +215,7 @@ public class DailyPrepController extends Pane implements Initializable {
                 db.setBdConnection();
                 db.deleteSymbolByDay(selectedSymbol.getDailyPrepDateId());
                 db.deleteDay(selectedSymbol.getDailyPrepDateId());
-                GlobalContext.reSetDailyPrepMasterList(db.getAllDailyPrepData());
+                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
                 System.out.println("Day deleted successfully!!");
             } catch (IOException | SQLException e) {

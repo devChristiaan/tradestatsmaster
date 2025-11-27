@@ -68,16 +68,16 @@ public class StatsControllerOverview extends VBox implements Initializable {
         populateAccountBalance();
 
         ///Set Transaction and Account Balance Listeners
-        GlobalContext.getFilteredTransactionsList().addListener((ListChangeListener<? super Account>) c -> {
+        GlobalContext.getAccounts().getFiltered().addListener((ListChangeListener<? super Account>) c -> {
             populateAccountBalance();
         });
-        GlobalContext.getFilteredTransactions().addListener((ListChangeListener<? super Transaction>) c -> {
-            this.populateStatsOverview(new CalculateStatsOverview(GlobalContext.getFilteredTransactions()));
+        GlobalContext.getTransactions().getFiltered().addListener((ListChangeListener<? super Transaction>) c -> {
+            this.populateStatsOverview(new CalculateStatsOverview(GlobalContext.getTransactions().getFiltered()));
             populateAccountBalance();
         });
 
         ///Set Initial Stat values
-        this.populateStatsOverview(new CalculateStatsOverview(GlobalContext.getFilteredTransactions()));
+        this.populateStatsOverview(new CalculateStatsOverview(GlobalContext.getTransactions().getFiltered()));
     }
 
     public void populateStatsOverview(CalculateStatsOverview stats) {
@@ -102,7 +102,7 @@ public class StatsControllerOverview extends VBox implements Initializable {
     }
 
     private void populateAccountBalance() {
-        Double accountBalance = calculateAccountBalance(GlobalContext.getFilteredTransactionsList().stream().mapToDouble(Account::getAmount).sum());
+        Double accountBalance = calculateAccountBalance(GlobalContext.getAccounts().getFiltered().stream().mapToDouble(Account::getAmount).sum());
         BigDecimal accountBalancePercentage = calculateBalancePercentage(accountBalance);
 
         accountBal.setText("$ " + getTextFormater().format(accountBalance));

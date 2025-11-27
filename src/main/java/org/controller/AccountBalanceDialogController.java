@@ -55,7 +55,7 @@ public class AccountBalanceDialogController implements Initializable {
         });
 
         ///Init table
-        accountTable.setItems(GlobalContext.getFilteredTransactionsList());
+        accountTable.setItems(GlobalContext.getAccounts().getFiltered());
 
         colDate.setCellValueFactory(new PropertyValueFactory<Account, LocalDate>("date"));
         colAmount.setCellValueFactory(new PropertyValueFactory<Account, Double>("amount"));
@@ -84,7 +84,7 @@ public class AccountBalanceDialogController implements Initializable {
         if (isValid()) {
             Account transaction = new Account(date.getValue(), Double.parseDouble(amount.getText()), notes.getText());
             addAccountTransaction(transaction);
-            GlobalContext.addTransactionToMasterList(transaction);
+            GlobalContext.getAccounts().addToMaster(transaction);
         }
         mainController.hideModal();
     }
@@ -127,6 +127,6 @@ public class AccountBalanceDialogController implements Initializable {
     public void deleteTransaction() {
         Account selectedTransaction = accountTable.getSelectionModel().getSelectedItem();
         removeAccountTransaction(selectedTransaction);
-        GlobalContext.removeTransactionFromMasterList(selectedTransaction);
+        GlobalContext.getAccounts().removeFromMaster(selectedTransaction);
     }
 }

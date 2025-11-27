@@ -1,7 +1,6 @@
 package org.utilities;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.util.StringConverter;
@@ -104,7 +103,7 @@ public class Utilities {
 
     public static double calculateAccountBalance(Double openingBalance) {
         double accountBalance = openingBalance;
-        for (Transaction tran : GlobalContext.getTransactionsMasterList()) {
+        for (Transaction tran : GlobalContext.getTransactions().getMaster()) {
             accountBalance += tran.getProfit();
             accountBalance -= tran.getCommission();
         }

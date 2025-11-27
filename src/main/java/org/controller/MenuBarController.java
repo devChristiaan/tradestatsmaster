@@ -79,7 +79,7 @@ public class MenuBarController extends VBox implements Initializable {
             for (Transaction tran : importedTransactions) {
                 db.addTransaction(tran);
             }
-            GlobalContext.replaceMasterList(db.getAllTransactions());
+            GlobalContext.getTransactions().replaceMaster(db.getAllTransactions());
             db.closeBdConnection();
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
@@ -90,7 +90,7 @@ public class MenuBarController extends VBox implements Initializable {
     public void exportAll() throws IOException {
         String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeItemsToCSV(GlobalContext.getTransactionsMasterList(), path);
+            writeItemsToCSV(GlobalContext.getTransactions().getMaster(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -100,7 +100,7 @@ public class MenuBarController extends VBox implements Initializable {
     public void exportSelection() throws IOException {
         String path = csvDirectorySelector("Transactions");
         if (path != null) {
-            writeItemsToCSV(GlobalContext.getFilteredTransactions(), path);
+            writeItemsToCSV(GlobalContext.getTransactions().getFiltered(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -175,7 +175,7 @@ public class MenuBarController extends VBox implements Initializable {
     void exportSymbols() throws IOException {
         String path = csvDirectorySelector("Symbols");
         if (path != null) {
-            writeItemsToCSV(GlobalContext.getFilteredSymbolList(), path);
+            writeItemsToCSV(GlobalContext.getSymbols().getMaster(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -188,7 +188,7 @@ public class MenuBarController extends VBox implements Initializable {
         if (file != null) {
             List<Symbol> importedSymbols = getAllSymbols(file);
             addAllSymbol(importedSymbols);
-            GlobalContext.setSymbolsMasterList(importedSymbols);
+            GlobalContext.getSymbols().setAllMaster(importedSymbols);
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
@@ -212,7 +212,7 @@ public class MenuBarController extends VBox implements Initializable {
         if (file != null) {
             List<Account> importedTransactions = getAllAccountTransactions(file);
             addAllAccountTransactions(importedTransactions);
-            GlobalContext.setAccountTransactionsMasterList(importedTransactions);
+            GlobalContext.getAccounts().setAllMaster(importedTransactions);
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
@@ -222,7 +222,7 @@ public class MenuBarController extends VBox implements Initializable {
     void exportTransactions() throws IOException {
         String path = csvDirectorySelector("Account_Transactions");
         if (path != null) {
-            writeItemsToCSV(GlobalContext.getFilteredTransactionsList(), path);
+            writeItemsToCSV(GlobalContext.getAccounts().getMaster(), path);
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }

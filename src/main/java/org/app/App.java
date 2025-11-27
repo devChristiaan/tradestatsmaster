@@ -19,9 +19,6 @@ import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     @Override
@@ -55,13 +52,13 @@ public class App extends Application {
         ///DB
         db.setBdConnection();
         db.dbStartUpChecks(db);
-        GlobalContext.setTransactionsMasterList(db.getAllTransactions());
-        GlobalContext.setDailyPrepMasterList(db.getAllDailyPrepData());
-        GlobalContext.setJournalEntriesMasterList(db.getAllJournalEntries());
+        GlobalContext.getTransactions().setAllMaster(db.getAllTransactions());
+        GlobalContext.getDailyPrep().setAllMaster(db.getAllDailyPrepData());
+        GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
 
         ///Serialized DTO Object
-        GlobalContext.setSymbolsMasterList(getAllSymbols());
-        GlobalContext.setAccountTransactionsMasterList(getAllAccountTransactions());
+        GlobalContext.getSymbols().setAllMaster(getAllSymbols());
+        GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
         db.closeBdConnection();
     }
 

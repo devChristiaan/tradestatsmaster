@@ -21,7 +21,7 @@ public class CalculateStatsStopLoss {
     DecimalFormat df = getTextFormater();
 
     private final List<Formation> formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
-    private final List<Symbol> symbolList = GlobalContext.getFilteredSymbolList();
+    private final List<Symbol> symbolList = GlobalContext.getSymbols().getFiltered();
     private List<Formation> formationsWinRate = new ArrayList<>();
 
     private double targetProfits = 0.0;

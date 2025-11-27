@@ -75,7 +75,7 @@ public class TradeController extends VBox implements Initializable {
         ///Mount default value here to trigger filtering
         statsController.fromDate.setValue(LocalDate.now().with(DayOfWeek.MONDAY));
         ///Init Table Data
-        tradesTable.setItems(GlobalContext.getFilteredTransactions());
+        tradesTable.setItems(GlobalContext.getTransactions().getFiltered());
         ///Init Table column properties
         tradeDate.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDate>("date"));
         tradeSymbol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("symbol"));
@@ -161,7 +161,7 @@ public class TradeController extends VBox implements Initializable {
             try {
                 db.setBdConnection();
                 db.deleteTransaction(transaction);
-                GlobalContext.replaceMasterList(db.getAllTransactions());
+                GlobalContext.getTransactions().replaceMaster(db.getAllTransactions());
                 db.closeBdConnection();
             } catch (IOException | SQLException ex) {
                 throw new RuntimeException(ex);

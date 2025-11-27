@@ -81,7 +81,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
         targetTicks.setDisable(true);
 
         ///Set Transaction Listener
-        GlobalContext.getFilteredTransactions().addListener((ListChangeListener<? super Transaction>) c -> {
+        GlobalContext.getTransactions().getFiltered().addListener((ListChangeListener<? super Transaction>) c -> {
             this.setSymbols();
         });
 
@@ -91,11 +91,11 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
         ///Listen for select symbol and select time frame
         symbols.getSelectionModel().selectedItemProperty().addListener((ov, value, new_value) -> {
             this.setTimePeriods();
-            this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getFilteredTransactions(), new_value, timePeriods.getValue(), Double.parseDouble(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
+            this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getTransactions().getFiltered(), new_value, timePeriods.getValue(), Double.parseDouble(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
         });
         timePeriods.getSelectionModel().selectedItemProperty().addListener((ov, value, new_value) -> {
             targetTicks.setDisable(false);
-            this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getFilteredTransactions(), symbols.getValue(), timePeriods.getValue(), Double.valueOf(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
+            this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getTransactions().getFiltered(), symbols.getValue(), timePeriods.getValue(), Double.valueOf(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
         });
 
     }
@@ -131,7 +131,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
     private void setSymbols() {
         symbols.getItems().clear();
         targetTicks.clear();
-        for (Transaction tran : GlobalContext.getFilteredTransactions()) {
+        for (Transaction tran : GlobalContext.getTransactions().getFiltered()) {
             if (!symbols.getItems().contains(tran.getSymbol())) {
                 symbols.getItems().add(tran.getSymbol());
             }
@@ -141,7 +141,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
 
     private void setTimePeriods() {
         timePeriods.getItems().clear();
-        List<Transaction> symbolFilteredList = GlobalContext.getFilteredTransactions().stream().filter(p -> p.getSymbol().equals(symbols.getValue())).toList();
+        List<Transaction> symbolFilteredList = GlobalContext.getTransactions().getFiltered().stream().filter(p -> p.getSymbol().equals(symbols.getValue())).toList();
         for (Transaction tran : symbolFilteredList) {
             if (!timePeriods.getItems().contains(tran.getTimePeriod())) {
                 timePeriods.getItems().add(tran.getTimePeriod());
@@ -152,7 +152,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
 
     @FXML
     public void setTargetTicks() {
-        this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getFilteredTransactions(), symbols.getValue(), timePeriods.getValue(), Double.valueOf(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
+        this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getTransactions().getFiltered(), symbols.getValue(), timePeriods.getValue(), Double.valueOf(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
     }
 
 }
