@@ -12,6 +12,7 @@ import org.context.GlobalContext;
 import org.model.dailyPrep.DailyPrep;
 import org.model.journal.Journal;
 import org.model.transaction.Transaction;
+import org.model.goal.Goal;
 
 import java.net.URL;
 import java.time.DayOfWeek;
@@ -61,11 +62,13 @@ public class StatsController extends VBox implements Initializable {
             GlobalContext.getTransactions().getFiltered().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, toDate.getValue()));
             GlobalContext.getDailyPrep().getFiltered().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, toDate.getValue()));
             GlobalContext.getJournals().getFiltered().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
+            GlobalContext.getGoals().getFiltered().setPredicate(setStartDatePredicate(Goal::getDate, newValue, toDate.getValue()));
         });
         toDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             GlobalContext.getTransactions().getFiltered().setPredicate(setStartDatePredicate(Transaction::getDate, newValue, fromDate.getValue()));
             GlobalContext.getDailyPrep().getFiltered().setPredicate(setStartDatePredicate(DailyPrep::getDate, newValue, fromDate.getValue()));
-            GlobalContext.getJournals().getFiltered().setPredicate(setStartDatePredicate(Journal::getDate, newValue, toDate.getValue()));
+            GlobalContext.getJournals().getFiltered().setPredicate(setStartDatePredicate(Journal::getDate, newValue, fromDate.getValue()));
+            GlobalContext.getGoals().getFiltered().setPredicate(setStartDatePredicate(Goal::getDate, newValue, fromDate.getValue()));
         });
 
         ///Set Styling Properties

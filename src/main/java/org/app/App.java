@@ -55,6 +55,7 @@ public class App extends Application {
         GlobalContext.getTransactions().setAllMaster(db.getAllTransactions());
         GlobalContext.getDailyPrep().setAllMaster(db.getAllDailyPrepData());
         GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
+        GlobalContext.getGoals().setAllMaster(db.getAllGoals());
 
         ///Serialized DTO Object
         GlobalContext.getSymbols().setAllMaster(getAllSymbols());

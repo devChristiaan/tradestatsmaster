@@ -2,6 +2,7 @@ package org.context;
 
 import lombok.Getter;
 import org.model.account.Account;
+import org.model.goal.Goal;
 import org.model.journal.Journal;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
@@ -26,6 +27,8 @@ public class GlobalContext {
     private static final ListContext<Symbol> symbols = new ListContext<>();
     @Getter
     private static final ListContext<Account> accounts = new ListContext<>();
+    @Getter
+    static final ListContext<Goal> goals = new ListContext<>();
 
     public enum ContextItems {
         FORMATION_LIST,
