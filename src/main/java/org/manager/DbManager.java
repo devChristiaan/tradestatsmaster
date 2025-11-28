@@ -3,6 +3,8 @@ package org.manager;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepDate;
 import org.model.dailyPrep.DailyPrepItems;
+import org.model.goal.ETimeHorizon;
+import org.model.goal.Goal;
 import org.model.journal.Journal;
 import org.model.transaction.Transaction;
 import org.service.SqliteConnection;
@@ -183,6 +185,27 @@ public class DbManager {
                         "date ANY NOT NULL," +
                         "text TEXT NOT NULL," +
                         "symbol TEXT NOT NULL" +
+                        ");";
+                statement.execute(createTableSQL);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                statement.close();
+            }
+        }
+    }
+
+    public void createGoalTable(DbManager db) throws SQLException {
+        if (db.isDbConnected()) {
+            Statement statement = null;
+            try {
+                statement = bdConnection.createStatement();
+                String createTableSQL = "CREATE TABLE IF NOT EXISTS Goal (" +
+                        "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                        "date ANY NOT NULL," +
+                        "timeHorizon TEXT NOT NULL," +
+                        "text TEXT NOT NULL," +
+                        "achieved INTEGER NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
             } catch (SQLException e) {
@@ -666,12 +689,91 @@ public class DbManager {
         }
     }
 
+    public List<Goal> getAllGoals() throws SQLException {
+        if (isDbConnected()) {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            String query = "select * from Goal ORDER BY date ASC";
+            try {
+                ps = bdConnection.prepareStatement(query);
+                rs = ps.executeQuery();
+                List<Goal> goals = new ArrayList<>();
+                while (rs.next()) {
+                    goals.add(new Goal(
+                            rs.getInt("id"),
+                            rs.getDate("date").toLocalDate(),
+                            ETimeHorizon.valueOf(rs.getString("timeHorizon")),
+                            rs.getString("text"),
+                            rs.getBoolean("achieved")
+                    ));
+                }
+                return goals;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                ps.close();
+                rs.close();
+            }
+        }
+        System.out.println("Get All Transactions failed! DB is not connected");
+        return null;
+    }
+
+    public void addGoal(
+            Goal goal) throws SQLException {
+        PreparedStatement ps = null;
+        String query = "insert into Goal(date, timeHorizon, text, achieved) VALUES(?,?,?,?)";
+        try {
+            ps = bdConnection.prepareStatement(query);
+            ps.setDate(1, Date.valueOf(goal.getDate()));
+            ps.setString(2, String.valueOf(goal.getTimeHorizon()));
+            ps.setString(3, goal.getText());
+            ps.setBoolean(4, goal.getAchieved());
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteGoal(int id) throws SQLException {
+        if (isDbConnected()) {
+            String sql = "DELETE FROM Goal WHERE id = ?";
+            PreparedStatement preparedStatement = null;
+            try {
+                preparedStatement = bdConnection.prepareStatement(sql);
+                preparedStatement.setInt(1, id); // Set the ID value
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateGoal(
+            Goal goal) throws SQLException {
+        PreparedStatement ps = null;
+        String query = "update Goal set text = ?, achieved = ? WHERE id = ?";
+        try {
+            ps = bdConnection.prepareStatement(query);
+            ps.setString(1, goal.getText());
+            ps.setInt(2, goal.getId());
+            ps.setBoolean(3, goal.getAchieved());
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void dbStartUpChecks(DbManager db) throws SQLException {
         boolean transactionTable = doesTableExist("transactions", db);
         boolean isForeignKeyEnabled = foreignKeyEnabled(db);
         boolean dailyPrepDate = doesTableExist("DailyPrepDate", db);
         boolean dailyPrep = doesTableExist("DailyPrep", db);
         boolean journal = doesTableExist("Journal", db);
+        boolean goal = doesTableExist("Goal", db);
 
         if (!transactionTable) {
             createTransactionTable(db);
@@ -687,6 +789,9 @@ public class DbManager {
         }
         if (!journal) {
             createJournalTable(db);
+        }
+        if (!goal) {
+            createGoalTable(db);
         }
     }
 }

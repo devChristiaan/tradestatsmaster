@@ -6,17 +6,34 @@ import javafx.scene.control.ButtonType;
 import javafx.util.StringConverter;
 import org.context.GlobalContext;
 import org.model.Formation;
+import org.model.goal.ETimeHorizon;
 import org.model.transaction.Transaction;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class Utilities {
+
+    public static final String goalTemplate = """
+            Title:
+            
+            Short Explanation:
+            
+            Target---------
+            
+            Reason---------
+            
+            Action---------
+            
+            Evaluate-------
+            
+            """;
 
     public static void closeApp() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -120,6 +137,42 @@ public class Utilities {
 
         // Create DecimalFormat with the pattern and symbols
         return new DecimalFormat("#,##0.00", symbols);
+    }
+
+    public static LocalDate periodStartFor(ETimeHorizon horizon,
+                                           LocalDate today) {
+        return switch (horizon) {
+            case SHORT_TERM ->
+                    today.with(DayOfWeek.MONDAY); // start of this week (Monday)
+            case MID_TERM ->
+                    today.withDayOfMonth(1);       // first of this month
+            case LONG_TERM -> {
+                int month = today.getMonthValue();
+                if (month <= 6) { // first half: Jan - Jun
+                    yield LocalDate.of(today.getYear(), 1, 1);
+                } else {          // second half: Jul - Dec
+                    yield LocalDate.of(today.getYear(), 7, 1);
+                }
+            }
+        };
+    }
+
+    public static LocalDate periodEndFor(ETimeHorizon horizon,
+                                         LocalDate today) {
+        return switch (horizon) {
+            case SHORT_TERM ->
+                    periodStartFor(horizon, today).plusDays(6);                  // Sunday
+            case MID_TERM ->
+                    today.withDayOfMonth(today.lengthOfMonth());                 // last day of this month
+            case LONG_TERM -> {
+                int month = today.getMonthValue();
+                if (month <= 6) { // Jan - Jun
+                    yield LocalDate.of(today.getYear(), 6, 30);
+                } else {          // Jul - Dec
+                    yield LocalDate.of(today.getYear(), 12, 31);
+                }
+            }
+        };
     }
 
 }

@@ -21,6 +21,7 @@ module org.app {
     exports org.model.symbol;
     exports org.model.account;
     exports org.model.journal;
+    exports org.model.goal;
     exports org.context;
     exports org.manager;
     opens org.app to javafx.fxml;
