@@ -10,6 +10,7 @@ module org.app {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.material2;
+    requires org.apache.logging.log4j;
 
     exports org.app;
     exports org.controller;

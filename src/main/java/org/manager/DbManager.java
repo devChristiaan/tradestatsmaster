@@ -1,5 +1,7 @@
 package org.manager;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepDate;
 import org.model.dailyPrep.DailyPrepItems;
@@ -16,14 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbManager {
+    private static final Logger log = LogManager.getLogger(DbManager.class);
     Connection bdConnection;
 
     public void setBdConnection() throws IOException {
         try {
             bdConnection = SqliteConnection.getConnection();
         } catch (IOException e) {
-            System.out.println("Failed to connect to DB");
-            e.printStackTrace();
+            log.error("Failed to connect to DB", e);
         }
     }
 
@@ -37,8 +39,7 @@ public class DbManager {
         try {
             return !bdConnection.isClosed();
         } catch (SQLException e) {
-            System.out.println("DB error");
-            e.printStackTrace();
+            log.error("DB error: {}", e.getMessage());
             return false;
         }
     }
@@ -52,7 +53,7 @@ public class DbManager {
                 ResultSet rs = stmt.executeQuery(sql);
                 exists = rs.next(); // If rs.next() returns true, a row was found, meaning the table exists.
             } catch (SQLException e) {
-                System.err.println("Error checking" + tableName + " existence: " + e.getMessage());
+                log.error("Error checking {} existence: {}", tableName, e.getMessage());
                 return exists;
             } finally {
                 return exists;

@@ -1,5 +1,8 @@
 package org.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,6 +11,7 @@ import java.sql.DriverManager;
 import java.util.Objects;
 
 public class SqliteConnection {
+    private static final Logger log = LogManager.getLogger(SqliteConnection.class);
     static Path mainDB = Path.of(System.getenv("LOCALAPPDATA"), "TradeStatsMaster", "master.db");
     static final String mainDBName = "/org/app/data/master.sqlite";
 
@@ -22,8 +26,7 @@ public class SqliteConnection {
                 Objects.requireNonNull(in, () -> "Not found resource: " + mainDBName);
                 Files.copy(in, mainDB);
             } catch (IOException e) {
-                System.out.println("Failed to copy temp db to main folder");
-                e.printStackTrace();
+                log.error("Failed to copy temp db to main folder", e);
                 throw e;
             }
         }
@@ -35,11 +38,10 @@ public class SqliteConnection {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection connection = DriverManager.getConnection("jdbc:sqlite:" + mainDB.toAbsolutePath());
-            System.out.println("DB Connection is successful");
+            log.info("DB Connection is successful");
             return connection;
         } catch (Exception e) {
-            System.out.println("DB Connection is failed");
-            e.printStackTrace();
+            log.error("DB Connection is failed", e);
             return null;
         }
     }

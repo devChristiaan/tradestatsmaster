@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.manager.DbManager;
 import org.service.csvReader;
 
@@ -14,12 +16,18 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.context.GlobalContext;
+import org.utilities.InitLogging;
 
 import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
 
 public class App extends Application {
+    ///Set before logger inits
+    static {
+        System.setProperty("app.logDir", InitLogging.init());
+    }
+    private static final Logger log = LogManager.getLogger(App.class);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -37,14 +45,13 @@ public class App extends Application {
                 closeApp();
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
     @Override
     public void init() throws Exception {
-        System.out.println("Loading resources....");
-
+        log.info("Loading resources....");
         ///CSV
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
 
