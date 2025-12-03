@@ -16,6 +16,7 @@ import org.model.account.Account;
 import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
 import org.utilities.AppProperties;
+import org.utilities.PopoutLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -229,4 +230,8 @@ public class MenuBarController extends VBox implements Initializable {
 
     }
 
+    @FXML
+    void showLogs() {
+        PopoutLogger.display();
+    }
 }

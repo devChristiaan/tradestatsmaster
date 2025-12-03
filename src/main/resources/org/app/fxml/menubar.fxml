@@ -30,11 +30,13 @@
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#manageBalance" text="Manage balance"/>
                     <MenuItem mnemonicParsing="false" onAction="#exportTransactions" text="Export all transactions"/>
-                    <MenuItem mnemonicParsing="false" onAction="#importTransactionsFile" text="Import transactions from file"/>
+                    <MenuItem mnemonicParsing="false" onAction="#importTransactionsFile"
+                              text="Import transactions from file"/>
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <items>
+                    <MenuItem mnemonicParsing="false" onAction="#showLogs" text="Logs"/>
                     <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About"/>
                     <MenuItem mnemonicParsing="false" onAction="#showAboutChartExpense" text="About charting service"/>
                 </items>
