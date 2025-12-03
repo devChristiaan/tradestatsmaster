@@ -27,6 +27,7 @@ public class App extends Application {
     static {
         System.setProperty("app.logDir", InitLogging.init());
     }
+
     private static final Logger log = LogManager.getLogger(App.class);
 
     @Override
@@ -51,6 +52,7 @@ public class App extends Application {
 
     @Override
     public void init() throws Exception {
+        log.info("Starting....");
         log.info("Loading resources....");
         ///CSV
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
@@ -68,6 +70,7 @@ public class App extends Application {
         GlobalContext.getSymbols().setAllMaster(getAllSymbols());
         GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
         db.closeBdConnection();
+        log.info("started successfully");
     }
 
     public static void main(String[] args) {

@@ -71,8 +71,9 @@ public class DbManager {
                 String sql = "PRAGMA foreign_keys;";
                 ResultSet rs = stmt.executeQuery(sql);
                 exists = rs.getInt(1) == 1;
+                log.info("Foreign key enabled: {}", exists);
             } catch (SQLException e) {
-                System.err.println("Error checking foreign_keys existence: " + e.getMessage());
+                log.error("Error checking foreign_keys existence: {}", e.getMessage());
                 return exists;
             } finally {
                 return exists;
@@ -106,8 +107,9 @@ public class DbManager {
                         "timePeriod TEXT NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
+                log.info("Table transactions created");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to create new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -121,8 +123,9 @@ public class DbManager {
                 statement = bdConnection.createStatement();
                 String createTableSQL = "PRAGMA foreign_keys = ON;";
                 statement.execute(createTableSQL);
+                log.info("Foreign key enabled");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to enable foreign keys on new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -139,8 +142,9 @@ public class DbManager {
                         "date ANY NOT NULL\n" +
                         ");";
                 statement.execute(createTableSQL);
+                log.info("Table DailPrepDate created");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to create table DailyPrepDate on new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -168,8 +172,9 @@ public class DbManager {
                         "FOREIGN KEY (dailyPrepDateId) REFERENCES parent_table(DailyPrepDate) ON DELETE CASCADE ON UPDATE NO ACTION\n" +
                         ");";
                 statement.execute(createTableSQL);
+                log.info("Table DailyPrep created");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to create table DailyPrep on new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -188,8 +193,9 @@ public class DbManager {
                         "symbol TEXT NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
+                log.info("Table Journal created");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to create table Journal on new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -209,8 +215,9 @@ public class DbManager {
                         "achieved INTEGER NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
+                log.info("Table Goal created");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to create table Goal on new DB: {}", e.getMessage());
             } finally {
                 statement.close();
             }
@@ -248,13 +255,13 @@ public class DbManager {
                 }
                 return transactions;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Get All Transactions failed: {}", e.getMessage());
             } finally {
+                log.info("All transaction retrieved.");
                 ps.close();
                 rs.close();
             }
         }
-        System.out.println("Get All Transactions failed! DB is not connected");
         return null;
     }
 
@@ -280,8 +287,9 @@ public class DbManager {
             ps.setString(15, transaction.getTimePeriod());
             ps.executeUpdate();
             ps.close();
+            log.info("Transaction added successfully");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Add Transaction failed: {}", e.getMessage());
         }
     }
 
@@ -308,8 +316,9 @@ public class DbManager {
             ps.setInt(16, transaction.getId());
             ps.executeUpdate();
             ps.close();
+            log.info("Transaction id:{} updated successfully", transaction.getId());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Update Transaction failed: {}", e.getMessage());
         }
     }
 
@@ -330,8 +339,9 @@ public class DbManager {
             ps.setInt(9, dailyPrepItem.getDailyPrepId());
             ps.executeUpdate();
             ps.close();
+            log.info("DailyPrepItem id:{} updated successfully", dailyPrepItem.getDailyPrepId());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Failed to add DailyPrepItem: {}", e.getMessage());
         }
     }
 
@@ -366,8 +376,9 @@ public class DbManager {
                 }
                 return transaction;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to retrieve the last transaction: {}", e.getMessage());
             } finally {
+                log.info("Latest transaction retrieved successfully.");
                 ps.close();
                 rs.close();
             }
@@ -398,13 +409,13 @@ public class DbManager {
                 }
                 return dailyPreps;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to retrieve the dailyPrepData: {}", e.getMessage());
             } finally {
+                log.info("All DailyPredData entries retrieved.");
                 ps.close();
                 rs.close();
             }
         }
-        System.out.println("Get All Transactions failed! DB is not connected");
         return null;
     }
 
@@ -437,7 +448,7 @@ public class DbManager {
                 }
                 return dailyPrepItems;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Get daily prep item id: {} failed: {}", id, e.getMessage());
             }
         }
         return null;
@@ -472,9 +483,10 @@ public class DbManager {
                             rs.getDouble("hh_ll_any_high"),
                             rs.getDouble("hh_ll_any_low"));
                 }
+
                 return dailyPrepItem;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to retrieve dailyPrepItem id:{} : {}", id, e.getMessage());
             }
         }
         return null;
@@ -496,7 +508,7 @@ public class DbManager {
                 ps.close();
                 return getDailyPrepItem(id, symbol);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to add dailyPrepItem with id: {} : {}", id, e.getMessage());
             }
         }
         return null;
@@ -512,9 +524,10 @@ public class DbManager {
                 ps.executeUpdate();
                 ps.close();
                 DailyPrepDate dailyPrepDate = getDailyPrepDate(date);
+                log.info("Daily Prep date added successfully.");
                 return new DailyPrep(dailyPrepDate.getDailyPrepDateId(), dailyPrepDate.getDate(), null, new ArrayList<>());
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to add dailyPrepDate with date: {} : {}", Date.valueOf(date), e.getMessage());
             }
         }
         return null;
@@ -535,8 +548,9 @@ public class DbManager {
             ps.close();
             return dailyPrepDate;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Failed to retrieve dailyPrepDate with date: {} : {}", Date.valueOf(date), e.getMessage());
         }
+        return null;
     }
 
     public void deleteTransaction(Transaction transaction) throws SQLException {
@@ -548,8 +562,9 @@ public class DbManager {
                 preparedStatement.setInt(1, transaction.getId()); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Transaction id: {} deleted successfully.", transaction.getId());
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete transaction id: {} : {}", transaction.getId(), e.getMessage());
             }
         }
     }
@@ -563,8 +578,9 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Day id: {} deleted successfully.", id);
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete day id: {} : {}", id, e.getMessage());
             }
         }
     }
@@ -578,8 +594,9 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Symbol deleted successfully by dateid: {}", id);
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete symbol by dateid: {} : {}", id, e.getMessage());
             }
         }
     }
@@ -593,8 +610,9 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Symbol deleted successfully id: {}", id);
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete symbol by id: {} : {}", id, e.getMessage());
             }
         }
     }
@@ -618,8 +636,9 @@ public class DbManager {
                 }
                 return journalEntries;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to retrieve all journal entries : {}", e.getMessage());
             } finally {
+                log.info("All journal entries retrieved.");
                 ps.close();
                 rs.close();
             }
@@ -639,8 +658,9 @@ public class DbManager {
                 ps.setString(3, journal.getText());
                 ps.executeUpdate();
                 ps.close();
+                log.info("Journal entry {} symbol {} added successfully.", Date.valueOf(journal.getDate()), journal.getSymbol());
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to add journal entry with date: {} : {}", journal.getDate(), e.getMessage());
             }
         }
     }
@@ -654,8 +674,9 @@ public class DbManager {
                 preparedStatement.setDate(1, Date.valueOf(date)); //
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Day: {} deleted successfully.", Date.valueOf(date));
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete journal by date: {} : {}", Date.valueOf(date), e.getMessage());
             }
         }
     }
@@ -669,8 +690,9 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Journal entry with symbol id {} deleted successfully.", id);
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete Journal entry by symbol id:{} : {}", id, e.getMessage());
             }
         }
     }
@@ -685,8 +707,9 @@ public class DbManager {
             ps.setInt(2, entry.getId());
             ps.executeUpdate();
             ps.close();
+            log.info("Journal entry id:{} updates successfully", entry.getId());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Failed to update Journal entry with id: {} : {}", entry.getId(), e.getMessage());
         }
     }
 
@@ -710,13 +733,13 @@ public class DbManager {
                 }
                 return goals;
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.error("Failed to retrieve all goals : {}", e.getMessage());
             } finally {
+                log.info("All goal entries retrieved.");
                 ps.close();
                 rs.close();
             }
         }
-        System.out.println("Get All Transactions failed! DB is not connected");
         return null;
     }
 
@@ -732,8 +755,9 @@ public class DbManager {
             ps.setBoolean(4, goal.getAchieved());
             ps.executeUpdate();
             ps.close();
+            log.info("Goal added successfully");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Failed to add goal with date: {} : {}", goal.getDate(), e.getMessage());
         }
     }
 
@@ -746,8 +770,9 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
+                log.info("Goal deleted successfully");
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error("Failed to delete goal witg id:{} : {}", id, e.getMessage());
             }
         }
     }
@@ -763,8 +788,9 @@ public class DbManager {
             ps.setBoolean(3, goal.getAchieved());
             ps.executeUpdate();
             ps.close();
+            log.info("Goal updated successfully");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.error("Failed to update goal id:{} : {}", goal.getId(), e.getMessage());
         }
     }
 
