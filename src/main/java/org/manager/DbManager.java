@@ -769,7 +769,7 @@ public class DbManager {
                 preparedStatement.setInt(1, id); // Set the ID value
                 preparedStatement.executeUpdate();
                 preparedStatement.close();
-                log.info("Goal deleted successfully");
+                log.info("Goal id: {} deleted successfully", id);
             } catch (SQLException e) {
                 log.error("Failed to delete goal witg id:{} : {}", id, e.getMessage());
             }
@@ -783,11 +783,11 @@ public class DbManager {
         try {
             ps = bdConnection.prepareStatement(query);
             ps.setString(1, goal.getText());
-            ps.setInt(2, goal.getId());
-            ps.setBoolean(3, goal.getAchieved());
+            ps.setBoolean(2, goal.getAchieved());
+            ps.setInt(3, goal.getId());
             ps.executeUpdate();
             ps.close();
-            log.info("Goal updated successfully");
+            log.info("Goal id: {} updated successfully", goal.getId());
         } catch (Exception e) {
             log.error("Failed to update goal id:{} : {}", goal.getId(), e.getMessage());
         }
