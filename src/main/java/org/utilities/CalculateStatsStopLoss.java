@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
+import static org.utilities.Utilities.tickDifference;
 import static org.utilities.Utilities.getTextFormater;
+import static org.utilities.Utilities.pointDifference;
 
 @Getter
 public class CalculateStatsStopLoss {
@@ -55,7 +57,7 @@ public class CalculateStatsStopLoss {
             List<Transaction> transactionsWithProfitPositive = symbolFilteredList.stream().filter(transaction -> transaction.getProfit() > 0).toList();
             List<Transaction> transactionsWithProfitNegative = symbolFilteredList.stream().filter(transaction -> transaction.getProfit() < 0).toList();
 
-            calculateTargetProfits(transactionsWithProfitPositive, targetTicks);
+            calculateTargetProfits(symbolFilteredList, targetTicks);
             calculateProfits(symbolFilteredList);
             calculateAvgATR(symbolFilteredList);
             this.nrTrades = symbolFilteredList.size();
@@ -98,16 +100,13 @@ public class CalculateStatsStopLoss {
         averageATR = runningTotal / transactions.size();
     }
 
-    private void calculateTargetProfits(List<Transaction> transactionsWithProfitPositive,
+    private void calculateTargetProfits(List<Transaction> filteredTransactions,
                                         Double targetTicks) {
-        if (!transactionsWithProfitPositive.isEmpty() || targetTicks != 0) {
-            Symbol symbol = null;
-            for (Transaction transaction : transactionsWithProfitPositive) {
-                if (symbol == null) {
-                    symbol = symbolList.stream().filter(p -> p.getSymbol().equals(transaction.getSymbol())).findFirst().get();
-                }
-                double profitTicks = transaction.getProfit() / symbol.getFluctuation();
-                if (profitTicks >= targetTicks) {
+        if (!filteredTransactions.isEmpty() || targetTicks != 0) {
+            Symbol symbol = symbolList.stream().filter(p -> p.getSymbol().equals(filteredTransactions.get(0).getSymbol())).findFirst().get();
+            for (Transaction tran : filteredTransactions) {
+                BigDecimal tradeTicks = tickDifference(pointDifference(Formation.Direction.valueOf(tran.getDirection()), BigDecimal.valueOf(tran.getOpen()), BigDecimal.valueOf(tran.getClose())), BigDecimal.valueOf(symbol.getFluctuation()));
+                if (tradeTicks.doubleValue() >= targetTicks && tran.getPossibleProfitTicks() >= targetTicks) {
                     targetProfits += targetTicks * symbol.getTickValue();
                 }
             }
