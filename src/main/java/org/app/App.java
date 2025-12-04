@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,10 +20,12 @@ import java.util.Objects;
 
 import org.context.GlobalContext;
 import org.utilities.InitLogging;
+import org.utilities.SaveHandler;
 
 import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
+import org.manager.ControllerManager;
 
 public class App extends Application {
     ///Set before logger inits
@@ -36,6 +41,15 @@ public class App extends Application {
             Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
             Image appIcon = new Image(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/icons/TitleIcon.png")));
             Scene scene = new Scene(loadFXML("/org/app/fxml/main.fxml"));
+            scene.getAccelerators().put(
+                    new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN),
+                    () -> {
+                        SaveHandler active = ControllerManager.getActiveSaveHandler();
+                        if (active != null) {
+                            active.save();
+                        }
+                    }
+            );
             stage.setTitle("Trade Stats Master");
             stage.setMaximized(true);
             stage.getIcons().add(appIcon);

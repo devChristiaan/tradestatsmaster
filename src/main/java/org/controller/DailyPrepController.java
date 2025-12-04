@@ -19,6 +19,7 @@ import org.manager.DbManager;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 import org.utilities.DateCellTreeTable;
+import org.utilities.SaveHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +29,7 @@ import java.util.ResourceBundle;
 
 import static org.utilities.Utilities.*;
 
-public class DailyPrepController extends Pane implements Initializable {
+public class DailyPrepController extends Pane implements Initializable, SaveHandler {
 
     @FXML
     public TreeTableView<Object> tableView;
@@ -73,6 +74,7 @@ public class DailyPrepController extends Pane implements Initializable {
         ControllerRegistry.register(DailyPrepController.class, this);
         this.mainController = ControllerRegistry.get(MainController.class);
         saveBtn.getStyleClass().add(Styles.ACCENT);
+        saveBtn.setOnAction(event -> save());
 
         ///Populate list
         dateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("date"));
@@ -133,7 +135,8 @@ public class DailyPrepController extends Pane implements Initializable {
     }
 
     @FXML
-    public void saveForm() {
+    @Override
+    public void save() {
         selectedSymbol.setDailyEvents(dailyEvents.getText());
         selectedSymbol.setHourlyTrend(hourlyTrend.getText());
         selectedSymbol.setHalfHourlyTrend(halfHourlyTrend.getText());

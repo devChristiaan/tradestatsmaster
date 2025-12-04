@@ -17,6 +17,7 @@ import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.journal.Journal;
 import org.utilities.DateCellTreeTable;
+import org.utilities.SaveHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class JournalController extends Pane implements Initializable {
+public class JournalController extends Pane implements Initializable, SaveHandler {
 
     @FXML
     public TreeTableView<Journal> tableView;
@@ -52,18 +53,17 @@ public class JournalController extends Pane implements Initializable {
     FilteredList<Journal> journalEntries = GlobalContext.getJournals().getFiltered();
     private Node addJournalEntry;
     private Journal selectedSymbol;
-    MainController mainController;
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ///Defaults
         ControllerRegistry.register(JournalController.class, this);
-        this.mainController = ControllerRegistry.get(MainController.class);
         saveBtn.getStyleClass().add(Styles.ACCENT);
         deleteSymbol.setDisable(true);
         deleteDay.setDisable(true);
         saveBtn.setDisable(true);
+        saveBtn.setOnAction(event -> save());
 
         ///Populate list
         dateColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("date"));
@@ -140,7 +140,8 @@ public class JournalController extends Pane implements Initializable {
     }
 
     @FXML
-    public void saveText() {
+    @Override
+    public void save() {
         selectedSymbol.setText(textArea.getText());
         DbManager db = new DbManager();
         try {

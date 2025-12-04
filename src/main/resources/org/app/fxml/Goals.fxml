@@ -102,7 +102,7 @@
                         <Font size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#saveText" prefWidth="80.0" text="Save">
+                <Button fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#save" prefWidth="80.0" text="Save">
                     <font>
                         <Font size="14.0" />
                     </font>
