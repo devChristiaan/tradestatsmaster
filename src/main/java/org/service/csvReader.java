@@ -5,6 +5,8 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.app.App;
 import org.model.Formation;
 import org.model.account.Account;
@@ -16,47 +18,53 @@ import java.io.InputStreamReader;
 import java.io.FileReader;
 import java.io.Writer;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class csvReader {
+    private static final Logger log = LogManager.getLogger(csvReader.class);
 
-    public static List<Formation> getAllFormations() throws IOException {
-        List<Formation> formations;
-        InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/data/formation.csv")));
-        formations = new CsvToBeanBuilder<Formation>(reader).withType(Formation.class).build().parse();
+    public static List<Formation> getAllFormations() {
+        List<Formation> formations = new ArrayList<>();
+        try {
+            InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(App.class.getModule().getResourceAsStream("org/app/data/formation.csv")));
+            formations = new CsvToBeanBuilder<Formation>(reader).withType(Formation.class).build().parse();
+        } catch (IOException e) {
+            log.error("Failed to parse formation.csv");
+        }
         return formations;
     }
 
     public static List<Transaction> getAllTransactions(String fileLocation) {
-        List<Transaction> transactions;
+        List<Transaction> transactions = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileLocation);
             transactions = new CsvToBeanBuilder<Transaction>(fileReader).withType(Transaction.class).build().parse();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("Failed to open file {}", fileLocation, e);
         }
         return transactions;
     }
 
     public static List<Symbol> getAllSymbols(String fileLocation) {
-        List<Symbol> symbols;
+        List<Symbol> symbols = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileLocation);
             symbols = new CsvToBeanBuilder<Symbol>(fileReader).withType(Symbol.class).build().parse();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("Failed to open file {}", fileLocation, e);
         }
         return symbols;
     }
 
     public static List<Account> getAllAccountTransactions(String fileLocation) {
-        List<Account> transactions;
+        List<Account> transactions = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(fileLocation);
             transactions = new CsvToBeanBuilder<Account>(fileReader).withType(Account.class).build().parse();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("Failed to open file {}", fileLocation, e);
         }
         return transactions;
     }
@@ -71,7 +79,7 @@ public class csvReader {
             writer.close();
         } catch (CsvRequiredFieldEmptyException |
                  CsvDataTypeMismatchException e) {
-            throw new RuntimeException(e);
+            log.error("Failed to write items to file: {}", e.getMessage());
         }
     }
 }

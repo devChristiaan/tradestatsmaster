@@ -9,6 +9,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
@@ -31,6 +33,7 @@ import static org.service.csvReader.*;
 import static org.utilities.Utilities.closeApp;
 
 public class MenuBarController extends VBox implements Initializable {
+    private static final Logger log = LogManager.getLogger(MenuBarController.class);
 
     @FXML
     MenuBar menuBar;
@@ -73,15 +76,14 @@ public class MenuBarController extends VBox implements Initializable {
             List<Transaction> importedTransactions = getAllTransactions(file);
             try {
                 db.setBdConnection();
-            } catch (IOException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException ignored) {
             }
             for (Transaction tran : importedTransactions) {
                 db.addTransaction(tran);
             }
             GlobalContext.getTransactions().replaceMaster(db.getAllTransactions());
             db.closeBdConnection();
+            log.info("File {} imported successfully", file);
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
@@ -92,6 +94,7 @@ public class MenuBarController extends VBox implements Initializable {
         String path = csvDirectorySelector("Transactions");
         if (path != null) {
             writeItemsToCSV(GlobalContext.getTransactions().getMaster(), path);
+            log.info("All transactions file exported successfully");
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -102,6 +105,7 @@ public class MenuBarController extends VBox implements Initializable {
         String path = csvDirectorySelector("Transactions");
         if (path != null) {
             writeItemsToCSV(GlobalContext.getTransactions().getFiltered(), path);
+            log.info("All selected transactions file exported successfully");
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -114,7 +118,7 @@ public class MenuBarController extends VBox implements Initializable {
         if (selectedFile != null) {
             return selectedFile.getPath();
         } else {
-            System.out.println("No File Selected");
+            log.info("No file selected");
             return null;
         }
     }
@@ -131,7 +135,7 @@ public class MenuBarController extends VBox implements Initializable {
         if (selectedFile != null) {
             return selectedFile.getAbsolutePath();
         } else {
-            System.out.println("No File Selected");
+            log.info("No File Selected");
             return null;
         }
     }
@@ -177,6 +181,7 @@ public class MenuBarController extends VBox implements Initializable {
         String path = csvDirectorySelector("Symbols");
         if (path != null) {
             writeItemsToCSV(GlobalContext.getSymbols().getMaster(), path);
+            log.info("All symbols exported successfully");
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }
@@ -190,6 +195,7 @@ public class MenuBarController extends VBox implements Initializable {
             List<Symbol> importedSymbols = getAllSymbols(file);
             addAllSymbol(importedSymbols);
             GlobalContext.getSymbols().setAllMaster(importedSymbols);
+            log.info("All symbols imported successfully");
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
@@ -214,6 +220,7 @@ public class MenuBarController extends VBox implements Initializable {
             List<Account> importedTransactions = getAllAccountTransactions(file);
             addAllAccountTransactions(importedTransactions);
             GlobalContext.getAccounts().setAllMaster(importedTransactions);
+            log.info("All transactions imported successfully");
             fileSuccessAlert.setContentText("File successfully imported!");
             fileSuccessAlert.showAndWait();
         }
@@ -224,6 +231,7 @@ public class MenuBarController extends VBox implements Initializable {
         String path = csvDirectorySelector("Account_Transactions");
         if (path != null) {
             writeItemsToCSV(GlobalContext.getAccounts().getMaster(), path);
+            log.info("All account transactions exported successfully");
             fileSuccessAlert.setContentText("File successfully exported!");
             fileSuccessAlert.showAndWait();
         }

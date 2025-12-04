@@ -150,9 +150,7 @@ public class DailyPrepController extends Pane implements Initializable {
             db.addDailyPrepItem(selectedSymbol);
             GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
             db.closeBdConnection();
-            System.out.println("Symbol updated successfully!!");
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | SQLException ignored) {
         }
     }
 
@@ -199,9 +197,7 @@ public class DailyPrepController extends Pane implements Initializable {
                 db.deleteSymbol(selectedSymbol.getDailyPrepId());
                 GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
-                System.out.println("Symbol deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -217,9 +213,7 @@ public class DailyPrepController extends Pane implements Initializable {
                 db.deleteDay(selectedSymbol.getDailyPrepDateId());
                 GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
-                System.out.println("Day deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }

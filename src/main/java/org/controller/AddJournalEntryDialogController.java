@@ -11,6 +11,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -34,6 +36,8 @@ import static org.utilities.Utilities.calendarToStringConverter;
 
 
 public class AddJournalEntryDialogController implements Initializable {
+    private static final Logger log = LogManager.getLogger(AddJournalEntryDialogController.class);
+
     @FXML
     public Button save;
     @FXML
@@ -76,7 +80,6 @@ public class AddJournalEntryDialogController implements Initializable {
     @FXML
     public void saveJournalDate() {
         if (isValid(selectedItemsForDate)) {
-            System.out.println("Form is valid");
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
@@ -86,9 +89,7 @@ public class AddJournalEntryDialogController implements Initializable {
                 GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
                 this.cancel();
-            } catch (IOException | SQLException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -104,8 +105,10 @@ public class AddJournalEntryDialogController implements Initializable {
             if (selectSymbol) {
                 errorContainer.getChildren().add(createErrorLabel("Select a symbol"));
             }
+            log.error("Add journal entry form invalid");
             return false;
         }
+        log.info("Add journal entry form valid");
         return true;
     }
 

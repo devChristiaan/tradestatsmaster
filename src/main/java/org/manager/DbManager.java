@@ -643,7 +643,6 @@ public class DbManager {
                 rs.close();
             }
         }
-        System.out.println("Get All Journal Entries failed! DB is not connected");
         return null;
     }
 

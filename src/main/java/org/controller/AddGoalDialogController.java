@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.app.App;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -25,6 +28,7 @@ import static org.utilities.Utilities.*;
 
 
 public class AddGoalDialogController implements Initializable {
+    private static final Logger log = LogManager.getLogger(AddGoalDialogController.class);
 
     @FXML
     public Button save;
@@ -65,7 +69,6 @@ public class AddGoalDialogController implements Initializable {
     public void saveGoal() {
         errorContainer.getChildren().clear();
         if (isValid()) {
-            System.out.println("Form is valid");
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
@@ -73,9 +76,7 @@ public class AddGoalDialogController implements Initializable {
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();
-            } catch (IOException | SQLException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -96,7 +97,10 @@ public class AddGoalDialogController implements Initializable {
             hasErrors = true;
         }
 
-        if (hasErrors) return false;
+        if (hasErrors) {
+            log.error("Add Gaol form validation failed.");
+            return false;
+        }
 
 
         ETimeHorizon horizon = ETimeHorizon.fromDescription(selectedHorizon);
@@ -114,9 +118,11 @@ public class AddGoalDialogController implements Initializable {
 
         if (duplicateInPeriod) {
             errorContainer.getChildren().add(createErrorLabel(getDuplicateMessage(horizon)));
+            log.error("Add Gaol form validation failed.");
             return false;
         }
 
+        log.info("Goal form is valid");
         return true;
     }
 

@@ -130,9 +130,7 @@ public class GoalsController extends Pane implements Initializable {
             db.updateGoal(selectedGoal);
             GlobalContext.getGoals().replaceMaster(db.getAllGoals());
             db.closeBdConnection();
-            System.out.println("Goal updated successfully!!");
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | SQLException ignored) {
         }
     }
 
@@ -162,9 +160,7 @@ public class GoalsController extends Pane implements Initializable {
                 db.deleteGoal(selectedGoal.getId());
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
-                System.out.println("Goal deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
         deleteGoal.setDisable(true);

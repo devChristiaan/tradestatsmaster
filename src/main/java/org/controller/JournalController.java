@@ -148,9 +148,7 @@ public class JournalController extends Pane implements Initializable {
             db.updateJournalEntrySymbol(selectedSymbol);
             GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
             db.closeBdConnection();
-            System.out.println("Symbol updated successfully!!");
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | SQLException ignored) {
         }
     }
 
@@ -179,9 +177,7 @@ public class JournalController extends Pane implements Initializable {
                 db.deleteJourneyEntryBySymbol(selectedSymbol.getId());
                 GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
-                System.out.println("Symbol deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
         deleteSymbol.setDisable(true);
@@ -197,9 +193,7 @@ public class JournalController extends Pane implements Initializable {
                 db.deleteJournalDay(selectedSymbol.getDate());
                 GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
-                System.out.println("Day deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
         deleteDay.setDisable(true);

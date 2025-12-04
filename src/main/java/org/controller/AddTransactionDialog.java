@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
@@ -28,6 +30,8 @@ import static org.utilities.Utilities.*;
 
 
 public class AddTransactionDialog implements Initializable {
+    private static final Logger log = LogManager.getLogger(AddTransactionDialog.class);
+
     @FXML
     public Button save;
     @FXML
@@ -177,13 +181,8 @@ public class AddTransactionDialog implements Initializable {
                 db.closeBdConnection();
                 mainController.hideModal();
                 resetForm();
-                System.out.println("Transaction added successfully!!");
-            } catch (SQLException | IOException e) {
-                System.out.println("Saving Transaction Failed");
-                throw new RuntimeException(e);
+            } catch (SQLException | IOException ignored) {
             }
-        } else {
-            System.out.println("Form validation failed");
         }
     }
 
@@ -215,9 +214,11 @@ public class AddTransactionDialog implements Initializable {
             possibleProfitTicks.pseudoClassStateChanged(Styles.STATE_DANGER, isPossibleProfitTicksError);
             possibleLossTicks.pseudoClassStateChanged(Styles.STATE_DANGER, isPossibleLossTicksError);
             timePeriod.pseudoClassStateChanged(Styles.STATE_DANGER, isTimePeriodError);
+            log.error("Add transaction form validation failed");
             return false;
         }
 
+        log.info("Add transaction form validation successful");
         return true;
     }
 
