@@ -76,7 +76,6 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         saveBtn.setDisable(true);
         saveBtn.setOnAction(event -> save());
         copyContentBtn.setDisable(true);
-//        copyContentBtn.getStyleClass().add(Styles.FLAT);
         copyContentBtn.setOnAction(event -> {
             copyGoal = true;
             addGoal();
@@ -92,7 +91,6 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         ///Selection model
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
             if (newItem != null) {
-                ///Figure this out
                 selectedGoal = newItem;
                 textArea.setDisable(selectedGoal.getDate() == null);
                 resetFormWithSelectedValue(selectedGoal);
@@ -137,7 +135,6 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     @FXML
     @Override
     public void save() {
-//        selectedGoal.setText(textArea.getText());
         selectedGoal.setText(textArea.getHtmlText());
         selectedGoal.setAchieved(achievedCheckBox.isSelected());
         DbManager db = new DbManager();
@@ -157,13 +154,11 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     }
 
     void resetFormWithSelectedValue() {
-//        textArea.setText(goalTemplate);
         textArea.setHtmlText(goalTemplate);
         achievedCheckBox.setSelected(false);
     }
 
     void resetFormWithSelectedValue(Goal goal) {
-//        textArea.setText(goal.getText());
         textArea.setHtmlText(goal.getText());
         achievedCheckBox.setSelected(goal.getAchieved());
     }

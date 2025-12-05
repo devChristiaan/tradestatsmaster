@@ -109,11 +109,6 @@
                         <Insets/>
                     </VBox.margin>
                 </HBox>
-                <!--                <TextArea fx:id="textArea" prefHeight="700.0" prefWidth="700.0" wrapText="true">-->
-                <!--                    <font>-->
-                <!--                        <Font size="14.0"/>-->
-                <!--                    </font>-->
-                <!--                </TextArea>-->
                 <HTMLEditor fx:id="textArea" prefHeight="700.0" prefWidth="700.0"/>
             </VBox>
             <HBox alignment="CENTER">
