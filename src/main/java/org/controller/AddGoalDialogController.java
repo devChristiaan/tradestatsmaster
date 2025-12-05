@@ -31,6 +31,7 @@ public class AddGoalDialogController implements Initializable {
 
     @FXML
     public Button save;
+
     @FXML
     private DatePicker date;
     @FXML
@@ -39,16 +40,23 @@ public class AddGoalDialogController implements Initializable {
     private ChoiceBox<String> timeHorizon;
 
     MainController mainController;
+    GoalsController goalsController;
+    String copiedGoal = "";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
         this.mainController = ControllerRegistry.get(MainController.class);
+        this.goalsController = ControllerRegistry.get(GoalsController.class);
 
         this.date.setConverter(calendarToStringConverter(datePattern));
         this.date.setValue(LocalDate.now());
 
         this.timeHorizon.getItems().addAll(ETimeHorizon.getDescriptions());
+
+        if (this.goalsController.copyGoal && this.goalsController.selectedGoal != null) {
+            copiedGoal = this.goalsController.selectedGoal.getText();
+        }
 
         ///Rest checked default items
         this.date.setOnAction(event -> {
@@ -71,7 +79,7 @@ public class AddGoalDialogController implements Initializable {
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), goalTemplate, false));
+                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), !copiedGoal.isEmpty() ? copiedGoal : goalTemplate, false));
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();

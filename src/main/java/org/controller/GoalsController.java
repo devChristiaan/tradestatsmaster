@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.HTMLEditor;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
@@ -44,7 +45,7 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     @FXML
     public Label copySuffix;
     @FXML
-    public TextArea textArea;
+    public HTMLEditor textArea;
 
     @FXML
     private CheckBox achievedCheckBox;
@@ -52,10 +53,13 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public Button saveBtn;
     @FXML
     public Button deleteGoal;
+    @FXML
+    public Button copyContentBtn;
 
     FilteredList<Goal> goalEntries = GlobalContext.getGoals().getFiltered();
     private Node addGoal;
-    private Goal selectedGoal;
+    public Goal selectedGoal;
+    public boolean copyGoal;
     MainController mainController;
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
 
@@ -67,9 +71,16 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         saveBtn.getStyleClass().add(Styles.ACCENT);
         deleteGoal.setDisable(true);
         achievedCheckBox.setDisable(true);
+        textArea.setDisable(true);
         copy.setVisible(false);
         saveBtn.setDisable(true);
         saveBtn.setOnAction(event -> save());
+        copyContentBtn.setDisable(true);
+//        copyContentBtn.getStyleClass().add(Styles.FLAT);
+        copyContentBtn.setOnAction(event -> {
+            copyGoal = true;
+            addGoal();
+        });
 
         ///Populate list
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -83,8 +94,10 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
             if (newItem != null) {
                 ///Figure this out
                 selectedGoal = newItem;
+                textArea.setDisable(selectedGoal.getDate() == null);
                 resetFormWithSelectedValue(selectedGoal);
                 deleteGoal.setDisable(selectedGoal.getDate() == null);
+                copyContentBtn.setDisable(selectedGoal.getDate() == null);
                 saveBtn.setDisable(selectedGoal.getDate() == null);
                 achievedCheckBox.setDisable(selectedGoal.getDate() == null);
                 copyPrefix.setText(selectedGoal.getTimeHorizon().getDescription());
@@ -124,7 +137,8 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     @FXML
     @Override
     public void save() {
-        selectedGoal.setText(textArea.getText());
+//        selectedGoal.setText(textArea.getText());
+        selectedGoal.setText(textArea.getHtmlText());
         selectedGoal.setAchieved(achievedCheckBox.isSelected());
         DbManager db = new DbManager();
         try {
@@ -143,12 +157,14 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     }
 
     void resetFormWithSelectedValue() {
-        textArea.setText(goalTemplate);
+//        textArea.setText(goalTemplate);
+        textArea.setHtmlText(goalTemplate);
         achievedCheckBox.setSelected(false);
     }
 
     void resetFormWithSelectedValue(Goal goal) {
-        textArea.setText(goal.getText());
+//        textArea.setText(goal.getText());
+        textArea.setHtmlText(goal.getText());
         achievedCheckBox.setSelected(goal.getAchieved());
     }
 
