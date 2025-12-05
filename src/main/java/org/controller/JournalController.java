@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.HTMLEditor;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
@@ -41,7 +42,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     @FXML
     public Label symbolLabel;
     @FXML
-    public TextArea textArea;
+    public HTMLEditor textArea;
 
     @FXML
     public Button saveBtn;
@@ -63,6 +64,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
         deleteSymbol.setDisable(true);
         deleteDay.setDisable(true);
         saveBtn.setDisable(true);
+        textArea.setDisable(true);
         saveBtn.setOnAction(event -> save());
 
         ///Populate list
@@ -83,6 +85,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
             if (newItem != null) {
                 selectedSymbol = (Journal) newItem.getValue();
                 resetFormWithSelectedValue(selectedSymbol);
+                textArea.setDisable(selectedSymbol.getDate() == null);
                 deleteDay.setDisable(selectedSymbol.getDate() == null);
                 deleteSymbol.setDisable(selectedSymbol.getSymbol() == null);
                 saveBtn.setDisable(selectedSymbol.getSymbol() == null);
@@ -142,7 +145,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     @FXML
     @Override
     public void save() {
-        selectedSymbol.setText(textArea.getText());
+        selectedSymbol.setText(textArea.getHtmlText());
         DbManager db = new DbManager();
         try {
             db.setBdConnection();
@@ -161,11 +164,11 @@ public class JournalController extends Pane implements Initializable, SaveHandle
 
     void resetFormWithSelectedValue() {
         selectedSymbol = null;
-        textArea.clear();
+        textArea.setHtmlText("");
     }
 
     void resetFormWithSelectedValue(Journal journal) {
-        textArea.setText(journal.getText());
+        textArea.setHtmlText(journal.getText());
     }
 
     @FXML
