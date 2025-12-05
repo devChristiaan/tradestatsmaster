@@ -10,8 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.manager.DbManager;
 import org.service.csvReader;
 
@@ -19,7 +17,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.context.GlobalContext;
-import org.utilities.InitLogging;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.logging.InitLogging;
 import org.utilities.SaveHandler;
 
 import static org.manager.DTOManager.getAllAccountTransactions;
@@ -30,10 +30,9 @@ import org.manager.ControllerManager;
 public class App extends Application {
     ///Set before logger inits
     static {
-        System.setProperty("app.logDir", InitLogging.init());
+        InitLogging.configureLogging();
     }
-
-    private static final Logger log = LogManager.getLogger(App.class);
+    private static final Logger log = LoggerFactory.getLogger(App.class);
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -60,7 +59,7 @@ public class App extends Application {
                 closeApp();
             });
         } catch (IOException e) {
-            log.error(e);
+            log.error("Failed to start: {}", e.getMessage());
         }
     }
 

@@ -1,4 +1,4 @@
-package org.utilities;
+package org.logging;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

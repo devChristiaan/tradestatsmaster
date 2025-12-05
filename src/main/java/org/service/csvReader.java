@@ -5,13 +5,13 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.app.App;
 import org.model.Formation;
 import org.model.account.Account;
 import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class csvReader {
-    private static final Logger log = LogManager.getLogger(csvReader.class);
+    private static final Logger log = LoggerFactory.getLogger(csvReader.class);
 
     public static List<Formation> getAllFormations() {
         List<Formation> formations = new ArrayList<>();

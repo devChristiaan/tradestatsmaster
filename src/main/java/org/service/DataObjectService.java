@@ -1,8 +1,8 @@
 package org.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.model.DataObjectFileType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public class DataObjectService {
-    private static final Logger log = LogManager.getLogger(DataObjectService.class);
+    private static final Logger log = LoggerFactory.getLogger(DataObjectService.class);
 
     private static final Path dataFolder = Path.of(System.getenv("LOCALAPPDATA"), "TradeStatsMaster");
 

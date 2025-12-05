@@ -11,8 +11,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -20,6 +18,8 @@ import org.kordamp.ikonli.material2.Material2AL;
 import org.manager.DbManager;
 import org.model.journal.Journal;
 import org.model.symbol.Symbol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +36,7 @@ import static org.utilities.Utilities.calendarToStringConverter;
 
 
 public class AddJournalEntryDialogController implements Initializable {
-    private static final Logger log = LogManager.getLogger(AddJournalEntryDialogController.class);
+    private static final Logger log = LoggerFactory.getLogger(AddJournalEntryDialogController.class);
 
     @FXML
     public Button save;

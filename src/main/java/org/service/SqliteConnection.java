@@ -1,7 +1,7 @@
 package org.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.util.Objects;
 
 public class SqliteConnection {
-    private static final Logger log = LogManager.getLogger(SqliteConnection.class);
+    private static final Logger log = LoggerFactory.getLogger(SqliteConnection.class);
     static Path mainDB = Path.of(System.getenv("LOCALAPPDATA"), "TradeStatsMaster", "master.db");
     static final String mainDBName = "/org/app/data/master.sqlite";
 

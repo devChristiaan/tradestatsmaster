@@ -8,8 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -18,6 +16,8 @@ import org.manager.DbManager;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +33,7 @@ import static org.utilities.Utilities.*;
 
 
 public class AddDayDialogController implements Initializable {
-    private static final Logger log = LogManager.getLogger(AddDayDialogController.class);
+    private static final Logger log = LoggerFactory.getLogger(AddDayDialogController.class);
 
     @FXML
     public Button save;

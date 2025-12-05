@@ -6,14 +6,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.Formation;
 import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,7 +30,7 @@ import static org.utilities.Utilities.*;
 
 
 public class AddTransactionDialog implements Initializable {
-    private static final Logger log = LogManager.getLogger(AddTransactionDialog.class);
+    private static final Logger log = LoggerFactory.getLogger(AddTransactionDialog.class);
 
     @FXML
     public Button save;

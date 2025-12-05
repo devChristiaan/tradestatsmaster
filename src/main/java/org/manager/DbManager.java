@@ -1,7 +1,5 @@
 package org.manager;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepDate;
 import org.model.dailyPrep.DailyPrepItems;
@@ -10,6 +8,8 @@ import org.model.goal.Goal;
 import org.model.journal.Journal;
 import org.model.transaction.Transaction;
 import org.service.SqliteConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.*;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbManager {
-    private static final Logger log = LogManager.getLogger(DbManager.class);
+    private static final Logger log = LoggerFactory.getLogger(DbManager.class);
     Connection bdConnection;
 
     public void setBdConnection() throws IOException {
