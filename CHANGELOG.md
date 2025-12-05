@@ -13,6 +13,14 @@ New Features Planned:
 
 ### Changed
 
+## [1.7.1] - 2025-12-04
+
+Bug Fix
+- Fixed issue with target profit in Stop loss tab not calculating correctly
+- Added a logger for proper tracking
+- Fixed goals not saving
+- Added ctrl + s to save for Daily prep, journal and goals
+
 ## [1.7.0] - 2025-11-28
 
 Major Feature Added:

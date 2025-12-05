@@ -16,8 +16,8 @@ import org.context.GlobalContext;
 import org.manager.DbManager;
 import org.model.goal.ETimeHorizon;
 import org.model.goal.Goal;
-import org.model.journal.Journal;
 import org.utilities.DateCell;
+import org.utilities.SaveHandler;
 import org.utilities.TimeHorizonCell;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 import static org.utilities.Utilities.goalTemplate;
 
-public class GoalsController extends Pane implements Initializable {
+public class GoalsController extends Pane implements Initializable, SaveHandler {
 
     @FXML
     public TableView<Goal> tableView;
@@ -69,6 +69,7 @@ public class GoalsController extends Pane implements Initializable {
         achievedCheckBox.setDisable(true);
         copy.setVisible(false);
         saveBtn.setDisable(true);
+        saveBtn.setOnAction(event -> save());
 
         ///Populate list
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -121,7 +122,8 @@ public class GoalsController extends Pane implements Initializable {
     }
 
     @FXML
-    public void saveText() {
+    @Override
+    public void save() {
         selectedGoal.setText(textArea.getText());
         selectedGoal.setAchieved(achievedCheckBox.isSelected());
         DbManager db = new DbManager();
@@ -130,9 +132,7 @@ public class GoalsController extends Pane implements Initializable {
             db.updateGoal(selectedGoal);
             GlobalContext.getGoals().replaceMaster(db.getAllGoals());
             db.closeBdConnection();
-            System.out.println("Goal updated successfully!!");
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | SQLException ignored) {
         }
     }
 
@@ -162,9 +162,7 @@ public class GoalsController extends Pane implements Initializable {
                 db.deleteGoal(selectedGoal.getId());
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
-                System.out.println("Goal deleted successfully!!");
-            } catch (IOException | SQLException e) {
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
         deleteGoal.setDisable(true);

@@ -16,6 +16,8 @@ import org.manager.DbManager;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +33,8 @@ import static org.utilities.Utilities.*;
 
 
 public class AddDayDialogController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(AddDayDialogController.class);
+
     @FXML
     public Button save;
     @FXML
@@ -84,7 +88,6 @@ public class AddDayDialogController implements Initializable {
             newlyCheckedSymbolList = checkedSymbolList;
         }
         if (isValid(newlyCheckedSymbolList)) {
-            System.out.println("Form is valid");
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
@@ -98,9 +101,7 @@ public class AddDayDialogController implements Initializable {
                 GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
                 db.closeBdConnection();
                 this.cancel();
-            } catch (IOException | SQLException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -116,8 +117,10 @@ public class AddDayDialogController implements Initializable {
             if (selectSymbol) {
                 errorContainer.getChildren().add(createErrorLabel("Select a symbol"));
             }
+            log.error("Add day form validation failed");
             return false;
         }
+        log.info("Add day form is valid");
         return true;
     }
 

@@ -18,6 +18,8 @@ import org.kordamp.ikonli.material2.Material2AL;
 import org.manager.DbManager;
 import org.model.journal.Journal;
 import org.model.symbol.Symbol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +36,8 @@ import static org.utilities.Utilities.calendarToStringConverter;
 
 
 public class AddJournalEntryDialogController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(AddJournalEntryDialogController.class);
+
     @FXML
     public Button save;
     @FXML
@@ -76,7 +80,6 @@ public class AddJournalEntryDialogController implements Initializable {
     @FXML
     public void saveJournalDate() {
         if (isValid(selectedItemsForDate)) {
-            System.out.println("Form is valid");
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
@@ -86,9 +89,7 @@ public class AddJournalEntryDialogController implements Initializable {
                 GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
                 db.closeBdConnection();
                 this.cancel();
-            } catch (IOException | SQLException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -104,8 +105,10 @@ public class AddJournalEntryDialogController implements Initializable {
             if (selectSymbol) {
                 errorContainer.getChildren().add(createErrorLabel("Select a symbol"));
             }
+            log.error("Add journal entry form invalid");
             return false;
         }
+        log.info("Add journal entry form valid");
         return true;
     }
 

@@ -12,6 +12,8 @@ import org.kordamp.ikonli.material2.Material2AL;
 import org.manager.DbManager;
 import org.model.goal.ETimeHorizon;
 import org.model.goal.Goal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +27,7 @@ import static org.utilities.Utilities.*;
 
 
 public class AddGoalDialogController implements Initializable {
+    private static final Logger log = LoggerFactory.getLogger(AddGoalDialogController.class);
 
     @FXML
     public Button save;
@@ -65,7 +68,6 @@ public class AddGoalDialogController implements Initializable {
     public void saveGoal() {
         errorContainer.getChildren().clear();
         if (isValid()) {
-            System.out.println("Form is valid");
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
@@ -73,9 +75,7 @@ public class AddGoalDialogController implements Initializable {
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();
-            } catch (IOException | SQLException e) {
-                System.out.println("Failed to connect to DB");
-                throw new RuntimeException(e);
+            } catch (IOException | SQLException ignored) {
             }
         }
     }
@@ -96,7 +96,10 @@ public class AddGoalDialogController implements Initializable {
             hasErrors = true;
         }
 
-        if (hasErrors) return false;
+        if (hasErrors) {
+            log.error("Add Gaol form validation failed.");
+            return false;
+        }
 
 
         ETimeHorizon horizon = ETimeHorizon.fromDescription(selectedHorizon);
@@ -114,9 +117,11 @@ public class AddGoalDialogController implements Initializable {
 
         if (duplicateInPeriod) {
             errorContainer.getChildren().add(createErrorLabel(getDuplicateMessage(horizon)));
+            log.error("Add Gaol form validation failed.");
             return false;
         }
 
+        log.info("Goal form is valid");
         return true;
     }
 

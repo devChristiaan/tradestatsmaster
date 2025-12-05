@@ -14,8 +14,8 @@ public class DTOManager {
     public static List<Symbol> getAllSymbols() {
         SymbolDTO symbols = DataObjectService.loadObject(DataObjectFileType.SYMBOLS);
         if (symbols == null) {
-            DataObjectService.saveObject(new SymbolDTO(), DataObjectFileType.SYMBOLS);
-            symbols = DataObjectService.loadObject(DataObjectFileType.SYMBOLS);
+            symbols = new SymbolDTO();
+            DataObjectService.saveObject(symbols, DataObjectFileType.SYMBOLS);
         }
         return symbols.getSymbols();
     }
@@ -48,8 +48,8 @@ public class DTOManager {
     public static List<Account> getAllAccountTransactions() {
         AccountDTO accountTransactions = DataObjectService.loadObject(DataObjectFileType.ACCOUNT_TRANSACTIONS);
         if (accountTransactions == null) {
-            DataObjectService.saveObject(new AccountDTO(), DataObjectFileType.ACCOUNT_TRANSACTIONS);
-            accountTransactions = DataObjectService.loadObject(DataObjectFileType.ACCOUNT_TRANSACTIONS);
+            accountTransactions = new AccountDTO();
+            DataObjectService.saveObject(accountTransactions, DataObjectFileType.ACCOUNT_TRANSACTIONS);
         }
         return accountTransactions.getAllTransactions();
     }

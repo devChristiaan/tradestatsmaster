@@ -235,7 +235,7 @@
                                     </font>
                                 </Button>
                                 <Button fx:id="saveBtn" alignment="CENTER" contentDisplay="CENTER"
-                                        disable="${symbolLabel.text.empty}" mnemonicParsing="false" onAction="#saveForm"
+                                        disable="${symbolLabel.text.empty}" mnemonicParsing="false" onAction="#save"
                                         prefWidth="80.0" text="Save">
                                     <font>
                                         <Font size="14.0"/>
