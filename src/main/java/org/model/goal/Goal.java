@@ -1,5 +1,6 @@
 package org.model.goal;
 
+import com.gluonhq.richtextarea.model.Document;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,6 @@ public class Goal {
     Integer id;
     LocalDate date;
     ETimeHorizon timeHorizon;
-    String text;
+    Document document;
     Boolean achieved;
 }

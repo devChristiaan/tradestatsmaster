@@ -1,5 +1,6 @@
 package org.model.journal;
 
+import com.gluonhq.richtextarea.model.Document;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,5 @@ public class Journal {
     Integer id;
     LocalDate date;
     String symbol;
-    String text;
+    Document document;
 }

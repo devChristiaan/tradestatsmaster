@@ -1,6 +1,7 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.model.Document;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
@@ -11,7 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.scene.web.HTMLEditor;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
@@ -41,8 +42,6 @@ public class JournalController extends Pane implements Initializable, SaveHandle
 
     @FXML
     public Label symbolLabel;
-    @FXML
-    public HTMLEditor textArea;
 
     @FXML
     public Button saveBtn;
@@ -50,6 +49,9 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     public Button deleteSymbol;
     @FXML
     public Button deleteDay;
+    @FXML
+    public VBox editor;
+    private RichTextEditorController editorController;
 
     FilteredList<Journal> journalEntries = GlobalContext.getJournals().getFiltered();
     private Node addJournalEntry;
@@ -60,11 +62,19 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     public void initialize(URL location, ResourceBundle resources) {
         ///Defaults
         ControllerRegistry.register(JournalController.class, this);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/app/fxml/RichTextEditor.fxml"));
+            Node editorNode = loader.load();
+            editorController = loader.getController();
+            editor.getChildren().add(editorNode);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
         saveBtn.getStyleClass().add(Styles.ACCENT);
         deleteSymbol.setDisable(true);
         deleteDay.setDisable(true);
         saveBtn.setDisable(true);
-        textArea.setDisable(true);
+//        textArea.setDisable(true);
         saveBtn.setOnAction(event -> save());
 
         ///Populate list
@@ -85,7 +95,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
             if (newItem != null) {
                 selectedSymbol = (Journal) newItem.getValue();
                 resetFormWithSelectedValue(selectedSymbol);
-                textArea.setDisable(selectedSymbol.getDate() == null);
+//                textArea.setDisable(selectedSymbol.getDate() == null);
                 deleteDay.setDisable(selectedSymbol.getDate() == null);
                 deleteSymbol.setDisable(selectedSymbol.getSymbol() == null);
                 saveBtn.setDisable(selectedSymbol.getSymbol() == null);
@@ -134,7 +144,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
                             new TreeItem<>(new Journal(null, date, null, null));
                     for (Journal j : list) {
                         dateNode.getChildren().add(
-                                new TreeItem<>(new Journal(j.getId(), null, j.getSymbol(), j.getText()))
+                                new TreeItem<>(new Journal(j.getId(), null, j.getSymbol(), j.getDocument()))
                         );
                     }
 
@@ -145,7 +155,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     @FXML
     @Override
     public void save() {
-        selectedSymbol.setText(textArea.getHtmlText());
+        selectedSymbol.setDocument(editorController.getDocument());
         DbManager db = new DbManager();
         try {
             db.setBdConnection();
@@ -164,11 +174,11 @@ public class JournalController extends Pane implements Initializable, SaveHandle
 
     void resetFormWithSelectedValue() {
         selectedSymbol = null;
-        textArea.setHtmlText("");
+        editorController.setDocument(new Document());
     }
 
     void resetFormWithSelectedValue(Journal journal) {
-        textArea.setHtmlText(journal.getText());
+        editorController.setDocument(journal.getDocument());
     }
 
     @FXML

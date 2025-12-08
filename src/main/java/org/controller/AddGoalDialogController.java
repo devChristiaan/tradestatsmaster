@@ -1,6 +1,7 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.model.Document;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -41,7 +42,7 @@ public class AddGoalDialogController implements Initializable {
 
     MainController mainController;
     GoalsController goalsController;
-    String copiedGoal = "";
+    Document copiedGoal;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,7 +56,7 @@ public class AddGoalDialogController implements Initializable {
         this.timeHorizon.getItems().addAll(ETimeHorizon.getDescriptions());
 
         if (this.goalsController.copyGoal && this.goalsController.selectedGoal != null) {
-            copiedGoal = this.goalsController.selectedGoal.getText();
+            copiedGoal = this.goalsController.selectedGoal.getDocument();
         }
 
         ///Rest checked default items
@@ -79,7 +80,7 @@ public class AddGoalDialogController implements Initializable {
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), !copiedGoal.isEmpty() ? copiedGoal : goalTemplate, false));
+                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(), false));
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();

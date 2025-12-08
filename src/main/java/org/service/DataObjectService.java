@@ -64,4 +64,26 @@ public class DataObjectService {
         }
         return object;
     }
+
+    public static <T> byte[] serializeObject(T obj) {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+            oos.writeObject(obj);
+            return bos.toByteArray();
+        } catch (IOException e) {
+            log.error("Error serializing object: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    public static <T> T deserializeObject(byte[] data) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+             ObjectInputStream ois = new ObjectInputStream(bis)) {
+            return (T) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            log.error("Error deserializing object: {}", e.getMessage());
+        }
+        return null;
+    }
+
 }

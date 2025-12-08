@@ -8,7 +8,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +15,6 @@
 <?import javafx.scene.text.Font?>
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import javafx.scene.web.HTMLEditor?>
 <VBox prefHeight="1080.0" prefWidth="1470.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.controller.GoalsController">
@@ -110,7 +108,7 @@
                         <Insets/>
                     </VBox.margin>
                 </HBox>
-                <HTMLEditor fx:id="textArea" prefHeight="700.0" prefWidth="700.0"/>
+                <VBox prefHeight="700.0" prefWidth="1462.0" fx:id="editor"/>
             </VBox>
             <HBox alignment="CENTER">
                 <VBox.margin>

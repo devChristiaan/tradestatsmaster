@@ -1,6 +1,7 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.model.Document;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.scene.web.HTMLEditor;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
@@ -44,8 +45,6 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public Label copy;
     @FXML
     public Label copySuffix;
-    @FXML
-    public HTMLEditor textArea;
 
     @FXML
     private CheckBox achievedCheckBox;
@@ -55,8 +54,11 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public Button deleteGoal;
     @FXML
     public Button copyContentBtn;
+    @FXML
+    public VBox editor;
 
     FilteredList<Goal> goalEntries = GlobalContext.getGoals().getFiltered();
+    RichTextEditorController editorController;
     private Node addGoal;
     public Goal selectedGoal;
     public boolean copyGoal;
@@ -68,14 +70,22 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         ///Defaults
         ControllerRegistry.register(GoalsController.class, this);
         this.mainController = ControllerRegistry.get(MainController.class);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/app/fxml/RichTextEditor.fxml"));
+            Node editorNode = loader.load();
+            editorController = loader.getController();
+            editor.getChildren().add(editorNode);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
         saveBtn.getStyleClass().add(Styles.ACCENT);
         deleteGoal.setDisable(true);
         achievedCheckBox.setDisable(true);
-        textArea.setDisable(true);
         copy.setVisible(false);
         saveBtn.setDisable(true);
         saveBtn.setOnAction(event -> save());
         copyContentBtn.setDisable(true);
+//        editorController.enableEditor(false);
         copyContentBtn.setOnAction(event -> {
             copyGoal = true;
             addGoal();
@@ -92,8 +102,8 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
             if (newItem != null) {
                 selectedGoal = newItem;
-                textArea.setDisable(selectedGoal.getDate() == null);
                 resetFormWithSelectedValue(selectedGoal);
+//                editorController.enableEditor(selectedGoal.getDate() == null);
                 deleteGoal.setDisable(selectedGoal.getDate() == null);
                 copyContentBtn.setDisable(selectedGoal.getDate() == null);
                 saveBtn.setDisable(selectedGoal.getDate() == null);
@@ -135,7 +145,7 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     @FXML
     @Override
     public void save() {
-        selectedGoal.setText(textArea.getHtmlText());
+        selectedGoal.setDocument(editorController.getDocument());
         selectedGoal.setAchieved(achievedCheckBox.isSelected());
         DbManager db = new DbManager();
         try {
@@ -154,13 +164,13 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     }
 
     void resetFormWithSelectedValue() {
-        textArea.setHtmlText(goalTemplate);
         achievedCheckBox.setSelected(false);
+        editorController.setDocument(new Document());
     }
 
     void resetFormWithSelectedValue(Goal goal) {
-        textArea.setHtmlText(goal.getText());
         achievedCheckBox.setSelected(goal.getAchieved());
+        editorController.setDocument(goal.getDocument());
     }
 
     @FXML

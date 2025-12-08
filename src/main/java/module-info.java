@@ -1,6 +1,5 @@
 module org.app {
     requires javafx.fxml;
-    requires javafx.web;
     requires static lombok;
     requires jakarta.annotation;
     requires atlantafx.base;
@@ -10,7 +9,9 @@ module org.app {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.material2;
+    requires org.kordamp.ikonli.lineawesome;
     requires org.slf4j;
+    requires com.gluonhq.richtextarea;
 
     exports org.app;
     exports org.controller;
