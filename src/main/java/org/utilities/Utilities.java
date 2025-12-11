@@ -21,18 +21,17 @@ import java.util.Locale;
 public class Utilities {
 
     public static final String goalTemplate = """
-            <html dir="ltr"><head></head><body contenteditable="true">
-            <h2><span style="font-size: x-large;">Title:&nbsp;</span></h2>
-            <h2><span style="font-size: x-large;">Short Explanation:&nbsp;</span></h2>
-            <div><br></div>
-            <h3><span style="font-size: large;">Target---------&nbsp;</span></h3>
-            <p><span style="font-size: large;"><br></span></p>
-            <h3><span style="font-size: large;">Reason---------&nbsp;</span></h3>
-            <p><span style="font-size: large;"><br></span></p>
-            <h3><span style="font-size: large;">Action---------</span></h3>
-            <p><span style="font-size: large;"><br></span></p>
-            <h3><span style="font-size: large;">Evaluate-------</span></h3>
-            </body></html>
+            Title:
+            
+            Short Explanation:
+            
+            Target---------
+            
+            Reason---------
+            
+            Action---------
+            
+            Evaluate-------
             """;
 
     public static void closeApp() {

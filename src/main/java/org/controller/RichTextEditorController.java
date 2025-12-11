@@ -110,6 +110,8 @@ public class RichTextEditorController extends VBox implements Initializable {
         });
         editor.setPadding(new Insets(20));
         editor.setAutoSave(true);
+        ///Set default font size
+        editor.getActionFactory().decorate(TextDecoration.builder().presets().fontSize(16.0).build()).execute(new ActionEvent());
 
         ComboBox<Presets> presets = new ComboBox<>();
         presets.getItems().setAll(Presets.values());
@@ -143,24 +145,23 @@ public class RichTextEditorController extends VBox implements Initializable {
         new TextDecorateAction<>(editor, fontFamilies.valueProperty(), TextDecoration::getFontFamily, (builder, a) -> builder.fontFamily(a).build());
 
         final ComboBox<Double> fontSize = new ComboBox<>();
-        fontSize.setEditable(true);
+//        fontSize.setEditable(false);
         fontSize.setPrefWidth(70);
         fontSize.getItems().addAll(IntStream.range(1, 100)
                 .filter(i -> i % 2 == 0 || i < 18)
                 .asDoubleStream().boxed().toList());
+        fontSize.setValue(16.0);
         new TextDecorateAction<>(editor, fontSize.valueProperty(), TextDecoration::getFontSize, (builder, a) -> builder.fontSize(a).build());
         fontSize.setConverter(new StringConverter<>() {
             @Override
             public String toString(Double aDouble) {
                 return Integer.toString(aDouble.intValue());
             }
-
             @Override
             public Double fromString(String s) {
                 return Double.parseDouble(s);
             }
         });
-        fontSize.setValue(16.0);
 
         final ColorPicker textForeground = new ColorPicker();
         textForeground.getStyleClass().add("foreground");
@@ -443,7 +444,7 @@ public class RichTextEditorController extends VBox implements Initializable {
 
     private enum Presets {
 
-        DEFAULT("Default", 12, NORMAL, TextAlignment.LEFT),
+        DEFAULT("Default", 16, NORMAL, TextAlignment.LEFT),
         HEADER1("Header 1", 32, BOLD, TextAlignment.CENTER),
         HEADER2("Header 2", 24, BOLD, TextAlignment.LEFT),
         HEADER3("Header 3", 19, BOLD, TextAlignment.LEFT);

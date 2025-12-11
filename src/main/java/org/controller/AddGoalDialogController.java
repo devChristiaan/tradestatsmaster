@@ -1,7 +1,10 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.model.DecorationModel;
 import com.gluonhq.richtextarea.model.Document;
+import com.gluonhq.richtextarea.model.ParagraphDecoration;
+import com.gluonhq.richtextarea.model.TextDecoration;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Objects;
 
@@ -80,7 +84,9 @@ public class AddGoalDialogController implements Initializable {
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(), false));
+                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 0,
+                        TextDecoration.builder().presets().fontSize(16.0).build(),
+                        ParagraphDecoration.builder().presets().build())), 0), false));
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();

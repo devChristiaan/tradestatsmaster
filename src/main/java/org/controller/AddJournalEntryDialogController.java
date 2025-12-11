@@ -1,7 +1,11 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.action.TextDecorateAction;
+import com.gluonhq.richtextarea.model.DecorationModel;
 import com.gluonhq.richtextarea.model.Document;
+import com.gluonhq.richtextarea.model.ParagraphDecoration;
+import com.gluonhq.richtextarea.model.TextDecoration;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -144,7 +148,9 @@ public class AddJournalEntryDialogController implements Initializable {
                         public void handle(ActionEvent event) {
                             errorContainer.getChildren().clear();
                             if (checkBox.isSelected()) {
-                                selectedItemsForDate.add(new Journal(null, date.getValue(), checkBox.getText(), new Document()));
+                                selectedItemsForDate.add(new Journal(null, date.getValue(), checkBox.getText(), new Document("", List.of(new DecorationModel(0, 0,
+                                        TextDecoration.builder().presets().fontSize(16.0).build(),
+                                        ParagraphDecoration.builder().presets().build())), 0)));
                             } else {
                                 Optional<Journal> checkSymbol = selectedItemsForDate.stream().filter(p -> p.getSymbol().equals(checkBox.getText())).findFirst();
                                 selectedItemsForDate.remove(checkSymbol);
