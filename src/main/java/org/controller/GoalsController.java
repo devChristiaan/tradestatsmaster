@@ -103,7 +103,7 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
             if (newItem != null) {
                 selectedGoal = newItem;
                 resetFormWithSelectedValue(selectedGoal);
-//                editorController.enableEditor(selectedGoal.getDate() == null);
+//                editorController.getEditor().editableProperty().setValue(selectedGoal.getDate() == null);
                 deleteGoal.setDisable(selectedGoal.getDate() == null);
                 copyContentBtn.setDisable(selectedGoal.getDate() == null);
                 saveBtn.setDisable(selectedGoal.getDate() == null);

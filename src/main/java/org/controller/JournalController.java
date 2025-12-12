@@ -74,7 +74,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
         deleteSymbol.setDisable(true);
         deleteDay.setDisable(true);
         saveBtn.setDisable(true);
-//        textArea.setDisable(true);
+//        editorController.getEditor().setDisable(true);
         saveBtn.setOnAction(event -> save());
 
         ///Populate list
@@ -95,7 +95,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
             if (newItem != null) {
                 selectedSymbol = (Journal) newItem.getValue();
                 resetFormWithSelectedValue(selectedSymbol);
-//                textArea.setDisable(selectedSymbol.getDate() == null);
+//                editorController.getEditor().editableProperty().setValue(selectedSymbol.getDate() == null);
                 deleteDay.setDisable(selectedSymbol.getDate() == null);
                 deleteSymbol.setDisable(selectedSymbol.getSymbol() == null);
                 saveBtn.setDisable(selectedSymbol.getSymbol() == null);

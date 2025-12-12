@@ -6,7 +6,6 @@ import com.gluonhq.richtextarea.action.Action;
 import com.gluonhq.richtextarea.action.DecorateAction;
 import com.gluonhq.richtextarea.action.ParagraphDecorateAction;
 import com.gluonhq.richtextarea.action.TextDecorateAction;
-import com.gluonhq.richtextarea.model.DecorationModel;
 import com.gluonhq.richtextarea.model.Document;
 import com.gluonhq.richtextarea.model.ImageDecoration;
 import com.gluonhq.richtextarea.model.ParagraphDecoration;
@@ -25,7 +24,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -38,7 +36,6 @@ import org.kordamp.ikonli.lineawesome.LineAwesomeSolid;
 
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -54,7 +51,7 @@ import static javafx.scene.text.FontPosture.REGULAR;
 import static javafx.scene.text.FontWeight.BOLD;
 import static javafx.scene.text.FontWeight.NORMAL;
 
-public class RichTextEditorController extends VBox implements Initializable {
+public class RichTextEditorController implements Initializable {
     @FXML
     private RichTextArea editor;
     @FXML
@@ -72,30 +69,6 @@ public class RichTextEditorController extends VBox implements Initializable {
     );
 
     private static final String MARKER_BOLD = "*", MARKER_ITALIC = "_", MARKER_MONO = "`";
-
-    private final List<DecorationModel> decorations;
-
-    {
-        TextDecoration bold14 = TextDecoration.builder().presets().fontWeight(BOLD).fontSize(14).foreground("darkblue").build();
-        TextDecoration preset = TextDecoration.builder().presets().build();
-        ParagraphDecoration center63 = ParagraphDecoration.builder().presets().alignment(TextAlignment.CENTER).topInset(6).bottomInset(3).build();
-        ParagraphDecoration justify22 = ParagraphDecoration.builder().presets().alignment(TextAlignment.JUSTIFY).topInset(2).bottomInset(2).build();
-        ParagraphDecoration right22 = ParagraphDecoration.builder().presets().alignment(TextAlignment.RIGHT).topInset(2).bottomInset(2).build();
-        ParagraphDecoration left535 = ParagraphDecoration.builder().presets().alignment(TextAlignment.LEFT).topInset(5).bottomInset(3).spacing(5).build();
-        ParagraphDecoration center42 = ParagraphDecoration.builder().presets().alignment(TextAlignment.CENTER).topInset(4).bottomInset(2).build();
-        TableDecoration tdec = new TableDecoration(2, 3, new TextAlignment[][]{{TextAlignment.CENTER, TextAlignment.LEFT, TextAlignment.RIGHT}, {TextAlignment.JUSTIFY, TextAlignment.RIGHT, TextAlignment.CENTER}});
-        ParagraphDecoration table = ParagraphDecoration.builder().presets().alignment(TextAlignment.CENTER).tableDecoration(tdec).build();
-        decorations = List.of(
-                new DecorationModel(0, 21, bold14, center63),
-                new DecorationModel(21, 575, preset, justify22),
-                new DecorationModel(596, 18, bold14, center63),
-                new DecorationModel(614, 614, preset, right22),
-                new DecorationModel(1228, 27, bold14, table),
-                new DecorationModel(1255, 764, preset, left535),
-                new DecorationModel(2019, 295, preset, center42)
-        );
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -145,23 +118,24 @@ public class RichTextEditorController extends VBox implements Initializable {
         new TextDecorateAction<>(editor, fontFamilies.valueProperty(), TextDecoration::getFontFamily, (builder, a) -> builder.fontFamily(a).build());
 
         final ComboBox<Double> fontSize = new ComboBox<>();
-//        fontSize.setEditable(false);
+        fontSize.setEditable(true);
         fontSize.setPrefWidth(70);
         fontSize.getItems().addAll(IntStream.range(1, 100)
                 .filter(i -> i % 2 == 0 || i < 18)
                 .asDoubleStream().boxed().toList());
-        fontSize.setValue(16.0);
         new TextDecorateAction<>(editor, fontSize.valueProperty(), TextDecoration::getFontSize, (builder, a) -> builder.fontSize(a).build());
         fontSize.setConverter(new StringConverter<>() {
             @Override
             public String toString(Double aDouble) {
                 return Integer.toString(aDouble.intValue());
             }
+
             @Override
             public Double fromString(String s) {
                 return Double.parseDouble(s);
             }
         });
+        fontSize.setValue(16.0);
 
         final ColorPicker textForeground = new ColorPicker();
         textForeground.getStyleClass().add("foreground");

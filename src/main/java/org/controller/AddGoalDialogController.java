@@ -84,9 +84,9 @@ public class AddGoalDialogController implements Initializable {
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 0,
+                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 94,
                         TextDecoration.builder().presets().fontSize(16.0).build(),
-                        ParagraphDecoration.builder().presets().build())), 0), false));
+                        ParagraphDecoration.builder().presets().build())), 93), false));
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();
