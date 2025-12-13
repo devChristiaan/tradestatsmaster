@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.control.TreeTableView?>
@@ -78,16 +77,7 @@
                     <Insets/>
                 </VBox.margin>
             </Separator>
-            <VBox prefHeight="700.0" prefWidth="1462.0">
-                <VBox.margin>
-                    <Insets top="12.0"/>
-                </VBox.margin>
-                <TextArea fx:id="textArea" prefHeight="700.0" prefWidth="700.0" wrapText="true">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </TextArea>
-            </VBox>
+            <VBox prefHeight="700.0" prefWidth="1462.0" fx:id="editor"/>
             <HBox alignment="CENTER">
                 <VBox.margin>
                     <Insets top="24.0"/>

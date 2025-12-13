@@ -13,6 +13,13 @@ New Features Planned:
 
 ### Changed
 
+## [1.7.2] - 2025-12-13
+
+Small clean up
+- Fixed text editor - switched to custom rich text editor for the journal and goals. Had to initialize the library and changed out the subscribe methods for addListener to keep it compatible with GraalVM.
+- Upgrade project to use JAVA 21 and updated sql dependencies.
+- Added a button to copy goal content to a new goal
+
 ## [1.7.1] - 2025-12-04
 
 Bug Fix

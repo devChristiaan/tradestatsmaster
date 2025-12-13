@@ -20,20 +20,18 @@ import java.util.Locale;
 
 public class Utilities {
 
-    public static final String goalTemplate = """
-            Title:
-            
-            Short Explanation:
-            
-            Target---------
-            
-            Reason---------
-            
-            Action---------
-            
-            Evaluate-------
-            
-            """;
+    public static final String goalTemplate =
+            "Title:\n"+
+            "\n" +
+            "Short Explanation:\n"+
+            "\n" +
+            "Target---------\n"+
+            "\n" +
+            "Reason---------\n"+
+            "\n" +
+            "Action---------\n"+
+            "\n" +
+            "Evaluate-------";
 
     public static void closeApp() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

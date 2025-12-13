@@ -3,10 +3,13 @@
   "name":"[Lcom.sun.glass.ui.Screen;"
 },
 {
-  "name":"[Lcom.sun.management.internal.DiagnosticCommandArgumentInfo;"
+  "name":"[Ljava.lang.String;"
 },
 {
-  "name":"[Lcom.sun.management.internal.DiagnosticCommandInfo;"
+  "name":"[Z"
+},
+{
+  "name":"com.sun.glass.ui.Application"
 },
 {
   "name":"com.sun.glass.ui.CommonDialogs",
@@ -14,17 +17,11 @@
 },
 {
   "name":"com.sun.glass.ui.CommonDialogs$ExtensionFilter",
-  "methods":[
-    {"name":"extensionsToArray","parameterTypes":[] }, 
-    {"name":"getDescription","parameterTypes":[] }
-  ]
+  "methods":[{"name":"extensionsToArray","parameterTypes":[] }, {"name":"getDescription","parameterTypes":[] }]
 },
 {
   "name":"com.sun.glass.ui.Cursor",
-  "methods":[
-    {"name":"getNativeCursor","parameterTypes":[] }, 
-    {"name":"getType","parameterTypes":[] }
-  ]
+  "methods":[{"name":"getNativeCursor","parameterTypes":[] }, {"name":"getType","parameterTypes":[] }]
 },
 {
   "name":"com.sun.glass.ui.Screen",
@@ -36,130 +33,56 @@
 },
 {
   "name":"com.sun.javafx.font.directwrite.D2D1_COLOR_F",
-  "fields":[
-    {"name":"a"}, 
-    {"name":"b"}, 
-    {"name":"g"}, 
-    {"name":"r"}
-  ],
+  "fields":[{"name":"a"}, {"name":"b"}, {"name":"g"}, {"name":"r"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.D2D1_MATRIX_3X2_F",
-  "fields":[
-    {"name":"_11"}, 
-    {"name":"_12"}, 
-    {"name":"_21"}, 
-    {"name":"_22"}, 
-    {"name":"_31"}, 
-    {"name":"_32"}
-  ],
+  "fields":[{"name":"_11"}, {"name":"_12"}, {"name":"_21"}, {"name":"_22"}, {"name":"_31"}, {"name":"_32"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.D2D1_PIXEL_FORMAT",
-  "fields":[
-    {"name":"alphaMode"}, 
-    {"name":"format"}
-  ],
+  "fields":[{"name":"alphaMode"}, {"name":"format"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.D2D1_POINT_2F",
-  "fields":[
-    {"name":"x"}, 
-    {"name":"y"}
-  ],
+  "fields":[{"name":"x"}, {"name":"y"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.D2D1_RENDER_TARGET_PROPERTIES",
-  "fields":[
-    {"name":"dpiX"}, 
-    {"name":"dpiY"}, 
-    {"name":"minLevel"}, 
-    {"name":"pixelFormat"}, 
-    {"name":"type"}, 
-    {"name":"usage"}
-  ],
+  "fields":[{"name":"dpiX"}, {"name":"dpiY"}, {"name":"minLevel"}, {"name":"pixelFormat"}, {"name":"type"}, {"name":"usage"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.DWRITE_GLYPH_METRICS",
-  "fields":[
-    {"name":"advanceHeight"}, 
-    {"name":"advanceWidth"}, 
-    {"name":"bottomSideBearing"}, 
-    {"name":"leftSideBearing"}, 
-    {"name":"rightSideBearing"}, 
-    {"name":"topSideBearing"}, 
-    {"name":"verticalOriginY"}
-  ],
+  "fields":[{"name":"advanceHeight"}, {"name":"advanceWidth"}, {"name":"bottomSideBearing"}, {"name":"leftSideBearing"}, {"name":"rightSideBearing"}, {"name":"topSideBearing"}, {"name":"verticalOriginY"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.DWRITE_GLYPH_RUN",
-  "fields":[
-    {"name":"advanceOffset"}, 
-    {"name":"ascenderOffset"}, 
-    {"name":"bidiLevel"}, 
-    {"name":"fontEmSize"}, 
-    {"name":"fontFace"}, 
-    {"name":"glyphAdvances"}, 
-    {"name":"glyphIndices"}, 
-    {"name":"isSideways"}
-  ],
+  "fields":[{"name":"advanceOffset"}, {"name":"ascenderOffset"}, {"name":"bidiLevel"}, {"name":"fontEmSize"}, {"name":"fontFace"}, {"name":"glyphAdvances"}, {"name":"glyphIndices"}, {"name":"isSideways"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.DWRITE_MATRIX",
-  "fields":[
-    {"name":"dx"}, 
-    {"name":"dy"}, 
-    {"name":"m11"}, 
-    {"name":"m12"}, 
-    {"name":"m21"}, 
-    {"name":"m22"}
-  ],
+  "fields":[{"name":"dx"}, {"name":"dy"}, {"name":"m11"}, {"name":"m12"}, {"name":"m21"}, {"name":"m22"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.javafx.font.directwrite.RECT",
-  "fields":[
-    {"name":"bottom"}, 
-    {"name":"left"}, 
-    {"name":"right"}, 
-    {"name":"top"}
-  ],
+  "fields":[{"name":"bottom"}, {"name":"left"}, {"name":"right"}, {"name":"top"}],
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.sun.management.internal.DiagnosticCommandArgumentInfo",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.lang.String","boolean","boolean","boolean","int"] }]
-},
-{
-  "name":"com.sun.management.internal.DiagnosticCommandInfo",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","boolean","java.util.List"] }]
-},
-{
   "name":"com.sun.prism.impl.PrismSettings",
-  "fields":[
-    {"name":"disableD3D9Ex"}, 
-    {"name":"forceGPU"}, 
-    {"name":"isVsyncEnabled"}, 
-    {"name":"verbose"}
-  ]
+  "fields":[{"name":"disableD3D9Ex"}, {"name":"forceGPU"}, {"name":"isVsyncEnabled"}, {"name":"verbose"}]
 },
 {
   "name":"java.lang.Class",
   "methods":[{"name":"forName","parameterTypes":["java.lang.String","boolean","java.lang.ClassLoader"] }]
-},
-{
-  "name":"java.lang.ClassLoader",
-  "methods":[
-    {"name":"getPlatformClassLoader","parameterTypes":[] }, 
-    {"name":"loadClass","parameterTypes":["java.lang.String"] }
-  ]
 },
 {
   "name":"java.lang.Runnable",
@@ -167,70 +90,56 @@
 },
 {
   "name":"java.lang.String",
-  "methods":[{"name":"toLowerCase","parameterTypes":["java.util.Locale"] }]
+  "methods":[{"name":"concat","parameterTypes":["java.lang.String"] }, {"name":"toLowerCase","parameterTypes":["java.util.Locale"] }]
+},
+{
+  "name":"java.lang.Throwable",
+  "methods":[{"name":"toString","parameterTypes":[] }]
 },
 {
   "name":"java.util.ArrayList",
-  "methods":[
-    {"name":"<init>","parameterTypes":["int"] }, 
-    {"name":"add","parameterTypes":["java.lang.Object"] }
-  ]
-},
-{
-  "name":"java.util.Arrays",
-  "methods":[{"name":"asList","parameterTypes":["java.lang.Object[]"] }]
+  "methods":[{"name":"<init>","parameterTypes":["int"] }, {"name":"add","parameterTypes":["java.lang.Object"] }]
 },
 {
   "name":"java.util.HashMap",
-  "methods":[
-    {"name":"containsKey","parameterTypes":["java.lang.Object"] }, 
-    {"name":"put","parameterTypes":["java.lang.Object","java.lang.Object"] }
-  ]
+  "methods":[{"name":"containsKey","parameterTypes":["java.lang.Object"] }, {"name":"put","parameterTypes":["java.lang.Object","java.lang.Object"] }]
 },
 {
-  "name":"jdk.internal.loader.ClassLoaders$PlatformClassLoader"
+  "name":"org.sqlite.BusyHandler",
+  "methods":[{"name":"callback","parameterTypes":["int"] }]
 },
 {
-  "name":"org.graalvm.jniutils.JNIExceptionWrapperEntryPoints",
-  "methods":[{"name":"getClassName","parameterTypes":["java.lang.Class"] }]
+  "name":"org.sqlite.Collation",
+  "methods":[{"name":"xCompare","parameterTypes":["java.lang.String","java.lang.String"] }]
 },
 {
-  "name":"org.sqlite.Collation"
+  "name":"org.sqlite.Function",
+  "fields":[{"name":"args"}, {"name":"context"}, {"name":"value"}],
+  "methods":[{"name":"xFunc","parameterTypes":[] }]
 },
 {
-  "name":"org.sqlite.Function"
+  "name":"org.sqlite.Function$Aggregate",
+  "methods":[{"name":"clone","parameterTypes":[] }, {"name":"xFinal","parameterTypes":[] }, {"name":"xStep","parameterTypes":[] }]
 },
 {
-  "name":"org.sqlite.Function$Aggregate"
+  "name":"org.sqlite.Function$Window",
+  "methods":[{"name":"xInverse","parameterTypes":[] }, {"name":"xValue","parameterTypes":[] }]
 },
 {
-  "name":"org.sqlite.Function$Window"
+  "name":"org.sqlite.ProgressHandler",
+  "methods":[{"name":"progress","parameterTypes":[] }]
 },
 {
-  "name":"org.sqlite.ProgressHandler"
+  "name":"org.sqlite.core.DB",
+  "methods":[{"name":"onCommit","parameterTypes":["boolean"] }, {"name":"onUpdate","parameterTypes":["int","java.lang.String","java.lang.String","long"] }, {"name":"throwex","parameterTypes":[] }, {"name":"throwex","parameterTypes":["int"] }]
 },
 {
-  "name":"org.sqlite.core.DB$ProgressObserver"
+  "name":"org.sqlite.core.DB$ProgressObserver",
+  "methods":[{"name":"progress","parameterTypes":["int","int"] }]
 },
 {
   "name":"org.sqlite.core.NativeDB",
-  "fields":[
-    {"name":"colldatalist"}, 
-    {"name":"pointer"}, 
-    {"name":"udfdatalist"}
-  ]
-},
-{
-  "name":"sun.management.VMManagementImpl",
-  "fields":[
-    {"name":"compTimeMonitoringSupport"}, 
-    {"name":"currentThreadCpuTimeSupport"}, 
-    {"name":"objectMonitorUsageSupport"}, 
-    {"name":"otherThreadCpuTimeSupport"}, 
-    {"name":"remoteDiagnosticCommandsSupport"}, 
-    {"name":"synchronizerUsageSupport"}, 
-    {"name":"threadAllocatedMemorySupport"}, 
-    {"name":"threadContentionMonitoringSupport"}
-  ]
+  "fields":[{"name":"busyHandler"}, {"name":"commitListener"}, {"name":"pointer"}, {"name":"progressHandler"}, {"name":"updateListener"}],
+  "methods":[{"name":"stringToUtf8ByteArray","parameterTypes":["java.lang.String"] }, {"name":"throwex","parameterTypes":["java.lang.String"] }]
 }
 ]

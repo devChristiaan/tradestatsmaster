@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.service.DataObjectService.deserializeObject;
+import static org.service.DataObjectService.serializeObject;
+
 public class DbManager {
     private static final Logger log = LoggerFactory.getLogger(DbManager.class);
     Connection bdConnection;
@@ -189,7 +192,7 @@ public class DbManager {
                 String createTableSQL = "CREATE TABLE IF NOT EXISTS Journal (" +
                         "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                         "date ANY NOT NULL," +
-                        "text TEXT NOT NULL," +
+                        "document BLOB NOT NULL," +
                         "symbol TEXT NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
@@ -211,7 +214,7 @@ public class DbManager {
                         "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                         "date ANY NOT NULL," +
                         "timeHorizon TEXT NOT NULL," +
-                        "text TEXT NOT NULL," +
+                        "document BLOB NOT NULL," +
                         "achieved INTEGER NOT NULL" +
                         ");";
                 statement.execute(createTableSQL);
@@ -631,7 +634,7 @@ public class DbManager {
                             rs.getInt("id"),
                             rs.getDate("date").toLocalDate(),
                             rs.getString("symbol"),
-                            rs.getString("text")
+                            deserializeObject(rs.getBytes("document"))
                     ));
                 }
                 return journalEntries;
@@ -649,12 +652,12 @@ public class DbManager {
     public void addJournalEntry(Journal journal) throws SQLException {
         if (isDbConnected()) {
             PreparedStatement ps = null;
-            String query = "insert into Journal(date, symbol, text) VALUES(?,?,?)";
+            String query = "insert into Journal(date, symbol, document) VALUES(?,?,?)";
             try {
                 ps = bdConnection.prepareStatement(query);
                 ps.setDate(1, Date.valueOf(journal.getDate()));
                 ps.setString(2, journal.getSymbol());
-                ps.setString(3, journal.getText());
+                ps.setBytes(3, serializeObject(journal.getDocument()));
                 ps.executeUpdate();
                 ps.close();
                 log.info("Journal entry {} symbol {} added successfully.", Date.valueOf(journal.getDate()), journal.getSymbol());
@@ -699,10 +702,10 @@ public class DbManager {
     public void updateJournalEntrySymbol(
             Journal entry) throws SQLException {
         PreparedStatement ps = null;
-        String query = "update Journal set text = ? WHERE id = ?";
+        String query = "update Journal set document = ? WHERE id = ?";
         try {
             ps = bdConnection.prepareStatement(query);
-            ps.setString(1, entry.getText());
+            ps.setBytes(1, serializeObject(entry.getDocument()));
             ps.setInt(2, entry.getId());
             ps.executeUpdate();
             ps.close();
@@ -726,7 +729,7 @@ public class DbManager {
                             rs.getInt("id"),
                             rs.getDate("date").toLocalDate(),
                             ETimeHorizon.valueOf(rs.getString("timeHorizon")),
-                            rs.getString("text"),
+                            deserializeObject(rs.getBytes("document")),
                             rs.getBoolean("achieved")
                     ));
                 }
@@ -745,12 +748,12 @@ public class DbManager {
     public void addGoal(
             Goal goal) throws SQLException {
         PreparedStatement ps = null;
-        String query = "insert into Goal(date, timeHorizon, text, achieved) VALUES(?,?,?,?)";
+        String query = "insert into Goal(date, timeHorizon, document, achieved) VALUES(?,?,?,?)";
         try {
             ps = bdConnection.prepareStatement(query);
             ps.setDate(1, Date.valueOf(goal.getDate()));
             ps.setString(2, String.valueOf(goal.getTimeHorizon()));
-            ps.setString(3, goal.getText());
+            ps.setBytes(3, serializeObject(goal.getDocument()));
             ps.setBoolean(4, goal.getAchieved());
             ps.executeUpdate();
             ps.close();
@@ -779,10 +782,10 @@ public class DbManager {
     public void updateGoal(
             Goal goal) throws SQLException {
         PreparedStatement ps = null;
-        String query = "update Goal set text = ?, achieved = ? WHERE id = ?";
+        String query = "update Goal set document = ?, achieved = ? WHERE id = ?";
         try {
             ps = bdConnection.prepareStatement(query);
-            ps.setString(1, goal.getText());
+            ps.setBytes(1, serializeObject(goal.getDocument()));
             ps.setBoolean(2, goal.getAchieved());
             ps.setInt(3, goal.getId());
             ps.executeUpdate();

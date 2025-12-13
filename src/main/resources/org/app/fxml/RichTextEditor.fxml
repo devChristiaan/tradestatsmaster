@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import com.gluonhq.richtextarea.RichTextArea?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.14-internal"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.controller.RichTextEditorController"
+      style="-fx-border-color: -color-border-default; -fx-border-width: .8px"
+      prefHeight="800"
+>
+
+    <ToolBar fx:id="toolbar"/>
+    <ToolBar fx:id="fontsToolbar"/>
+    <ToolBar fx:id="paragraphToolbar"/>
+
+    <RichTextArea fx:id="editor" VBox.vgrow="ALWAYS"/>
+</VBox>

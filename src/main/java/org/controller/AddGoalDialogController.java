@@ -1,6 +1,10 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
+import com.gluonhq.richtextarea.model.DecorationModel;
+import com.gluonhq.richtextarea.model.Document;
+import com.gluonhq.richtextarea.model.ParagraphDecoration;
+import com.gluonhq.richtextarea.model.TextDecoration;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Objects;
 
@@ -31,6 +36,7 @@ public class AddGoalDialogController implements Initializable {
 
     @FXML
     public Button save;
+
     @FXML
     private DatePicker date;
     @FXML
@@ -39,16 +45,23 @@ public class AddGoalDialogController implements Initializable {
     private ChoiceBox<String> timeHorizon;
 
     MainController mainController;
+    GoalsController goalsController;
+    Document copiedGoal;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.save.getStyleClass().add(Styles.BUTTON_OUTLINED);
         this.mainController = ControllerRegistry.get(MainController.class);
+        this.goalsController = ControllerRegistry.get(GoalsController.class);
 
         this.date.setConverter(calendarToStringConverter(datePattern));
         this.date.setValue(LocalDate.now());
 
         this.timeHorizon.getItems().addAll(ETimeHorizon.getDescriptions());
+
+        if (this.goalsController.copyGoal && this.goalsController.selectedGoal != null) {
+            copiedGoal = this.goalsController.selectedGoal.getDocument();
+        }
 
         ///Rest checked default items
         this.date.setOnAction(event -> {
@@ -71,7 +84,9 @@ public class AddGoalDialogController implements Initializable {
             DbManager db = new DbManager();
             try {
                 db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), goalTemplate, false));
+                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 94,
+                        TextDecoration.builder().presets().fontSize(16.0).build(),
+                        ParagraphDecoration.builder().presets().build())), 93), false));
                 GlobalContext.getGoals().replaceMaster(db.getAllGoals());
                 db.closeBdConnection();
                 this.cancel();

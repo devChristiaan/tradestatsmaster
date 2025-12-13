@@ -1,7 +1,34 @@
 {
   "types":[
     {
+      "name":"com.gluonhq.richtextarea.model.DecorationModel"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.Document"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.ImageDecoration"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.ParagraphDecoration"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.ParagraphDecoration$GraphicType"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.TableDecoration"
+    },
+    {
+      "name":"com.gluonhq.richtextarea.model.TextDecoration"
+    },
+    {
+      "name":"java.lang.Boolean"
+    },
+    {
       "name":"java.lang.Double"
+    },
+    {
+      "name":"java.lang.Enum"
     },
     {
       "name":"java.lang.Number"
@@ -11,6 +38,21 @@
     },
     {
       "name":"java.util.ArrayList"
+    },
+    {
+      "name":"java.util.CollSer"
+    },
+    {
+      "name":"javafx.scene.text.FontPosture"
+    },
+    {
+      "name":"javafx.scene.text.FontWeight"
+    },
+    {
+      "name":"javafx.scene.text.TextAlignment"
+    },
+    {
+      "name":"javafx.scene.text.TextAlignment[][]"
     },
     {
       "name":"org.model.account.Account"
@@ -26,5 +68,7 @@
     }
   ],
   "lambdaCapturingTypes":[
+  ],
+  "proxies":[
   ]
 }
