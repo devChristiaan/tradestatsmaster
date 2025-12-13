@@ -12,6 +12,7 @@ module org.app {
     requires org.kordamp.ikonli.lineawesome;
     requires org.slf4j;
     requires com.gluonhq.richtextarea;
+    requires com.gluonhq.emoji;
 
     exports org.app;
     exports org.controller;

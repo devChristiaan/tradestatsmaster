@@ -72,8 +72,8 @@ public class RichTextEditorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        editor.documentProperty().subscribe(d -> {
-            String nv = d.getText();
+        editor.documentProperty().addListener((obs, oldVal, newVal) -> {
+            String nv = newVal.getText();
             if (nv != null) {
                 String substring = nv.substring(0, Math.min(editor.getCaretPosition(), nv.length())).toLowerCase(Locale.ROOT);
                 findMarkdown(substring, (start, marker) -> editor.getActionFactory().removeExtremesAndDecorate(
