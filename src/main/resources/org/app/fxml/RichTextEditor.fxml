@@ -10,10 +10,8 @@
       style="-fx-border-color: -color-border-default; -fx-border-width: .8px"
       prefHeight="800"
 >
-
     <ToolBar fx:id="toolbar"/>
     <ToolBar fx:id="fontsToolbar"/>
     <ToolBar fx:id="paragraphToolbar"/>
-
     <RichTextArea fx:id="editor" VBox.vgrow="ALWAYS"/>
 </VBox>

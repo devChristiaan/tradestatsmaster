@@ -39,8 +39,9 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1080.0" prefWidth="385.0">
             <TableView fx:id="tableView" layoutY="-2.0" minHeight="1080.0" minWidth="275.0" prefWidth="600.0">
                 <columns>
-                    <TableColumn fx:id="dateColumn" editable="false" prefWidth="132.0" sortable="false" text="Date"/>
-                    <TableColumn fx:id="timeHorizonColumn" prefWidth="142.0" text="Time Horizon"/>
+                    <TableColumn fx:id="dateColumn" editable="false" prefWidth="105.0" sortable="false" text="Date"/>
+                    <TableColumn fx:id="timeHorizonColumn" prefWidth="130.0" text="Time Horizon"/>
+                    <TableColumn fx:id="achievedGoal" prefWidth="120.0" text="Achieved Goal"/>
                 </columns>
             </TableView>
         </AnchorPane>

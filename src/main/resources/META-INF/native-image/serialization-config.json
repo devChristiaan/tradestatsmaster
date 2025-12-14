@@ -34,6 +34,9 @@
       "name":"java.lang.Number"
     },
     {
+      "name":"java.lang.String"
+    },
+    {
       "name":"java.time.Ser"
     },
     {
@@ -41,6 +44,9 @@
     },
     {
       "name":"java.util.CollSer"
+    },
+    {
+      "name":"java.util.ImmutableCollections$List12"
     },
     {
       "name":"javafx.scene.text.FontPosture"
