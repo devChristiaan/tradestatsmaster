@@ -43,7 +43,6 @@ public class CalculateStatsStopLoss {
     private double avgLossAvgWinRatio = 0.0;
     private double stopLossObjectiveRatio = 0.0;
 
-    /// Figure this out last stat
 
     public CalculateStatsStopLoss(FilteredList<Transaction> filteredList,
                                   String selectedSymbol,

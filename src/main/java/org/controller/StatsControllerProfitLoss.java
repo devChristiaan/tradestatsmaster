@@ -94,7 +94,6 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
             this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getTransactions().getFiltered(), new_value, timePeriods.getValue(), Double.parseDouble(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
         });
         timePeriods.getSelectionModel().selectedItemProperty().addListener((ov, value, new_value) -> {
-            targetTicks.setDisable(false);
             this.populateStatsProfitLoss(new CalculateStatsStopLoss(GlobalContext.getTransactions().getFiltered(), symbols.getValue(), timePeriods.getValue(), Double.valueOf(targetTicks.getText().isEmpty() ? String.valueOf(0) : targetTicks.getText())));
         });
 
@@ -148,6 +147,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
             }
         }
         timePeriods.setDisable(timePeriods.getItems().isEmpty());
+        targetTicks.setDisable(timePeriods.getItems().isEmpty());
     }
 
     @FXML
