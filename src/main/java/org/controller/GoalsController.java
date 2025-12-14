@@ -2,6 +2,7 @@ package org.controller;
 
 import atlantafx.base.theme.Styles;
 import com.gluonhq.richtextarea.model.Document;
+import javafx.beans.binding.BooleanExpression;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +39,8 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public TableColumn<Goal, LocalDate> dateColumn;
     @FXML
     public TableColumn<Goal, ETimeHorizon> timeHorizonColumn;
+    @FXML
+    public TableColumn<Goal, Boolean> achievedGoal;
 
     @FXML
     public Label copyPrefix;
@@ -94,6 +97,7 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
         ///Populate list
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         timeHorizonColumn.setCellValueFactory(new PropertyValueFactory<>("timeHorizon"));
+        achievedGoal.setCellValueFactory(new PropertyValueFactory<>("achieved"));
 
         ///Populate table
         tableView.setItems(goalEntries);
