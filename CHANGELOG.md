@@ -13,6 +13,13 @@ New Features Planned:
 
 ### Changed
 
+## [1.7.3] - 2025-12-14
+
+Small clean up
+- Fixed spacing in the journal between the header and the text editor.
+- Added an extra column in the goals section to be able to see if a goal has been achieved in the table.
+- Removed the restriction for selecting a time frame first before being able to calculate the stop loss for a given symbol
+
 ## [1.7.2] - 2025-12-13
 
 Small clean up

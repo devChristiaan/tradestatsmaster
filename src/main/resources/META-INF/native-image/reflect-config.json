@@ -235,6 +235,10 @@
   "fields":[{"name":"value"}]
 },
 {
+  "name":"java.util.concurrent.atomic.AtomicMarkableReference",
+  "fields":[{"name":"pair"}]
+},
+{
   "name":"java.util.concurrent.atomic.AtomicReference",
   "fields":[{"name":"value"}]
 },
@@ -836,7 +840,7 @@
   "name":"org.controller.AddGoalDialogController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"saveGoal","parameterTypes":[] }]
 },
 {
   "name":"org.controller.AddJournalEntryDialogController",
@@ -883,7 +887,7 @@
   "name":"org.controller.MenuBarController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"exportAll","parameterTypes":[] }, {"name":"exportSelection","parameterTypes":[] }, {"name":"exportSymbols","parameterTypes":[] }, {"name":"exportTransactions","parameterTypes":[] }, {"name":"importFile","parameterTypes":[] }, {"name":"importSymbolFile","parameterTypes":[] }, {"name":"importTransactionsFile","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showAboutChartExpense","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"exportSelection","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
 },
 {
   "name":"org.controller.RichTextEditorController",
@@ -934,7 +938,7 @@
 },
 {
   "name":"org.model.goal.Goal",
-  "methods":[{"name":"dateProperty","parameterTypes":[] }, {"name":"getDate","parameterTypes":[] }, {"name":"getTimeHorizon","parameterTypes":[] }, {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, {"name":"setTimeHorizon","parameterTypes":["org.model.goal.ETimeHorizon"] }, {"name":"timeHorizonProperty","parameterTypes":[] }]
+  "methods":[{"name":"achievedProperty","parameterTypes":[] }, {"name":"dateProperty","parameterTypes":[] }, {"name":"getAchieved","parameterTypes":[] }, {"name":"getDate","parameterTypes":[] }, {"name":"getTimeHorizon","parameterTypes":[] }, {"name":"setAchieved","parameterTypes":["java.lang.Boolean"] }, {"name":"setDate","parameterTypes":["java.time.LocalDate"] }, {"name":"setTimeHorizon","parameterTypes":["org.model.goal.ETimeHorizon"] }, {"name":"timeHorizonProperty","parameterTypes":[] }]
 },
 {
   "name":"org.model.journal.Journal",
