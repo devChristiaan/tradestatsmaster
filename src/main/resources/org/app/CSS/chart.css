@@ -1,3 +1,8 @@
+#container {
+    -fx-border-color: -color-border-default;
+    -fx-border-width: .8px;
+}
+
 .chart-plot-background {
     -fx-background-color: -color-fg-emphasis;
 }
@@ -17,6 +22,10 @@
 .default-color1.chart-series-line {
     -fx-stroke-width: 2px;
     -fx-stroke: -color-accent-emphasis;
+}
+
+#circleMA {
+    -fx-fill: -color-accent-emphasis;
 }
 
 .default-color1.chart-line-symbol {

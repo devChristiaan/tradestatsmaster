@@ -5,22 +5,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.model.account.Account;
 import org.model.transaction.Transaction;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.context.GlobalContext.datePattern;
 import static org.utilities.Utilities.simpleMovingAverage;
 
 public class ChartController implements Initializable {
@@ -29,6 +26,8 @@ public class ChartController implements Initializable {
     LineChart<Number, Number> chart;
     @FXML
     NumberAxis dateAxis;
+    @FXML
+    TextField MA;
 
     XYChart.Series<Number, Number> chartData = new XYChart.Series<>();
     XYChart.Series<Number, Number> chartMovingAvg = new XYChart.Series<>();
@@ -60,6 +59,9 @@ public class ChartController implements Initializable {
             populateChart(newValue);
         });
 
+        this.MA.textProperty().addListener((observable, oldValue, newValue) -> {
+            populateChart(this.statsController.fromDate.getValue());
+        });
     }
 
     private void populateChart(LocalDate fromDate) {
@@ -80,7 +82,7 @@ public class ChartController implements Initializable {
         NavigableMap<LocalDate, Double> visibleData =
                 new TreeMap<>(runningBalance.tailMap(fromDate, true));
 
-        Map<LocalDate, Double> movingAverage = simpleMovingAverage(visibleData);
+        Map<LocalDate, Double> movingAverage = simpleMovingAverage(visibleData, MA.getText().isEmpty() ? 1 : Integer.parseInt(MA.getText()));
 
         chartData.getData().clear();
         chartMovingAvg.getData().clear();

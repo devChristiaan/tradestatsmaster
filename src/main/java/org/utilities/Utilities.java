@@ -167,10 +167,11 @@ public class Utilities {
         };
     }
 
-    public static Map<LocalDate, Double> simpleMovingAverage(Map<LocalDate, Double> transactions) {
+    public static Map<LocalDate, Double> simpleMovingAverage(Map<LocalDate, Double> transactions,
+                                                             Integer movingAverageLength) {
         Map<LocalDate, Double> movingAverage = new LinkedHashMap<>();
         Deque<Double> window = new ArrayDeque<>();
-        int windowSize = 4;
+        int windowSize = movingAverageLength;
         double sum = 0.0;
 
 

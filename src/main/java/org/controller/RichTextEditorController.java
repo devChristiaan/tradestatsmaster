@@ -53,7 +53,7 @@ import static javafx.scene.text.FontWeight.NORMAL;
 
 public class RichTextEditorController implements Initializable {
     @FXML
-    private RichTextArea editor;
+    public RichTextArea editor;
     @FXML
     private ToolBar toolbar;
     @FXML
@@ -455,20 +455,11 @@ public class RichTextEditorController implements Initializable {
         }
     }
 
-
     public Document getDocument() {
         return editor.getDocument();
     }
 
     public void setDocument(Document document) {
         editor.getActionFactory().open(document).execute(new ActionEvent());
-    }
-
-    public RichTextArea getEditor() {
-        return editor;
-    }
-
-    public void enableEditor(boolean enable) {
-        this.editor.setEditable(enable);
     }
 }
