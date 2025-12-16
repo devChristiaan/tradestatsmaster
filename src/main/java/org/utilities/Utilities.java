@@ -16,22 +16,22 @@ import java.text.DecimalFormatSymbols;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.util.*;
 
 public class Utilities {
 
     public static final String goalTemplate =
-            "Title:\n"+
-            "\n" +
-            "Short Explanation:\n"+
-            "\n" +
-            "Target---------\n"+
-            "\n" +
-            "Reason---------\n"+
-            "\n" +
-            "Action---------\n"+
-            "\n" +
-            "Evaluate-------";
+            "Title:\n" +
+                    "\n" +
+                    "Short Explanation:\n" +
+                    "\n" +
+                    "Target---------\n" +
+                    "\n" +
+                    "Reason---------\n" +
+                    "\n" +
+                    "Action---------\n" +
+                    "\n" +
+                    "Evaluate-------";
 
     public static void closeApp() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -110,12 +110,6 @@ public class Utilities {
         return bd.doubleValue();
     }
 
-    public static double calculateRunningTotal(double amount,
-                                               double previousAmount) {
-        BigDecimal bd = BigDecimal.valueOf(previousAmount + amount).setScale(2, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
-
     public static double calculateAccountBalance(Double openingBalance) {
         double accountBalance = openingBalance;
         for (Transaction tran : GlobalContext.getTransactions().getMaster()) {
@@ -171,6 +165,26 @@ public class Utilities {
                 }
             }
         };
+    }
+
+    public static Map<LocalDate, Double> simpleMovingAverage(Map<LocalDate, Double> transactions) {
+        Map<LocalDate, Double> movingAverage = new LinkedHashMap<>();
+        Deque<Double> window = new ArrayDeque<>();
+        int windowSize = 4;
+        double sum = 0.0;
+
+
+        for (var entry : transactions.entrySet()) {
+            double value = entry.getValue();
+            window.addLast(value);
+            sum += value;
+
+            if (window.size() > windowSize) {
+                sum -= window.removeFirst();
+            }
+            movingAverage.put(entry.getKey(), sum / window.size());
+        }
+        return movingAverage;
     }
 
 }

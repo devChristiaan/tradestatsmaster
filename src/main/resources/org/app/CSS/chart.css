@@ -2,18 +2,31 @@
     -fx-background-color: -color-fg-emphasis;
 }
 
+.chart {
+    -fx-legend-visible: false;
+}
+
 .default-color0.chart-series-line {
     -fx-stroke: -color-fg-default;
 }
 
+.default-color0.chart-line-symbol {
+    -fx-background-color: null, null;
+}
+
 .default-color1.chart-series-line {
+    -fx-stroke-width: 2px;
     -fx-stroke: -color-accent-emphasis;
 }
 
-.default-color0.chart-line-symbol {
-    -fx-background-color: -color-fg-default, -color-fg-emphasis;
+.default-color1.chart-line-symbol {
+    -fx-background-color: null, null;
 }
 
-.default-color1.chart-line-symbol {
-    -fx-background-color: -color-accent-emphasis, -color-fg-emphasis;
+#dateAxis {
+    -fx-font-size: 18px;
+}
+
+#profitAxis {
+    -fx-font-size: 18px;
 }

@@ -12,8 +12,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class GlobalContext {
-    //Zero index for 5 trades moving average
-    public static int movingAvgNr = 4;
     public static String datePattern = "dd/MM/yyyy"; // Global Date Format
     private static final Map<ContextItems, Object> globalContext = new HashMap<>();
 

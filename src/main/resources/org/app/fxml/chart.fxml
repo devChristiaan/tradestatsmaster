@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane fx:id="chartBorderPane" stylesheets="@../CSS/chart.css" maxHeight="1.7976931348623157E308"
-      maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.ChartController">
-    <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-        <children>
-            <LineChart fx:id="chart" VBox.vgrow="ALWAYS">
-                <xAxis>
-                    <CategoryAxis side="BOTTOM"/>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT"/>
-                </yAxis>
-            </LineChart>
-        </children>
-    </VBox>
-</Pane>
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="900.0" prefWidth="1100.0" stylesheets="@../CSS/chart.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.ChartController">
+    <LineChart fx:id="chart" title="Account Over Time" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <NumberAxis fx:id="dateAxis" label="Date" side="BOTTOM">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="profitAxis" label="Profit" side="LEFT">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
+    </LineChart>
+</VBox>
