@@ -13,6 +13,11 @@ New Features Planned:
 
 ### Changed
 
+## [1.8.0] - 2025-12-17
+
+Feature added:
+Added a Account Balance equity curve with an adjustable moving average.
+
 ## [1.7.3] - 2025-12-14
 
 Small clean up
