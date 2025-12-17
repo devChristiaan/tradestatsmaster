@@ -1,108 +1,121 @@
 package org.controller;
 
-import javafx.collections.ListChangeListener;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
+import org.model.account.Account;
 import org.model.transaction.Transaction;
-import org.utilities.CalculateStatsOverview;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static org.context.GlobalContext.movingAvgNr;
-import static org.utilities.Utilities.calculateRunningTotal;
+import static org.utilities.Utilities.simpleMovingAverage;
 
-public class ChartController extends Pane implements Initializable {
-
-    @FXML
-    private AnchorPane chartAnchorPane;
+public class ChartController implements Initializable {
 
     @FXML
-    LineChart<String, Double> chart;
-    XYChart.Series<String, Double> chartData = new XYChart.Series<>();
-    XYChart.Series<String, Double> chartMovingAvg = new XYChart.Series<>();
+    LineChart<Number, Number> chart;
+    @FXML
+    NumberAxis dateAxis;
+    @FXML
+    TextField MA;
 
-    StatsControllerOverview statsControllerOverview;
+    XYChart.Series<Number, Number> chartData = new XYChart.Series<>();
+    XYChart.Series<Number, Number> chartMovingAvg = new XYChart.Series<>();
+
+    StatsController statsController;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        chart.setTitle("Profit/Loss over time");
-        chart.getXAxis().setLabel("Date");
-        chart.getYAxis().setLabel("Profit");
-        chartData.setName("Cumulative Profit");
-        chartMovingAvg.setName("4 transaction Moving Avg");
-
-        ///Data not populating real time and not sure if running total works.
-        Double runningTotal = 0.0;
-        LocalDate currentDate = null;
-        FilteredList<Transaction> transactionList = GlobalContext.getTransactions().getFiltered();
-        Double movingAvg = 0.0;
-
-        for (int i = 0; i < transactionList.size(); i++) {
-            runningTotal = calculateRunningTotal(transactionList.get(i).getProfit(), runningTotal);
-
-            ///To show first transaction
-            if (currentDate == null) {
-                currentDate = transactionList.get(i).getDate().minusDays(1);
+        this.statsController = ControllerRegistry.get(StatsController.class);
+        dateAxis.setTickLabelFormatter(new StringConverter<>() {
+            @Override
+            public String toString(Number value) {
+                return LocalDate.ofEpochDay(value.longValue()).format(formatter);
             }
 
-            if (i >= movingAvgNr) {
-                ///Formula might be wrong. Need to look into the sum total aspect. Not just average values. They wont scale with chart
-                double nr5 = transactionList.get(i - 4).getProfit();
-                double nr4 = transactionList.get(i - 3).getProfit();
-                double nr3 = transactionList.get(i - 2).getProfit();
-                double nr2 = transactionList.get(i - 1).getProfit();
-                double nr1 = transactionList.get(i).getProfit();
-                movingAvg += (nr5 + nr4 + nr3 + nr2 + nr1) / (movingAvgNr + 1);
-
+            @Override
+            public Number fromString(String string) {
+                return LocalDate.parse(string, formatter).toEpochDay();
             }
-            if (!currentDate.isEqual(transactionList.get(i).getDate())) {
-                chartData.getData().add(
-                        new XYChart.Data<>(
-                                transactionList.get(i).getDate().toString(),
-                                runningTotal
-                        ));
-                if (i >= movingAvgNr) {
-                    chartMovingAvg.getData().add(
-                            new XYChart.Data<>(
-                                    transactionList.get(i).getDate().toString(),
-                                    movingAvg
-                            ));
-                }
-            }
-            currentDate = transactionList.get(i).getDate();
-        }
+        });
+        chartData.setName("Profit/Loss");
+        chartMovingAvg.setName("4 Day Moving Avg");
 
+        populateChart(statsController.fromDate.getValue());
         chart.getData().addAll(chartData, chartMovingAvg);
 
-        statsControllerOverview = ControllerRegistry.get(StatsControllerOverview.class);
-        this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(transactionList));
+        this.statsController.fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+            populateChart(newValue);
+        });
 
-        /// Populate chart values
-        GlobalContext.getTransactions().getFiltered().addListener((ListChangeListener<? super Transaction>) c -> {
-            this.statsControllerOverview.populateStatsOverview(new CalculateStatsOverview(transactionList));
-            ///TODO
-            //Logic for updating the chart
-//            this.chartData.getData().add(
-//                    new XYChart.Data<>(
-//                            getFilteredTransactions().get(getFilteredTransactions().size() - 1).getDate().toString(),
-//                            chartData.getData().get(chartData.getData().size() - 1).getYValue() + getFilteredTransactions().get(getFilteredTransactions().size() - 1).getProfit()
-//                    )
-//            );
+        this.MA.textProperty().addListener((observable, oldValue, newValue) -> {
+            populateChart(this.statsController.fromDate.getValue());
         });
     }
 
-//    void populateGraph() {
-//
-//        chart.getXAxis().
-//    }
+    private void populateChart(LocalDate fromDate) {
+        double accountValue = GlobalContext.getAccounts().getMaster().stream().mapToDouble(Account::getAmount).sum();
+
+        Map<LocalDate, Double> dailyTotals = GlobalContext.getTransactions().getMaster().stream().collect(Collectors.groupingBy(Transaction::getDate, TreeMap::new, Collectors.summingDouble(t ->
+                t.getProfit() - t.getCommission()
+        )));
+
+        TreeMap<LocalDate, Double> runningBalance = new TreeMap<>();
+        final double[] balance = {accountValue};
+
+        dailyTotals.forEach((date, amount) -> {
+            balance[0] += amount;
+            runningBalance.put(date, balance[0]);
+        });
+
+        NavigableMap<LocalDate, Double> visibleData =
+                new TreeMap<>(runningBalance.tailMap(fromDate, true));
+
+        Map<LocalDate, Double> movingAverage = simpleMovingAverage(visibleData, MA.getText().isEmpty() ? 1 : Integer.parseInt(MA.getText()));
+
+        chartData.getData().clear();
+        chartMovingAvg.getData().clear();
+
+        updateSeries(chartData, visibleData);
+        updateSeries(chartMovingAvg, movingAverage);
+
+        long minDay = chartData.getData().stream()
+                .mapToLong(d -> d.getXValue().longValue())
+                .min()
+                .orElseThrow();
+
+        long maxDay = chartData.getData().stream()
+                .mapToLong(d -> d.getXValue().longValue())
+                .max()
+                .orElseThrow();
+
+        NumberAxis xAxis = (NumberAxis) chart.getXAxis();
+        xAxis.setAutoRanging(false);
+        xAxis.setLowerBound(minDay - 1);
+        xAxis.setUpperBound(maxDay + 1);
+    }
+
+    private void updateSeries(
+            XYChart.Series<Number, Number> series,
+            Map<LocalDate, Double> data) {
+
+        series.getData().clear();
+        data.forEach((date, value) ->
+                series.getData().add(
+                        new XYChart.Data<>(date.toEpochDay(), value)
+                )
+        );
+    }
 }
 

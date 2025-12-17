@@ -2,7 +2,6 @@ package org.controller;
 
 import atlantafx.base.theme.Styles;
 import com.gluonhq.richtextarea.model.Document;
-import javafx.beans.binding.BooleanExpression;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,8 +27,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
-import static org.utilities.Utilities.goalTemplate;
 
 public class GoalsController extends Pane implements Initializable, SaveHandler {
 

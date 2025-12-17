@@ -28,7 +28,6 @@ public class MainController implements Initializable {
         ControllerRegistry.register(MainController.class, this);
 
         tabPane.getStyleClass().add(Styles.TABS_CLASSIC);
-        tabPane.setTabMaxWidth(80);
         tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
             public void changed(ObservableValue<? extends Tab> observable,

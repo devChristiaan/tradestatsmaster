@@ -1,21 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<Pane fx:id="chartBorderPane" stylesheets="@../CSS/chart.css" maxHeight="1.7976931348623157E308"
-      maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.ChartController">
-    <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-        <children>
-            <LineChart fx:id="chart" VBox.vgrow="ALWAYS">
-                <xAxis>
-                    <CategoryAxis side="BOTTOM"/>
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT"/>
-                </yAxis>
-            </LineChart>
-        </children>
-    </VBox>
-</Pane>
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="900.0" prefWidth="1100.0" stylesheets="@../CSS/chart.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controller.ChartController" fx:id="container">
+    <LineChart fx:id="chart" title="Equity Curve" VBox.vgrow="ALWAYS">
+        <xAxis>
+            <NumberAxis fx:id="dateAxis" label="Date" side="BOTTOM">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="profitAxis" label="Profit" side="LEFT">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+        <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+        </padding>
+    </LineChart>
+    <Separator>
+      <VBox.margin>
+         <Insets bottom="8.0" />
+      </VBox.margin></Separator>
+    <HBox alignment="CENTER" prefWidth="100.0">
+        <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="52.0" prefWidth="200.0">
+            <Label text="Moving Average">
+                <font>
+                    <Font size="14.0" />
+                </font>
+                <VBox.margin>
+                    <Insets bottom="8.0" top="2.0" />
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="MA" prefHeight="25.0" prefWidth="102.0" text="4" />
+            <HBox.margin>
+                <Insets right="24.0" />
+            </HBox.margin>
+            <padding>
+                <Insets bottom="24.0" />
+            </padding>
+        </VBox>
+        <VBox alignment="CENTER" prefWidth="280.0">
+            <Label text="Legend">
+                <font>
+                    <Font size="18.0" />
+                </font>
+                <VBox.margin>
+                    <Insets bottom="6.0" />
+                </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" fillHeight="false" prefWidth="260.0">
+                <Circle fill="black" radius="6.0">
+                    <HBox.margin>
+                        <Insets right="6.0" />
+                    </HBox.margin>
+                </Circle>
+                <Label style="-fx-display-caret: -color-fg-default" text="Account Balance">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="24.0" />
+                    </HBox.margin>
+                </Label>
+                <Circle fx:id="circleMA" layoutX="16.0" layoutY="16.0" radius="6.0">
+                    <HBox.margin>
+                        <Insets right="6.0" />
+                    </HBox.margin>
+                </Circle>
+                <Label style="-fx-display-caret: -color-accent-emphasis" text="Moving Average">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <padding>
+                <Insets bottom="24.0" />
+            </padding>
+        </VBox>
+    </HBox>
+</VBox>
