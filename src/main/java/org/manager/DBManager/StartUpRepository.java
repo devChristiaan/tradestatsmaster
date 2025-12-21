@@ -108,30 +108,24 @@ public class StartUpRepository {
     }
 
     public void dbStartUpChecks() {
-        boolean transactionTable = doesTableExist("transactions");
-        boolean isForeignKeyEnabled = foreignKeyEnabled();
-        boolean dailyPrepDate = doesTableExist("DailyPrepDate");
-        boolean dailyPrep = doesTableExist("DailyPrep");
-        boolean journal = doesTableExist("Journal");
-        boolean goal = doesTableExist("Goal");
+        ensureTable("transactions", this::createTransactionTable);
+        ensureTable("DailyPrepDate", this::createDailyPrepDateTable);
+        ensureTable("DailyPrep", this::createDailyPrepTable);
+        ensureTable("Journal", this::createJournalTable);
+        ensureTable("Goal", this::createGoalTable);
 
-        if (!transactionTable) {
-            createTransactionTable();
+        ensureForeignKeys();
+    }
+
+    private void ensureTable(String table, Runnable creator) {
+        if (!doesTableExist(table)) {
+            creator.run();
         }
-        if (!isForeignKeyEnabled) {
+    }
+
+    private void ensureForeignKeys() {
+        if (!foreignKeyEnabled()) {
             enableForeignKeys();
-        }
-        if (!dailyPrepDate) {
-            createDailyPrepDateTable();
-        }
-        if (!dailyPrep) {
-            createDailyPrepTable();
-        }
-        if (!journal) {
-            createJournalTable();
-        }
-        if (!goal) {
-            createGoalTable();
         }
     }
 
