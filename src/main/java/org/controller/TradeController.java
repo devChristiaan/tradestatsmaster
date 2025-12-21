@@ -67,7 +67,7 @@ public class TradeController extends VBox implements Initializable {
     StatsController statsController;
     DbManager db = new DbManager();
     Transaction selectedTransaction;
-    private final TransactionRepository transactions = new RepositoryFactory().transactions();
+    private final TransactionRepository transactions = ControllerRegistry.get(RepositoryFactory.class).transactions();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
