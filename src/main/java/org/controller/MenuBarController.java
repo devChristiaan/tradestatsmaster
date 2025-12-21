@@ -12,10 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DBManager.DailyPrepDataRepository;
-import org.manager.DBManager.RepositoryFactory;
-import org.manager.DBManager.StartUpRepository;
-import org.manager.DBManager.TransactionRepository;
+import org.manager.DBManager.*;
 import org.manager.DbManager;
 import org.manager.ZipFilesManager;
 import org.model.account.Account;
@@ -50,6 +47,7 @@ public class MenuBarController extends VBox implements Initializable {
     private final StartUpRepository startUp = repo.startUp();
     private final TransactionRepository transactionDb = repo.transactions();
     private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
+    private final JournalRepository journalDb = repo.journals();
 
     @FXML
     MenuBar menuBar;
@@ -303,7 +301,7 @@ public class MenuBarController extends VBox implements Initializable {
             startUp.dbStartUpChecks();
             GlobalContext.getTransactions().setAllMaster(transactionDb.getAllTransactions());
             GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
-            GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
+            GlobalContext.getJournals().setAllMaster(journalDb.getAllJournalEntries());
             GlobalContext.getGoals().setAllMaster(db.getAllGoals());
 
             ///Serialized DTO Object

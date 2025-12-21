@@ -8,6 +8,7 @@ public class RepositoryFactory {
     private StartUpRepository startupRepo;
     private TransactionRepository transactionRepository;
     private DailyPrepDataRepository dailyPrepDataRepository;
+    private JournalRepository journalRepository;
 
     public RepositoryFactory() {
         this.db = new SqliteConnection();
@@ -29,5 +30,11 @@ public class RepositoryFactory {
         if (dailyPrepDataRepository == null)
             dailyPrepDataRepository = new DailyPrepDataRepository(db);
         return dailyPrepDataRepository;
+    }
+
+    public JournalRepository journals() {
+        if (journalRepository == null)
+            journalRepository = new JournalRepository(db);
+        return journalRepository;
     }
 }

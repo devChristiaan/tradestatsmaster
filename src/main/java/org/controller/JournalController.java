@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
+import org.manager.DBManager.JournalRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.manager.DbManager;
 import org.model.journal.Journal;
 import org.utilities.DateCellTreeTable;
@@ -54,6 +56,7 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     private RichTextEditorController editorController;
 
     FilteredList<Journal> journalEntries = GlobalContext.getJournals().getFiltered();
+    JournalRepository journalDb = ControllerRegistry.get(RepositoryFactory.class).journals();
     private Node addJournalEntry;
     private Journal selectedSymbol;
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
@@ -156,14 +159,8 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     @Override
     public void save() {
         selectedSymbol.setDocument(editorController.getDocument());
-        DbManager db = new DbManager();
-        try {
-            db.setBdConnection();
-            db.updateJournalEntrySymbol(selectedSymbol);
-            GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
-            db.closeBdConnection();
-        } catch (IOException | SQLException ignored) {
-        }
+        journalDb.updateJournalEntrySymbol(selectedSymbol);
+        GlobalContext.getJournals().replaceMaster(journalDb.getAllJournalEntries());
     }
 
 
@@ -185,14 +182,8 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     public void deleteSymbol() {
         alertDialog("Symbol");
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.deleteJourneyEntryBySymbol(selectedSymbol.getId());
-                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ignored) {
-            }
+            journalDb.deleteJourneyEntryBySymbol(selectedSymbol.getId());
+            GlobalContext.getJournals().replaceMaster(journalDb.getAllJournalEntries());
         }
         deleteSymbol.setDisable(true);
     }
@@ -201,14 +192,8 @@ public class JournalController extends Pane implements Initializable, SaveHandle
     public void deleteDay() {
         alertDialog("Date");
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.deleteJournalDay(selectedSymbol.getDate());
-                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ignored) {
-            }
+            journalDb.deleteJournalDay(selectedSymbol.getDate());
+            GlobalContext.getJournals().replaceMaster(journalDb.getAllJournalEntries());
         }
         deleteDay.setDisable(true);
     }

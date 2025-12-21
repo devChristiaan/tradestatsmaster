@@ -11,10 +11,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import org.context.ControllerRegistry;
-import org.manager.DBManager.DailyPrepDataRepository;
-import org.manager.DBManager.RepositoryFactory;
-import org.manager.DBManager.StartUpRepository;
-import org.manager.DBManager.TransactionRepository;
+import org.manager.DBManager.*;
 import org.manager.DbManager;
 import org.service.csvReader;
 
@@ -44,6 +41,7 @@ public class App extends Application {
     private final StartUpRepository startUp = repo.startUp();
     private final TransactionRepository tran = repo.transactions();
     private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
+    private final JournalRepository journals = repo.journals();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -88,7 +86,7 @@ public class App extends Application {
         startUp.dbStartUpChecks();
         GlobalContext.getTransactions().setAllMaster(tran.getAllTransactions());
         GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
-        GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
+        GlobalContext.getJournals().setAllMaster(journals.getAllJournalEntries());
         GlobalContext.getGoals().setAllMaster(db.getAllGoals());
 
         ///Serialized DTO Object
