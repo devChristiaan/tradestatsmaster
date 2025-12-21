@@ -6,7 +6,6 @@ import org.model.dailyPrep.DailyPrepItems;
 import org.model.goal.ETimeHorizon;
 import org.model.goal.Goal;
 import org.model.journal.Journal;
-import org.model.transaction.Transaction;
 import org.service.SqliteConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -231,22 +230,6 @@ public class DbManager {
             log.error("Failed to retrieve dailyPrepDate with date: {} : {}", Date.valueOf(date), e.getMessage());
         }
         return null;
-    }
-
-    public void deleteTransaction(Transaction transaction) throws SQLException {
-        if (isDbConnected()) {
-            String sql = "DELETE FROM transactions WHERE id = ?";
-            PreparedStatement preparedStatement = null;
-            try {
-                preparedStatement = bdConnection.prepareStatement(sql);
-                preparedStatement.setInt(1, transaction.getId()); // Set the ID value
-                preparedStatement.executeUpdate();
-                preparedStatement.close();
-                log.info("Transaction id: {} deleted successfully.", transaction.getId());
-            } catch (SQLException e) {
-                log.error("Failed to delete transaction id: {} : {}", transaction.getId(), e.getMessage());
-            }
-        }
     }
 
     public void deleteDay(int id) throws SQLException {

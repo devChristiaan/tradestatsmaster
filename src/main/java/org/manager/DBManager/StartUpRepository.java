@@ -1,13 +1,10 @@
 package org.manager.DBManager;
 
-import org.manager.DbManager;
 import org.service.SqliteConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import static org.manager.DBManager.RepositoryHelper.*;
 
@@ -21,7 +18,7 @@ public class StartUpRepository {
 
     public boolean foreignKeyEnabled() {
         String sql = "PRAGMA foreign_keys;";
-        return check(conn, sql);
+        return checkForeignKey(conn, sql);
     }
 
     public boolean doesTableExist(String tableName){

@@ -3,7 +3,11 @@ package org.manager.DBManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,13 +96,26 @@ public class RepositoryHelper {
         }
     }
 
-    public static boolean check(
+    public static boolean checkForeignKey(
             Connection conn,
             String sql
     ) {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             return rs.getInt(1) == 1;
+        } catch (SQLException e) {
+            log.error("Error checking foreign_keys existence: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean check(
+            Connection conn,
+            String sql
+    ) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
         } catch (SQLException e) {
             log.error("Error checking existence: {}", e.getMessage());
             return false;
