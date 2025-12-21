@@ -17,7 +17,7 @@ public class StartUpRepository {
     }
 
     public boolean foreignKeyEnabled() {
-        String sql = "PRAGMA foreign_keys;";
+        String sql = "PRAGMA foreign_keys";
         return checkForeignKey(conn, sql);
     }
 
@@ -27,13 +27,13 @@ public class StartUpRepository {
     }
 
     public void enableForeignKeys() {
-        String createTableSQL = "PRAGMA foreign_keys = ON;";
+        String createTableSQL = "PRAGMA foreign_keys = ON";
         create(conn, createTableSQL);
         log.info("Foreign key enabled");
     }
 
     public void createTransactionTable() {
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS transactions (" +
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS Transactions (" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "date ANY NOT NULL," +
                 "symbol TEXT NOT NULL," +
@@ -78,7 +78,7 @@ public class StartUpRepository {
                 "hh_ll_3_bars_low REAL,\n" +
                 "hh_ll_any_high REAL,\n" +
                 "hh_ll_any_low REAL,\n" +
-                "FOREIGN KEY (dailyPrepDateId) REFERENCES parent_table(DailyPrepDate) ON DELETE CASCADE ON UPDATE NO ACTION\n" +
+                "FOREIGN KEY (dailyPrepDateId) REFERENCES DailyPrepDate(dailyPrepDateId) ON DELETE CASCADE ON UPDATE NO ACTION\n" +
                 ");";
         create(conn, createTableSQL);
         log.info("Table DailyPrep created");
@@ -108,13 +108,13 @@ public class StartUpRepository {
     }
 
     public void dbStartUpChecks() {
+        ensureForeignKeys();
+
         ensureTable("transactions", this::createTransactionTable);
         ensureTable("DailyPrepDate", this::createDailyPrepDateTable);
         ensureTable("DailyPrep", this::createDailyPrepTable);
         ensureTable("Journal", this::createJournalTable);
         ensureTable("Goal", this::createGoalTable);
-
-        ensureForeignKeys();
     }
 
     private void ensureTable(String table, Runnable creator) {

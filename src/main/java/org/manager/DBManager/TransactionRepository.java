@@ -20,7 +20,7 @@ public class TransactionRepository {
     }
 
     public List<Transaction> getAllTransactions() {
-        String sql = "SELECT * FROM transactions ORDER BY date ASC";
+        String sql = "SELECT * FROM Transactions ORDER BY date ASC";
 
         return queryList(conn, sql, null, rs -> new Transaction(
                 rs.getInt("id"),
@@ -43,7 +43,7 @@ public class TransactionRepository {
     }
 
     public Transaction getLatestTransaction() {
-        String sql = "SELECT * FROM transactions ORDER BY id DESC LIMIT 1;";
+        String sql = "SELECT * FROM Transactions ORDER BY id DESC LIMIT 1;";
 
         return queryItem(conn, sql, null, rs -> new Transaction(
                 rs.getInt("id"),
@@ -67,7 +67,7 @@ public class TransactionRepository {
 
     public void addTransaction(Transaction t) {
         String sql = """
-                INSERT INTO transactions
+                INSERT INTO Transactions
                 (date, symbol, quantity, commission, direction, open, close, profit,
                  formation, ATR, ATRRisk, possibleProfitTicks, possibleLossTicks,
                  actualLossTicks, timePeriod)
@@ -95,12 +95,12 @@ public class TransactionRepository {
     }
 
     public void deleteTransaction(int id) {
-        update(conn, "DELETE FROM transactions WHERE id=?", ps -> ps.setInt(1, id));
+        update(conn, "DELETE FROM Transactions WHERE id=?", ps -> ps.setInt(1, id));
         log.info("Transaction id: {} deleted successfully.", id);
     }
 
     public void updateTransaction(Transaction t) {
-        String sql = "update transactions " +
+        String sql = "UPDATE Transactions " +
                 "set date = ?, " +
                 "symbol = ?, " +
                 "quantity = ?, " +

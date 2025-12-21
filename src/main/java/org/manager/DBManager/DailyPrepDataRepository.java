@@ -85,7 +85,7 @@ public class DailyPrepDataRepository {
     }
 
     public void addDailyPrepItem(DailyPrepItems dailyPrepItem) {
-        String sql = "update DailyPrep set dailyEvents = ?, hourlyTrend = ?, halfHourlyTrend = ?, dailyTrend = ?, hh_ll_3_bars_high = ?, hh_ll_3_bars_low = ?, hh_ll_any_high = ?, hh_ll_any_low = ? WHERE dailyPrepId = ?";
+        String sql = "UPDATE DailyPrep set dailyEvents = ?, hourlyTrend = ?, halfHourlyTrend = ?, dailyTrend = ?, hh_ll_3_bars_high = ?, hh_ll_3_bars_low = ?, hh_ll_any_high = ?, hh_ll_any_low = ? WHERE dailyPrepId = ?";
 
         update(conn, sql, ps -> {
             ps.setString(1, dailyPrepItem.getDailyEvents());
@@ -104,7 +104,7 @@ public class DailyPrepDataRepository {
     public DailyPrepItems addDailyPrepItem(int id,
                                          String symbol,
                                          LocalDate date) {
-        String sql = "insert into DailyPrep(dailyPrepDateId, symbol, date) VALUES(?,?, ?)";
+        String sql = "INSERT INTO DailyPrep(dailyPrepDateId, symbol, date) VALUES(?,?,?)";
 
         update(conn, sql, ps -> {
             ps.setInt(1, id);
@@ -115,7 +115,7 @@ public class DailyPrepDataRepository {
     }
 
     public DailyPrep addDailyPrepDate(LocalDate date) {
-        String sql = "insert into DailyPrepDate(date) VALUES(?)";
+        String sql = "INSERT INTO DailyPrepDate(date) VALUES(?)";
 
         update(conn, sql, ps -> ps.setDate(1, Date.valueOf(date)));
         log.info("Daily Prep date added successfully.");

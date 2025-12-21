@@ -88,6 +88,7 @@ public class AddJournalEntryDialogController implements Initializable {
                 journalDb.addJournalEntry(entry);
             }
             GlobalContext.getJournals().replaceMaster(journalDb.getAllJournalEntries());
+            this.cancel();
         }
     }
 
