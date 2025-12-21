@@ -10,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import org.manager.DBManager.RepositoryFactory;
+import org.manager.DBManager.TransactionRepository;
 import org.manager.DbManager;
 import org.service.csvReader;
 
@@ -25,6 +27,7 @@ import org.utilities.SaveHandler;
 import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
+
 import org.manager.ControllerManager;
 
 public class App extends Application {
@@ -32,7 +35,10 @@ public class App extends Application {
     static {
         InitLogging.configureLogging();
     }
+
     private static final Logger log = LoggerFactory.getLogger(App.class);
+    private final RepositoryFactory repo = new RepositoryFactory();
+    private final TransactionRepository tran = repo.transactions();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -74,7 +80,7 @@ public class App extends Application {
         ///DB
         db.setBdConnection();
         db.dbStartUpChecks(db);
-        GlobalContext.getTransactions().setAllMaster(db.getAllTransactions());
+        GlobalContext.getTransactions().setAllMaster(tran.getAllTransactions());
         GlobalContext.getDailyPrep().setAllMaster(db.getAllDailyPrepData());
         GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
         GlobalContext.getGoals().setAllMaster(db.getAllGoals());

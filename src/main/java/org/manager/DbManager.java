@@ -25,11 +25,7 @@ public class DbManager {
     Connection bdConnection;
 
     public void setBdConnection() throws IOException {
-        try {
-            bdConnection = SqliteConnection.getConnection();
-        } catch (IOException e) {
-            log.error("Failed to connect to DB", e);
-        }
+        bdConnection = SqliteConnection.getConnection();
     }
 
     public void closeBdConnection() throws SQLException {
@@ -227,104 +223,6 @@ public class DbManager {
         }
     }
 
-    public List<Transaction> getAllTransactions() throws SQLException {
-        if (isDbConnected()) {
-            PreparedStatement ps = null;
-            ResultSet rs = null;
-            String query = "select * from transactions ORDER BY date ASC";
-            try {
-                ps = bdConnection.prepareStatement(query);
-                rs = ps.executeQuery();
-                List<Transaction> transactions = new ArrayList<>();
-                while (rs.next()) {
-                    transactions.add(new Transaction(
-                            rs.getInt("id"),
-                            rs.getDate("date").toLocalDate(),
-                            rs.getString("symbol"),
-                            rs.getInt("quantity"),
-                            rs.getDouble("commission"),
-                            rs.getString("direction"),
-                            rs.getDouble("open"),
-                            rs.getDouble("close"),
-                            rs.getDouble("profit"),
-                            rs.getString("formation"),
-                            rs.getDouble("ATR"),
-                            rs.getDouble("ATRRisk"),
-                            rs.getDouble("possibleProfitTicks"),
-                            rs.getDouble("possibleLossTicks"),
-                            rs.getDouble("actualLossTicks"),
-                            rs.getString("timePeriod")
-                    ));
-                }
-                return transactions;
-            } catch (Exception e) {
-                log.error("Get All Transactions failed: {}", e.getMessage());
-            } finally {
-                log.info("All transaction retrieved.");
-                ps.close();
-                rs.close();
-            }
-        }
-        return null;
-    }
-
-    public void addTransaction(Transaction transaction) throws SQLException {
-        PreparedStatement ps = null;
-        String query = "insert into transactions(date,symbol,quantity,commission,direction,open,close,profit,formation,ATR,ATRRisk,possibleProfitTicks,possibleLossTicks,actualLossTicks,timePeriod) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            ps = bdConnection.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(transaction.getDate()));
-            ps.setString(2, transaction.getSymbol());
-            ps.setInt(3, transaction.getQuantity());
-            ps.setDouble(4, transaction.getCommission());
-            ps.setString(5, transaction.getDirection());
-            ps.setDouble(6, transaction.getOpen());
-            ps.setDouble(7, transaction.getClose());
-            ps.setDouble(8, transaction.getProfit());
-            ps.setString(9, transaction.getFormation());
-            ps.setDouble(10, transaction.getATR());
-            ps.setDouble(11, transaction.getATRRisk());
-            ps.setDouble(12, transaction.getPossibleProfitTicks());
-            ps.setDouble(13, transaction.getPossibleLossTicks());
-            ps.setDouble(14, transaction.getActualLossTicks());
-            ps.setString(15, transaction.getTimePeriod());
-            ps.executeUpdate();
-            ps.close();
-            log.info("Transaction added successfully");
-        } catch (Exception e) {
-            log.error("Add Transaction failed: {}", e.getMessage());
-        }
-    }
-
-    public void updateTransaction(Transaction transaction) throws SQLException {
-        PreparedStatement ps = null;
-        String query = "update transactions set date = ?, symbol = ?, quantity = ?, commission = ?, direction = ?, open = ?, close = ?, profit = ?, formation = ?, ATR = ?, ATRRisk = ?, possibleProfitTicks = ?, possibleLossTicks = ?, actualLossTicks = ?, timePeriod = ? WHERE id = ?";
-        try {
-            ps = bdConnection.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(transaction.getDate()));
-            ps.setString(2, transaction.getSymbol());
-            ps.setInt(3, transaction.getQuantity());
-            ps.setDouble(4, transaction.getCommission());
-            ps.setString(5, transaction.getDirection());
-            ps.setDouble(6, transaction.getOpen());
-            ps.setDouble(7, transaction.getClose());
-            ps.setDouble(8, transaction.getProfit());
-            ps.setString(9, transaction.getFormation());
-            ps.setDouble(10, transaction.getATR());
-            ps.setDouble(11, transaction.getATRRisk());
-            ps.setDouble(12, transaction.getPossibleProfitTicks());
-            ps.setDouble(13, transaction.getPossibleLossTicks());
-            ps.setDouble(14, transaction.getActualLossTicks());
-            ps.setString(15, transaction.getTimePeriod());
-            ps.setInt(16, transaction.getId());
-            ps.executeUpdate();
-            ps.close();
-            log.info("Transaction id:{} updated successfully", transaction.getId());
-        } catch (Exception e) {
-            log.error("Update Transaction failed: {}", e.getMessage());
-        }
-    }
-
     public void addDailyPrepItem(
             DailyPrepItems dailyPrepItem) throws SQLException {
         PreparedStatement ps = null;
@@ -346,47 +244,6 @@ public class DbManager {
         } catch (Exception e) {
             log.error("Failed to add DailyPrepItem: {}", e.getMessage());
         }
-    }
-
-    public Transaction getLatestTransaction() throws SQLException {
-        if (isDbConnected()) {
-            PreparedStatement ps = null;
-            ResultSet rs = null;
-            String query = "SELECT * FROM transactions ORDER BY id DESC LIMIT 1;";
-            try {
-                ps = bdConnection.prepareStatement(query);
-                rs = ps.executeQuery();
-                Transaction transaction = null;
-                while (rs.next()) {
-                    transaction = new Transaction(
-                            rs.getInt("id"),
-                            rs.getDate("date").toLocalDate(),
-                            rs.getString("symbol"),
-                            rs.getInt("quantity"),
-                            rs.getDouble("commission"),
-                            rs.getString("direction"),
-                            rs.getDouble("open"),
-                            rs.getDouble("close"),
-                            rs.getDouble("profit"),
-                            rs.getString("formation"),
-                            rs.getDouble("ATR"),
-                            rs.getDouble("ATRRisk"),
-                            rs.getDouble("possibleProfitTicks"),
-                            rs.getDouble("possibleLossTicks"),
-                            rs.getDouble("actualLossTicks"),
-                            rs.getString("timePeriod")
-                    );
-                }
-                return transaction;
-            } catch (Exception e) {
-                log.error("Failed to retrieve the last transaction: {}", e.getMessage());
-            } finally {
-                log.info("Latest transaction retrieved successfully.");
-                ps.close();
-                rs.close();
-            }
-        }
-        return null;
     }
 
     public List<DailyPrep> getAllDailyPrepData() throws SQLException {

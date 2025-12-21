@@ -15,7 +15,7 @@ public class SqliteConnection {
     static Path mainDB = Path.of(System.getenv("LOCALAPPDATA"), "TradeStatsMaster", "master.db");
     static final String mainDBName = "/org/app/data/master.sqlite";
 
-    public static Connection getConnection() throws IOException {
+    public static Connection getConnection() {
 
         if (!Files.isRegularFile(mainDB)) {
 //            Files.createDirectories(mainDB.getParent()); // if using subdir for app
@@ -27,7 +27,6 @@ public class SqliteConnection {
                 Files.copy(in, mainDB);
             } catch (IOException e) {
                 log.error("Failed to copy temp db to main folder", e);
-                throw e;
             }
         }
 
