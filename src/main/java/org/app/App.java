@@ -42,6 +42,7 @@ public class App extends Application {
     private final TransactionRepository tran = repo.transactions();
     private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
     private final JournalRepository journals = repo.journals();
+    private final GoalsRepository goals = repo.goals();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -82,17 +83,15 @@ public class App extends Application {
         DbManager db = new DbManager();
         ///DB
         ControllerRegistry.register(RepositoryFactory.class, repo);
-        db.setBdConnection();
         startUp.dbStartUpChecks();
         GlobalContext.getTransactions().setAllMaster(tran.getAllTransactions());
         GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
         GlobalContext.getJournals().setAllMaster(journals.getAllJournalEntries());
-        GlobalContext.getGoals().setAllMaster(db.getAllGoals());
+        GlobalContext.getGoals().setAllMaster(goals.getAllGoals());
 
         ///Serialized DTO Object
         GlobalContext.getSymbols().setAllMaster(getAllSymbols());
         GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
-        db.closeBdConnection();
         log.info("started successfully");
     }
 

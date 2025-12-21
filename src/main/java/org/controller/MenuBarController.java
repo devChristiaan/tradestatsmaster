@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +47,7 @@ public class MenuBarController extends VBox implements Initializable {
     private final TransactionRepository transactionDb = repo.transactions();
     private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
     private final JournalRepository journalDb = repo.journals();
+    private final GoalsRepository goalsDb = repo.goals();
 
     @FXML
     MenuBar menuBar;
@@ -296,19 +296,14 @@ public class MenuBarController extends VBox implements Initializable {
     }
 
     void resetAllData() {
-        try {
-            db.setBdConnection();
-            startUp.dbStartUpChecks();
-            GlobalContext.getTransactions().setAllMaster(transactionDb.getAllTransactions());
-            GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
-            GlobalContext.getJournals().setAllMaster(journalDb.getAllJournalEntries());
-            GlobalContext.getGoals().setAllMaster(db.getAllGoals());
+        startUp.dbStartUpChecks();
+        GlobalContext.getTransactions().setAllMaster(transactionDb.getAllTransactions());
+        GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
+        GlobalContext.getJournals().setAllMaster(journalDb.getAllJournalEntries());
+        GlobalContext.getGoals().setAllMaster(goalsDb.getAllGoals());
 
-            ///Serialized DTO Object
-            GlobalContext.getSymbols().setAllMaster(getAllSymbols());
-            GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
-        } catch (SQLException | IOException e) {
-            log.error("Failed to load new data");
-        }
+        ///Serialized DTO Object
+        GlobalContext.getSymbols().setAllMaster(getAllSymbols());
+        GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
     }
 }

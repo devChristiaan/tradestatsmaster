@@ -13,15 +13,14 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.manager.DbManager;
+import org.manager.DBManager.GoalsRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.model.goal.ETimeHorizon;
 import org.model.goal.Goal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,6 +46,7 @@ public class AddGoalDialogController implements Initializable {
     MainController mainController;
     GoalsController goalsController;
     Document copiedGoal;
+    GoalsRepository goalsDb = ControllerRegistry.get(RepositoryFactory.class).goals();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,17 +81,11 @@ public class AddGoalDialogController implements Initializable {
     public void saveGoal() {
         errorContainer.getChildren().clear();
         if (isValid()) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 94,
-                        TextDecoration.builder().presets().fontSize(16.0).build(),
-                        ParagraphDecoration.builder().presets().build())), 93), false));
-                GlobalContext.getGoals().replaceMaster(db.getAllGoals());
-                db.closeBdConnection();
-                this.cancel();
-            } catch (IOException | SQLException ignored) {
-            }
+            goalsDb.addGoal(new Goal(null, date.getValue(), ETimeHorizon.fromDescription(timeHorizon.getValue()), copiedGoal != null ? copiedGoal : new Document(goalTemplate, List.of(new DecorationModel(0, 94,
+                    TextDecoration.builder().presets().fontSize(16.0).build(),
+                    ParagraphDecoration.builder().presets().build())), 93), false));
+            GlobalContext.getGoals().replaceMaster(goalsDb.getAllGoals());
+            this.cancel();
         }
     }
 
