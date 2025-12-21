@@ -13,7 +13,6 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DBManager.RepositoryFactory;
 import org.manager.DBManager.TransactionRepository;
-import org.manager.DbManager;
 import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
 import org.utilities.DateCell;
@@ -65,7 +64,6 @@ public class TradeController extends VBox implements Initializable {
 
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
     StatsController statsController;
-    DbManager db = new DbManager();
     Transaction selectedTransaction;
     private final TransactionRepository transactions = ControllerRegistry.get(RepositoryFactory.class).transactions();
 

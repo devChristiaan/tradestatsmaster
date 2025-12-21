@@ -59,7 +59,6 @@ public class MenuBarController extends VBox implements Initializable {
     Alert fileSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
     Alert alertAbout = new Alert(Alert.AlertType.INFORMATION);
 
-    DbManager db = new DbManager();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -296,14 +295,7 @@ public class MenuBarController extends VBox implements Initializable {
     }
 
     void resetAllData() {
-        startUp.dbStartUpChecks();
-        GlobalContext.getTransactions().setAllMaster(transactionDb.getAllTransactions());
-        GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
-        GlobalContext.getJournals().setAllMaster(journalDb.getAllJournalEntries());
-        GlobalContext.getGoals().setAllMaster(goalsDb.getAllGoals());
-
-        ///Serialized DTO Object
-        GlobalContext.getSymbols().setAllMaster(getAllSymbols());
-        GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
+        DbManager db = new DbManager(ControllerRegistry.get(RepositoryFactory.class));
+        db.instantiateData();
     }
 }

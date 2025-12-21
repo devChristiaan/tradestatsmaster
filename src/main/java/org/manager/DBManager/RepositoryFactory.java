@@ -15,6 +15,10 @@ public class RepositoryFactory {
         this.db = new SqliteConnection();
     }
 
+    public void closeConnection() {
+        this.db.close();
+    }
+
     public TransactionRepository transactions() {
         if (transactionRepository == null)
             transactionRepository = new TransactionRepository(db);
