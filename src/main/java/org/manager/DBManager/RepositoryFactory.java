@@ -5,6 +5,7 @@ import org.service.SqliteConnection;
 public class RepositoryFactory {
     private final SqliteConnection db;
 
+    private StartUpRepository startupRepo;
     private TransactionRepository transactionRepository;
 
     public RepositoryFactory() {
@@ -15,5 +16,11 @@ public class RepositoryFactory {
         if (transactionRepository == null)
             transactionRepository = new TransactionRepository(db);
         return transactionRepository;
+    }
+
+    public StartUpRepository startUp() {
+        if (startupRepo == null)
+            startupRepo = new StartUpRepository(db);
+        return startupRepo;
     }
 }

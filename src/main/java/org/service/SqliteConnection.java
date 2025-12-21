@@ -37,7 +37,6 @@ public class SqliteConnection {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection connection = DriverManager.getConnection("jdbc:sqlite:" + mainDB.toAbsolutePath());
-            log.info("DB Connection is successful");
             return connection;
         } catch (Exception e) {
             log.error("DB Connection is failed", e);

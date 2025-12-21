@@ -66,7 +66,7 @@ public class RepositoryHelper {
         }
     }
 
-    public static int update(
+    public static void update(
             Connection conn,
             String sql,
             SQLConsumer<PreparedStatement> params
@@ -75,10 +75,33 @@ public class RepositoryHelper {
             if (params != null)
                 params.accept(ps);
 
-            return ps.executeUpdate();
+            ps.executeUpdate();
         } catch (SQLException e) {
             log.error("Something went wrong with updating the data: {}", e.getMessage());
-            return 0;
+        }
+    }
+
+    public static void create(
+            Connection conn,
+            String sql
+    ) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.execute();
+        } catch (SQLException e) {
+            log.error("Something went wrong with creating the table: {}", e.getMessage());
+        }
+    }
+
+    public static boolean check(
+            Connection conn,
+            String sql
+    ) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            return rs.getInt(1) == 1;
+        } catch (SQLException e) {
+            log.error("Error checking existence: {}", e.getMessage());
+            return false;
         }
     }
 }

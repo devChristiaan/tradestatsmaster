@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DBManager.RepositoryFactory;
+import org.manager.DBManager.StartUpRepository;
 import org.manager.DBManager.TransactionRepository;
 import org.manager.DbManager;
 import org.manager.ZipFilesManager;
@@ -44,7 +45,9 @@ import static org.utilities.Utilities.closeApp;
 
 public class MenuBarController extends VBox implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(MenuBarController.class);
-    private final TransactionRepository transactionDb = new RepositoryFactory().transactions();
+    private final RepositoryFactory repo = new RepositoryFactory();
+    private final StartUpRepository startUp = repo.startUp();
+    private final TransactionRepository transactionDb = repo.transactions();
 
     @FXML
     MenuBar menuBar;
@@ -295,7 +298,7 @@ public class MenuBarController extends VBox implements Initializable {
     void resetAllData() {
         try {
             db.setBdConnection();
-            db.dbStartUpChecks(db);
+            startUp.dbStartUpChecks();
             GlobalContext.getTransactions().setAllMaster(transactionDb.getAllTransactions());
             GlobalContext.getDailyPrep().setAllMaster(db.getAllDailyPrepData());
             GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
