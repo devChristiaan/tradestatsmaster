@@ -27,6 +27,7 @@ module org.app {
     exports org.model.goal;
     exports org.context;
     exports org.manager;
+    exports org.manager.DBManager;
     exports org.logging;
     opens org.app to javafx.fxml;
     opens org.controller to javafx.fxml;
