@@ -29,7 +29,7 @@
                     <fx:include source="Goals.fxml" />
                 </Tab>
                 <Tab closable="false" style="-fx-padding: 8px;" text="Equity Chart">
-                    <fx:include source="chart.fxml" />
+                    <fx:include source="chart.fxml"/>
                 </Tab>
             </TabPane>
         </center>
