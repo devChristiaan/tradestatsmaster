@@ -11,8 +11,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import org.context.AppLauncher;
+import org.context.ControllerRegistry;
 import org.manager.DBManager.*;
-import org.manager.DbManager;
 import org.service.csvReader;
 
 import java.io.IOException;
@@ -36,6 +36,11 @@ public class App extends Application {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
     private final RepositoryFactory repo = new RepositoryFactory();
+    private final StartUpRepository startUp = repo.startUp();
+    private final TransactionRepository tran = repo.transactions();
+    private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
+    private final JournalRepository journals = repo.journals();
+    private final GoalsRepository goals = repo.goals();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -75,8 +80,12 @@ public class App extends Application {
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
 
         ///Application Data
-        DbManager db = new DbManager(repo);
-        db.instantiateData();
+        ControllerRegistry.register(RepositoryFactory.class, repo);
+        startUp.dbStartUpChecks();
+        GlobalContext.getTransactions().setAllMaster(tran.getAllTransactions());
+        GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
+        GlobalContext.getJournals().setAllMaster(journals.getAllJournalEntries());
+        GlobalContext.getGoals().setAllMaster(goals.getAllGoals());
 
         log.info("started successfully");
     }

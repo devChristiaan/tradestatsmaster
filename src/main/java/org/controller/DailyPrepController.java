@@ -17,7 +17,6 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DBManager.DailyPrepDataRepository;
 import org.manager.DBManager.RepositoryFactory;
-import org.manager.DbManager;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 import org.utilities.DateCellTreeTable;
@@ -25,7 +24,6 @@ import org.utilities.SaveHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 

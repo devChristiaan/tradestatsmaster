@@ -1,11 +1,7 @@
 package org.service;
 
 import javafx.concurrent.Task;
-import org.context.ControllerRegistry;
-import org.context.GlobalContext;
 import org.manager.DBManager.RepositoryFactory;
-import org.manager.DBManager.TransactionRepository;
-import org.manager.DbManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

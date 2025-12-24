@@ -18,14 +18,12 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.manager.DBManager.JournalRepository;
 import org.manager.DBManager.RepositoryFactory;
-import org.manager.DbManager;
 import org.model.journal.Journal;
 import org.utilities.DateCellTreeTable;
 import org.utilities.SaveHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
