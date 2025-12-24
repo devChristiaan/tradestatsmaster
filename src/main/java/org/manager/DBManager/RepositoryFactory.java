@@ -10,6 +10,7 @@ public class RepositoryFactory {
     private DailyPrepDataRepository dailyPrepDataRepository;
     private JournalRepository journalRepository;
     private GoalsRepository goalsRepository;
+    private DBUtilityRepository dbUtilityRepository;
 
     public RepositoryFactory() {
         this.db = new SqliteConnection();
@@ -47,5 +48,11 @@ public class RepositoryFactory {
         if (goalsRepository == null)
             goalsRepository = new GoalsRepository(db);
         return goalsRepository;
+    }
+
+    public DBUtilityRepository dbUtilities() {
+        if (dbUtilityRepository == null)
+            dbUtilityRepository = new DBUtilityRepository(db);
+        return dbUtilityRepository;
     }
 }

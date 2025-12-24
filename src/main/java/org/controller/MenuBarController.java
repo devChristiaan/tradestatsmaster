@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DBManager.*;
-import org.manager.DbManager;
+import org.manager.DBManager.RepositoryFactory;
+import org.manager.DBManager.TransactionRepository;
 import org.manager.ZipFilesManager;
 import org.model.account.Account;
 import org.model.symbol.Symbol;
@@ -34,8 +34,6 @@ import java.util.ResourceBundle;
 
 import static org.manager.DTOManager.addAllAccountTransactions;
 import static org.manager.DTOManager.addAllSymbol;
-import static org.manager.DTOManager.getAllAccountTransactions;
-import static org.manager.DTOManager.getAllSymbols;
 
 import static org.service.csvReader.*;
 import static org.utilities.Utilities.closeApp;
@@ -43,11 +41,7 @@ import static org.utilities.Utilities.closeApp;
 public class MenuBarController extends VBox implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(MenuBarController.class);
     private final RepositoryFactory repo = ControllerRegistry.get(RepositoryFactory.class);
-    private final StartUpRepository startUp = repo.startUp();
     private final TransactionRepository transactionDb = repo.transactions();
-    private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
-    private final JournalRepository journalDb = repo.journals();
-    private final GoalsRepository goalsDb = repo.goals();
 
     @FXML
     MenuBar menuBar;
@@ -275,7 +269,7 @@ public class MenuBarController extends VBox implements Initializable {
         String path = csvDirectorySelector("trade_stats_master_backup_" + date, "Save backup zip", new FileChooser.ExtensionFilter("ZIP File", "*.zip"), ".zip");
 
         ZipFilesManager manager = new ZipFilesManager(Path.of(path));
-        manager.backupFiles();
+        manager.backupFiles(repo, date);
         fileSuccessAlert.setContentText("Backup was successful!");
         fileSuccessAlert.show();
     }
@@ -283,19 +277,10 @@ public class MenuBarController extends VBox implements Initializable {
     @FXML
     void restoreBackup() {
         fileSuccessAlert.setContentText("Warning! Restoring a backup will replace all current data in the application.\nIf you wish to add data use the file import instead.");
-
-        if (fileSuccessAlert.showAndWait().get() == ButtonType.OK) {
+        if (fileSuccessAlert.showAndWait().get() == ButtonType.OK) {;
             String file = backupSelector();
             ZipFilesManager manager = new ZipFilesManager(Path.of(file));
-            manager.restoreFiles();
-            resetAllData();
-            fileSuccessAlert.setContentText("Backup was successful!");
-            fileSuccessAlert.show();
+            manager.restoreFiles(repo);
         }
-    }
-
-    void resetAllData() {
-        DbManager db = new DbManager(ControllerRegistry.get(RepositoryFactory.class));
-        db.instantiateData();
     }
 }

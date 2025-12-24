@@ -6,41 +6,31 @@
 <VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.controller.MenuBarController">
     <MenuBar fx:id="menuBar" layoutY="2.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="File">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Trade Data">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range"/>
-                    <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all"/>
-                    <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Symbols">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#addSymbol" text="Add symbol"/>
-                    <MenuItem mnemonicParsing="false" onAction="#exportSymbols" text="Export all symbols"/>
-                    <MenuItem mnemonicParsing="false" onAction="#importSymbolFile" text="Import symbols from file"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Account Maintenance">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#manageBalance" text="Manage balance"/>
-                    <MenuItem mnemonicParsing="false" onAction="#exportTransactions" text="Export all transactions"/>
-                    <MenuItem mnemonicParsing="false" onAction="#importTransactionsFile"
-                              text="Import transactions from file"/>
-                </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showLogs" text="Logs"/>
-                    <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About"/>
-                    <MenuItem mnemonicParsing="false" onAction="#showAboutChartExpense" text="About charting service"/>
-                </items>
-            </Menu>
-        </menus>
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#menuCloseApp" text="Close"/>
+            <MenuItem mnemonicParsing="false" onAction="#backup" text="Backup"/>
+            <MenuItem mnemonicParsing="false" onAction="#restoreBackup" text="Restore Backup"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Trade Data">
+            <MenuItem mnemonicParsing="false" onAction="#exportSelection" text="Export selected data range"/>
+            <MenuItem mnemonicParsing="false" onAction="#exportAll" text="Export all"/>
+            <MenuItem mnemonicParsing="false" onAction="#importFile" text="Import trades"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Symbols">
+            <MenuItem mnemonicParsing="false" onAction="#addSymbol" text="Add symbol"/>
+            <MenuItem mnemonicParsing="false" onAction="#exportSymbols" text="Export all symbols"/>
+            <MenuItem mnemonicParsing="false" onAction="#importSymbolFile" text="Import symbols from file"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Account Maintenance">
+            <MenuItem mnemonicParsing="false" onAction="#manageBalance" text="Manage balance"/>
+            <MenuItem mnemonicParsing="false" onAction="#exportTransactions" text="Export all transactions"/>
+            <MenuItem mnemonicParsing="false" onAction="#importTransactionsFile"
+                      text="Import transactions from file"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" onAction="#showLogs" text="Logs"/>
+            <MenuItem mnemonicParsing="false" onAction="#showAboutApp" text="About"/>
+            <MenuItem mnemonicParsing="false" onAction="#showAboutChartExpense" text="About charting service"/>
+        </Menu>
     </MenuBar>
 </VBox>

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import org.context.AppLauncher;
 import org.manager.DBManager.*;
 import org.manager.DbManager;
 import org.service.csvReader;
@@ -81,6 +82,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        AppLauncher.init(args);
         launch();
     }
 
