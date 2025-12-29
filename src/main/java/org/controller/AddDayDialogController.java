@@ -12,16 +12,15 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.manager.DbManager;
+import org.manager.DBManager.DailyPrepDataRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.model.symbol.Symbol;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +48,7 @@ public class AddDayDialogController implements Initializable {
     MainController mainController;
     List<Symbol> symbolList;
     List<String> checkedSymbolList = new LinkedList<>();
+    private final DailyPrepDataRepository dailyPrepData = ControllerRegistry.get(RepositoryFactory.class).dailyPrepData();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,21 +88,15 @@ public class AddDayDialogController implements Initializable {
             newlyCheckedSymbolList = checkedSymbolList;
         }
         if (isValid(newlyCheckedSymbolList)) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                if (Objects.isNull(selectedDate)) {
-                    selectedDate = db.addDailyPrepDate(date.getValue());
-                }
-                for (String symbol : newlyCheckedSymbolList) {
-                    DailyPrepItems item = db.addDailyPrepItem(selectedDate.getDailyPrepDateId(), symbol, selectedDate.getDate());
-                    selectedDate.getDailyPrepItemsList().add(item);
-                }
-                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
-                db.closeBdConnection();
-                this.cancel();
-            } catch (IOException | SQLException ignored) {
+            if (Objects.isNull(selectedDate)) {
+                selectedDate = dailyPrepData.addDailyPrepDate(date.getValue());
             }
+            for (String symbol : newlyCheckedSymbolList) {
+                DailyPrepItems item = dailyPrepData.addDailyPrepItem(selectedDate.getDailyPrepDateId(), symbol, selectedDate.getDate());
+                selectedDate.getDailyPrepItemsList().add(item);
+            }
+            GlobalContext.getDailyPrep().replaceMaster(dailyPrepData.getAllDailyPrepData());
+            this.cancel();
         }
     }
 

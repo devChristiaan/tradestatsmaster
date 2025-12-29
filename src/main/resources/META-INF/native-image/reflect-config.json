@@ -330,6 +330,9 @@
   "methods":[{"name":"valueOf","parameterTypes":["java.lang.String"] }]
 },
 {
+  "name":"javafx.geometry.Region"
+},
+{
   "name":"javafx.geometry.RowConstraints"
 },
 {
@@ -453,6 +456,9 @@
   "methods":[{"name":"setTitle","parameterTypes":["java.lang.String"] }]
 },
 {
+  "name":"javafx.scene.chart.ChoiceBox"
+},
+{
   "name":"javafx.scene.chart.Circle"
 },
 {
@@ -476,6 +482,9 @@
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.chart.Region"
 },
 {
   "name":"javafx.scene.chart.Separator"
@@ -607,6 +616,9 @@
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"javafx.scene.control.Region"
 },
 {
   "name":"javafx.scene.control.RowConstraints"
@@ -775,7 +787,7 @@
   "name":"javafx.scene.layout.HBox",
   "queryAllDeclaredMethods":true,
   "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, {"name":"setFillHeight","parameterTypes":["boolean"] }, {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.Parent","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Button","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.ButtonBase","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.CheckBox","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Control","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Label","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Labeled","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Separator","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Skinnable","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.Pane","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.Region","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.VBox","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.shape.Circle","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.shape.Shape","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.text.Text","javafx.geometry.Insets"] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"getHgrow","parameterTypes":["javafx.scene.Node"] }, {"name":"getHgrow","parameterTypes":["javafx.scene.Parent"] }, {"name":"getHgrow","parameterTypes":["javafx.scene.layout.Region"] }, {"name":"isHgrow","parameterTypes":["javafx.scene.Parent"] }, {"name":"isHgrow","parameterTypes":["javafx.scene.layout.Region"] }, {"name":"setAlignment","parameterTypes":["javafx.geometry.Pos"] }, {"name":"setFillHeight","parameterTypes":["boolean"] }, {"name":"setHgrow","parameterTypes":["java.lang.Object","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.css.Styleable","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.event.EventTarget","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.Node","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.Node","javafx.scene.layout.Priority"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.Parent","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.Parent","javafx.scene.layout.Priority"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.layout.Region","java.lang.String"] }, {"name":"setHgrow","parameterTypes":["javafx.scene.layout.Region","javafx.scene.layout.Priority"] }, {"name":"setMargin","parameterTypes":["javafx.scene.Node","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.Parent","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Button","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.ButtonBase","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.CheckBox","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Control","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Label","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Labeled","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Separator","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.control.Skinnable","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.Pane","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.Region","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.layout.VBox","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.shape.Circle","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.shape.Shape","javafx.geometry.Insets"] }, {"name":"setMargin","parameterTypes":["javafx.scene.text.Text","javafx.geometry.Insets"] }]
 },
 {
   "name":"javafx.scene.layout.Pane",
@@ -791,7 +803,8 @@
   "name":"javafx.scene.layout.Region",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"setMaxHeight","parameterTypes":["double"] }, {"name":"setMaxWidth","parameterTypes":["double"] }, {"name":"setMinHeight","parameterTypes":["double"] }, {"name":"setMinWidth","parameterTypes":["double"] }, {"name":"setOpaqueInsets","parameterTypes":["javafx.geometry.Insets"] }, {"name":"setPadding","parameterTypes":["javafx.geometry.Insets"] }, {"name":"setPrefHeight","parameterTypes":["double"] }, {"name":"setPrefWidth","parameterTypes":["double"] }]
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setMaxHeight","parameterTypes":["double"] }, {"name":"setMaxWidth","parameterTypes":["double"] }, {"name":"setMinHeight","parameterTypes":["double"] }, {"name":"setMinWidth","parameterTypes":["double"] }, {"name":"setOpaqueInsets","parameterTypes":["javafx.geometry.Insets"] }, {"name":"setPadding","parameterTypes":["javafx.geometry.Insets"] }, {"name":"setPrefHeight","parameterTypes":["double"] }, {"name":"setPrefWidth","parameterTypes":["double"] }]
 },
 {
   "name":"javafx.scene.layout.RowConstraints",
@@ -953,7 +966,7 @@
   "name":"org.controller.AddTransactionDialog",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }, {"name":"selectEntry","parameterTypes":[] }]
 },
 {
   "name":"org.controller.ChartController",
@@ -987,7 +1000,7 @@
   "name":"org.controller.MenuBarController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"exportSelection","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"backup","parameterTypes":[] }, {"name":"exportSelection","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"restoreBackup","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
 },
 {
   "name":"org.controller.RichTextEditorController",
@@ -998,7 +1011,7 @@
   "name":"org.controller.StatsController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setCurrentDateFromBeginning","parameterTypes":[] }, {"name":"setCurrentMonth","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setCurrentDateFromBeginning","parameterTypes":[] }, {"name":"setCurrentMonth","parameterTypes":[] }, {"name":"setCurrentWeek","parameterTypes":[] }]
 },
 {
   "name":"org.controller.StatsControllerOverview",

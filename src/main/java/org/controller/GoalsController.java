@@ -15,7 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DbManager;
+import org.manager.DBManager.GoalsRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.model.goal.ETimeHorizon;
 import org.model.goal.Goal;
 import org.utilities.DateCell;
@@ -24,7 +25,6 @@ import org.utilities.TimeHorizonCell;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -58,6 +58,7 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public VBox editor;
 
     FilteredList<Goal> goalEntries = GlobalContext.getGoals().getFiltered();
+    GoalsRepository goalsDb = ControllerRegistry.get(RepositoryFactory.class).goals();
     RichTextEditorController editorController;
     private Node addGoal;
     public Goal selectedGoal;
@@ -148,14 +149,8 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public void save() {
         selectedGoal.setDocument(editorController.getDocument());
         selectedGoal.setAchieved(achievedCheckBox.isSelected());
-        DbManager db = new DbManager();
-        try {
-            db.setBdConnection();
-            db.updateGoal(selectedGoal);
-            GlobalContext.getGoals().replaceMaster(db.getAllGoals());
-            db.closeBdConnection();
-        } catch (IOException | SQLException ignored) {
-        }
+        goalsDb.updateGoal(selectedGoal);
+        GlobalContext.getGoals().replaceMaster(goalsDb.getAllGoals());
     }
 
 
@@ -178,14 +173,8 @@ public class GoalsController extends Pane implements Initializable, SaveHandler 
     public void deleteGoal() {
         alertDialog("goal");
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.deleteGoal(selectedGoal.getId());
-                GlobalContext.getGoals().replaceMaster(db.getAllGoals());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ignored) {
-            }
+            goalsDb.deleteGoal(selectedGoal.getId());
+            GlobalContext.getGoals().replaceMaster(goalsDb.getAllGoals());
         }
         deleteGoal.setDisable(true);
         selectedGoal = null;

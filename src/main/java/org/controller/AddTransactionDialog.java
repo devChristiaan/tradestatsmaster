@@ -8,7 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DbManager;
+import org.manager.DBManager.RepositoryFactory;
+import org.manager.DBManager.TransactionRepository;
 import org.model.Formation;
 import org.model.symbol.Symbol;
 import org.model.transaction.Transaction;
@@ -68,6 +69,7 @@ public class AddTransactionDialog implements Initializable {
 
     MainController mainController;
     TradeController tradeController;
+    private final TransactionRepository transactionDb = new RepositoryFactory().transactions();
 
     List<Symbol> symbolList;
     List<Formation> formationList;
@@ -159,7 +161,6 @@ public class AddTransactionDialog implements Initializable {
 
     @FXML
     public void saveTransaction() {
-        DbManager db = new DbManager();
         Symbol selectedSymbol = symbolList.stream().filter(item -> item.getSymbol().equals(symbol.getValue())).findFirst().get();
         if (isValid()) {
             Double profit = calculateProfit(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()), new BigDecimal(quantity.getText()));
@@ -167,22 +168,19 @@ public class AddTransactionDialog implements Initializable {
             String formation = formationList.stream().filter(item -> item.getFormation().equals(formations.getValue())).findFirst().get().getFormation();
             Double actualLossTicks = profit < 0 ? tickDifference(pointDifference(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText())), BigDecimal.valueOf(selectedSymbol.getFluctuation())).doubleValue() : 0;
             Double ATRRisk = calculateATRRisk(new BigDecimal(ATR.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()));
-            try {
-                db.setBdConnection();
-                Transaction transaction = updateTransaction(tradeController.selectedTransaction, tradeController.selectedTransaction != null ? tradeController.selectedTransaction.getDate() : date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation, Double.parseDouble(ATR.getText()), ATRRisk, Double.parseDouble(possibleProfitTicks.getText()), Double.parseDouble(possibleLossTicks.getText()), actualLossTicks, timePeriod.getText());
-                if (tradeController.selectedTransaction != null) {
-                    db.updateTransaction(transaction);
-                    mainController.replaceTransaction(transaction);
-                    tradeController.selectedTransaction = null;
-                } else {
-                    db.addTransaction(transaction);
-                    mainController.addTransaction(db.getLatestTransaction());
-                }
-                db.closeBdConnection();
-                mainController.hideModal();
-                resetForm();
-            } catch (SQLException | IOException ignored) {
+
+            Transaction transaction = updateTransaction(tradeController.selectedTransaction, tradeController.selectedTransaction != null ? tradeController.selectedTransaction.getDate() : date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation, Double.parseDouble(ATR.getText()), ATRRisk, Double.parseDouble(possibleProfitTicks.getText()), Double.parseDouble(possibleLossTicks.getText()), actualLossTicks, timePeriod.getText());
+            if (tradeController.selectedTransaction != null) {
+                transactionDb.updateTransaction(transaction);
+                GlobalContext.getTransactions().replaceItemInMaster(transaction);
+                tradeController.selectedTransaction = null;
+            } else {
+                transactionDb.addTransaction(transaction);
+                GlobalContext.getTransactions().addToMaster(transactionDb.getLatestTransaction());
             }
+
+            mainController.hideModal();
+            resetForm();
         }
     }
 

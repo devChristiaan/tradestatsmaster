@@ -10,7 +10,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import org.manager.DbManager;
+import org.context.AppLauncher;
+import org.context.ControllerRegistry;
+import org.manager.DBManager.*;
 import org.service.csvReader;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ import org.utilities.SaveHandler;
 import static org.manager.DTOManager.getAllAccountTransactions;
 import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
+
 import org.manager.ControllerManager;
 
 public class App extends Application {
@@ -32,7 +35,14 @@ public class App extends Application {
     static {
         InitLogging.configureLogging();
     }
+
     private static final Logger log = LoggerFactory.getLogger(App.class);
+    private final RepositoryFactory repo = new RepositoryFactory();
+    private final StartUpRepository startUp = repo.startUp();
+    private final TransactionRepository tran = repo.transactions();
+    private final DailyPrepDataRepository dailyData = repo.dailyPrepData();
+    private final JournalRepository journals = repo.journals();
+    private final GoalsRepository goals = repo.goals();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -56,6 +66,7 @@ public class App extends Application {
             stage.show();
             stage.setOnCloseRequest(event -> {
                 event.consume();
+                repo.closeConnection();
                 closeApp();
             });
         } catch (IOException e) {
@@ -70,23 +81,23 @@ public class App extends Application {
         ///CSV
         GlobalContext.add(GlobalContext.ContextItems.FORMATION_LIST, csvReader.getAllFormations());
 
-        DbManager db = new DbManager();
-        ///DB
-        db.setBdConnection();
-        db.dbStartUpChecks(db);
-        GlobalContext.getTransactions().setAllMaster(db.getAllTransactions());
-        GlobalContext.getDailyPrep().setAllMaster(db.getAllDailyPrepData());
-        GlobalContext.getJournals().setAllMaster(db.getAllJournalEntries());
-        GlobalContext.getGoals().setAllMaster(db.getAllGoals());
+        ///Application Data
+        ControllerRegistry.register(RepositoryFactory.class, repo);
+        startUp.dbStartUpChecks();
+        GlobalContext.getTransactions().setAllMaster(tran.getAllTransactions());
+        GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
+        GlobalContext.getJournals().setAllMaster(journals.getAllJournalEntries());
+        GlobalContext.getGoals().setAllMaster(goals.getAllGoals());
 
         ///Serialized DTO Object
         GlobalContext.getSymbols().setAllMaster(getAllSymbols());
         GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
-        db.closeBdConnection();
+
         log.info("started successfully");
     }
 
     public static void main(String[] args) {
+        AppLauncher.init(args);
         launch();
     }
 

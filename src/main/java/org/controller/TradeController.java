@@ -11,14 +11,14 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DbManager;
+import org.manager.DBManager.RepositoryFactory;
+import org.manager.DBManager.TransactionRepository;
 import org.model.transaction.Transaction;
 import org.utilities.CurrencyCell;
 import org.utilities.DateCell;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -64,8 +64,8 @@ public class TradeController extends VBox implements Initializable {
 
     Alert confirmDelete = new Alert(Alert.AlertType.INFORMATION);
     StatsController statsController;
-    DbManager db = new DbManager();
     Transaction selectedTransaction;
+    private final TransactionRepository transactions = ControllerRegistry.get(RepositoryFactory.class).transactions();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -145,7 +145,7 @@ public class TradeController extends VBox implements Initializable {
     }
 
     @FXML
-    private void deleteTrade() throws IOException {
+    private void deleteTrade() {
         Transaction transaction = tradesTable.getSelectionModel().getSelectedItem();
         confirmDelete.setTitle("Delete Trade?");
         confirmDelete.setHeaderText(null);
@@ -158,14 +158,8 @@ public class TradeController extends VBox implements Initializable {
                 "Formation: " + transaction.getFormation() + "\n");
 
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            try {
-                db.setBdConnection();
-                db.deleteTransaction(transaction);
-                GlobalContext.getTransactions().replaceMaster(db.getAllTransactions());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            transactions.deleteTransaction(transaction.getId());
+            GlobalContext.getTransactions().replaceMaster(transactions.getAllTransactions());
         }
         toolbarDeleteBtn.setDisable(true);
         toolbarEditBtn.setDisable(true);

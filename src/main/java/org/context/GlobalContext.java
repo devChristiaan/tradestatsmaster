@@ -26,7 +26,7 @@ public class GlobalContext {
     @Getter
     private static final ListContext<Account> accounts = new ListContext<>();
     @Getter
-    static final ListContext<Goal> goals = new ListContext<>();
+    private static final ListContext<Goal> goals = new ListContext<>();
 
     public enum ContextItems {
         FORMATION_LIST,

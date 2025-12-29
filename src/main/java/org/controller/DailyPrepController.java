@@ -15,7 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import org.context.ControllerRegistry;
 import org.context.GlobalContext;
-import org.manager.DbManager;
+import org.manager.DBManager.DailyPrepDataRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.model.dailyPrep.DailyPrep;
 import org.model.dailyPrep.DailyPrepItems;
 import org.utilities.DateCellTreeTable;
@@ -23,7 +24,6 @@ import org.utilities.SaveHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -63,6 +63,7 @@ public class DailyPrepController extends Pane implements Initializable, SaveHand
     public Button saveBtn;
 
     FilteredList<DailyPrep> dailyPrep = GlobalContext.getDailyPrep().getFiltered();
+    private final DailyPrepDataRepository dailyPrepData = ControllerRegistry.get(RepositoryFactory.class).dailyPrepData();
     private Node addDailyPrep;
     private DailyPrepItems selectedSymbol;
     MainController mainController;
@@ -147,14 +148,8 @@ public class DailyPrepController extends Pane implements Initializable, SaveHand
         selectedSymbol.setHh_ll_any_high(Double.parseDouble(hh_ll_any_high.getText()));
         selectedSymbol.setHh_ll_any_low(Double.parseDouble(hh_ll_any_low.getText()));
 
-        DbManager db = new DbManager();
-        try {
-            db.setBdConnection();
-            db.addDailyPrepItem(selectedSymbol);
-            GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
-            db.closeBdConnection();
-        } catch (IOException | SQLException ignored) {
-        }
+        dailyPrepData.addDailyPrepItem(selectedSymbol);
+        GlobalContext.getDailyPrep().replaceMaster(dailyPrepData.getAllDailyPrepData());
     }
 
     @FXML
@@ -194,14 +189,8 @@ public class DailyPrepController extends Pane implements Initializable, SaveHand
     public void deleteSymbol() {
         alertDialog("Symbol");
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.deleteSymbol(selectedSymbol.getDailyPrepId());
-                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ignored) {
-            }
+            dailyPrepData.deleteSymbol(selectedSymbol.getDailyPrepId());
+            GlobalContext.getDailyPrep().replaceMaster(dailyPrepData.getAllDailyPrepData());
         }
     }
 
@@ -209,15 +198,9 @@ public class DailyPrepController extends Pane implements Initializable, SaveHand
     public void deleteDay() {
         alertDialog("Date");
         if (confirmDelete.showAndWait().get() == ButtonType.OK) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                db.deleteSymbolByDay(selectedSymbol.getDailyPrepDateId());
-                db.deleteDay(selectedSymbol.getDailyPrepDateId());
-                GlobalContext.getDailyPrep().replaceMaster(db.getAllDailyPrepData());
-                db.closeBdConnection();
-            } catch (IOException | SQLException ignored) {
-            }
+            dailyPrepData.deleteSymbolByDay(selectedSymbol.getDailyPrepDateId());
+            dailyPrepData.deleteDay(selectedSymbol.getDailyPrepDateId());
+            GlobalContext.getDailyPrep().replaceMaster(dailyPrepData.getAllDailyPrepData());
         }
     }
 

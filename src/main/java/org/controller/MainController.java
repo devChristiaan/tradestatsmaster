@@ -10,9 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import org.context.ControllerRegistry;
-import org.context.GlobalContext;
 import org.manager.ControllerManager;
-import org.model.transaction.Transaction;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,14 +44,6 @@ public class MainController implements Initializable {
                 }
             }
         });
-    }
-
-    public void addTransaction(Transaction transaction) {
-        GlobalContext.getTransactions().addToMaster(transaction);
-    }
-
-    public void replaceTransaction(Transaction transaction) {
-        GlobalContext.getTransactions().replaceItemInMaster(transaction);
     }
 
     public void showModal(Node node) {

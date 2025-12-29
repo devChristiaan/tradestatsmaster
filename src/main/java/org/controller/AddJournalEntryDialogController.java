@@ -1,7 +1,6 @@
 package org.controller;
 
 import atlantafx.base.theme.Styles;
-import com.gluonhq.richtextarea.action.TextDecorateAction;
 import com.gluonhq.richtextarea.model.DecorationModel;
 import com.gluonhq.richtextarea.model.Document;
 import com.gluonhq.richtextarea.model.ParagraphDecoration;
@@ -20,15 +19,14 @@ import org.context.ControllerRegistry;
 import org.context.GlobalContext;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.material2.Material2AL;
-import org.manager.DbManager;
+import org.manager.DBManager.JournalRepository;
+import org.manager.DBManager.RepositoryFactory;
 import org.model.journal.Journal;
 import org.model.symbol.Symbol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +55,7 @@ public class AddJournalEntryDialogController implements Initializable {
     MainController mainController;
     List<Symbol> symbolList;
     List<Journal> selectedItemsForDate = new LinkedList<>();
+    JournalRepository journalDb = ControllerRegistry.get(RepositoryFactory.class).journals();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,17 +84,11 @@ public class AddJournalEntryDialogController implements Initializable {
     @FXML
     public void saveJournalDate() {
         if (isValid(selectedItemsForDate)) {
-            DbManager db = new DbManager();
-            try {
-                db.setBdConnection();
-                for (Journal entry : selectedItemsForDate) {
-                    db.addJournalEntry(entry);
-                }
-                GlobalContext.getJournals().replaceMaster(db.getAllJournalEntries());
-                db.closeBdConnection();
-                this.cancel();
-            } catch (IOException | SQLException ignored) {
+            for (Journal entry : selectedItemsForDate) {
+                journalDb.addJournalEntry(entry);
             }
+            GlobalContext.getJournals().replaceMaster(journalDb.getAllJournalEntries());
+            this.cancel();
         }
     }
 
