@@ -24,6 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.logging.InitLogging;
 import org.utilities.SaveHandler;
 
+import static org.manager.DTOManager.getAllAccountTransactions;
+import static org.manager.DTOManager.getAllSymbols;
 import static org.utilities.Utilities.closeApp;
 
 import org.manager.ControllerManager;
@@ -86,6 +88,10 @@ public class App extends Application {
         GlobalContext.getDailyPrep().setAllMaster(dailyData.getAllDailyPrepData());
         GlobalContext.getJournals().setAllMaster(journals.getAllJournalEntries());
         GlobalContext.getGoals().setAllMaster(goals.getAllGoals());
+
+        ///Serialized DTO Object
+        GlobalContext.getSymbols().setAllMaster(getAllSymbols());
+        GlobalContext.getAccounts().setAllMaster(getAllAccountTransactions());
 
         log.info("started successfully");
     }
