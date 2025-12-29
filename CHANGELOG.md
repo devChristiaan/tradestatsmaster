@@ -10,31 +10,44 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 New Features Planned:
 
 - Business rules setting
+- Backup system
 
 ### Changed
+
+## [1.8.1] - 2025-12-29
+
+Performance Update:
+
+- Cleaned up DB manager system. Cleaned up the code and made code more performant.
+- Fixed chart section crashing if no transactions are available.
 
 ## [1.8.0] - 2025-12-17
 
 Feature added:
-Added a Account Balance equity curve with an adjustable moving average.
+Added an Account Balance equity curve with an adjustable moving average.
 
 ## [1.7.3] - 2025-12-14
 
 Small clean up
+
 - Fixed spacing in the journal between the header and the text editor.
 - Added an extra column in the goals section to be able to see if a goal has been achieved in the table.
-- Removed the restriction for selecting a time frame first before being able to calculate the stop loss for a given symbol
+- Removed the restriction for selecting a time frame first before being able to calculate the stop loss for a given
+  symbol
 
 ## [1.7.2] - 2025-12-13
 
 Small clean up
-- Fixed text editor - switched to custom rich text editor for the journal and goals. Had to initialize the library and changed out the subscribe methods for addListener to keep it compatible with GraalVM.
+
+- Fixed text editor - switched to custom rich text editor for the journal and goals. Had to initialize the library and
+  changed out the subscribe methods for addListener to keep it compatible with GraalVM.
 - Upgrade project to use JAVA 21 and updated sql dependencies.
 - Added a button to copy goal content to a new goal
 
 ## [1.7.1] - 2025-12-04
 
 Bug Fix
+
 - Fixed issue with target profit in Stop loss tab not calculating correctly
 - Added a logger for proper tracking
 - Fixed goals not saving
