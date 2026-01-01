@@ -9,17 +9,6 @@
   "name":"[Z"
 },
 {
-  "name":"com.sun.glass.ui.Application"
-},
-{
-  "name":"com.sun.glass.ui.CommonDialogs",
-  "methods":[{"name":"createFileChooserResult","parameterTypes":["java.lang.String[]","com.sun.glass.ui.CommonDialogs$ExtensionFilter[]","int"] }]
-},
-{
-  "name":"com.sun.glass.ui.CommonDialogs$ExtensionFilter",
-  "methods":[{"name":"extensionsToArray","parameterTypes":[] }, {"name":"getDescription","parameterTypes":[] }]
-},
-{
   "name":"com.sun.glass.ui.Cursor",
   "methods":[{"name":"getNativeCursor","parameterTypes":[] }, {"name":"getType","parameterTypes":[] }]
 },
@@ -90,7 +79,7 @@
 },
 {
   "name":"java.lang.String",
-  "methods":[{"name":"concat","parameterTypes":["java.lang.String"] }, {"name":"toLowerCase","parameterTypes":["java.util.Locale"] }]
+  "methods":[{"name":"toLowerCase","parameterTypes":["java.util.Locale"] }]
 },
 {
   "name":"java.lang.Throwable",

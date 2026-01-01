@@ -235,6 +235,10 @@
   "name":"java.security.SecureRandomParameters"
 },
 {
+  "name":"java.sql.SQLException",
+  "fields":[{"name":"next"}]
+},
+{
   "name":"java.util.concurrent.atomic.AtomicBoolean",
   "fields":[{"name":"value"}]
 },
@@ -249,10 +253,6 @@
 {
   "name":"java.util.concurrent.atomic.Striped64",
   "fields":[{"name":"base"}, {"name":"cellsBusy"}]
-},
-{
-  "name":"java.util.concurrent.atomic.Striped64$Cell",
-  "fields":[{"name":"value"}]
 },
 {
   "name":"javafx.animation.KeyValue"
@@ -936,13 +936,13 @@
   "name":"org.controller.AccountBalanceDialogController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"saveTransaction","parameterTypes":[] }, {"name":"setAmount","parameterTypes":[] }, {"name":"setNote","parameterTypes":[] }]
 },
 {
   "name":"org.controller.AddDayDialogController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }, {"name":"saveDailyPrepDate","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"saveDailyPrepDate","parameterTypes":[] }]
 },
 {
   "name":"org.controller.AddGoalDialogController",
@@ -954,19 +954,19 @@
   "name":"org.controller.AddJournalEntryDialogController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }, {"name":"saveJournalDate","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"saveJournalDate","parameterTypes":[] }]
 },
 {
   "name":"org.controller.AddSymbolDialogController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"saveTransaction","parameterTypes":[] }, {"name":"setCommission","parameterTypes":[] }, {"name":"setFluctuation","parameterTypes":[] }, {"name":"setSymbol","parameterTypes":[] }, {"name":"setTickValue","parameterTypes":[] }]
 },
 {
   "name":"org.controller.AddTransactionDialog",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }, {"name":"selectEntry","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"cancel","parameterTypes":[] }, {"name":"saveTransaction","parameterTypes":[] }, {"name":"selectEntry","parameterTypes":[] }, {"name":"setATR","parameterTypes":[] }, {"name":"setCloseAmount","parameterTypes":[] }, {"name":"setOpenAmount","parameterTypes":[] }, {"name":"setPossibleLossTicks","parameterTypes":[] }, {"name":"setPossibleProfitTicks","parameterTypes":[] }, {"name":"setQuantity","parameterTypes":["javafx.scene.input.KeyEvent"] }]
 },
 {
   "name":"org.controller.ChartController",
@@ -977,19 +977,19 @@
   "name":"org.controller.DailyPrepController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addDay","parameterTypes":[] }, {"name":"deleteDay","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addDay","parameterTypes":[] }]
 },
 {
   "name":"org.controller.GoalsController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addGoal","parameterTypes":[] }, {"name":"deleteGoal","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addGoal","parameterTypes":[] }]
 },
 {
   "name":"org.controller.JournalController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addDay","parameterTypes":[] }, {"name":"deleteSymbol","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addDay","parameterTypes":[] }]
 },
 {
   "name":"org.controller.MainController",
@@ -1000,7 +1000,7 @@
   "name":"org.controller.MenuBarController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"backup","parameterTypes":[] }, {"name":"exportSelection","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"restoreBackup","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"addSymbol","parameterTypes":[] }, {"name":"manageBalance","parameterTypes":[] }, {"name":"showAboutApp","parameterTypes":[] }, {"name":"showLogs","parameterTypes":[] }]
 },
 {
   "name":"org.controller.RichTextEditorController",
@@ -1011,7 +1011,7 @@
   "name":"org.controller.StatsController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setCurrentDateFromBeginning","parameterTypes":[] }, {"name":"setCurrentMonth","parameterTypes":[] }, {"name":"setCurrentWeek","parameterTypes":[] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setCurrentDateFromBeginning","parameterTypes":[] }, {"name":"setCurrentMonth","parameterTypes":[] }]
 },
 {
   "name":"org.controller.StatsControllerOverview",
