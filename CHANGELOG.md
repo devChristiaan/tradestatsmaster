@@ -10,9 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 New Features Planned:
 
 - Business rules setting
-- Backup system
 
 ### Changed
+
+## [1.8.2] - 2025-12-29
+
+Critical Update:
+
+Fixed reflection config. Users can now add and remove symbols and account transactions.
 
 ## [1.8.1] - 2025-12-29
 
@@ -20,6 +25,7 @@ Performance Update:
 
 - Cleaned up DB manager system. Cleaned up the code and made code more performant.
 - Fixed chart section crashing if no transactions are available.
+- Added a backup feature to back up all data.
 
 ## [1.8.0] - 2025-12-17
 
