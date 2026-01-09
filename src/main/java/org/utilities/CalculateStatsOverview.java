@@ -44,7 +44,9 @@ public class CalculateStatsOverview {
                 this.winRatio = calculateWinRate(transactionsWithProfitPositive, transactionsWithProfitNegative);
                 this.payoffRatio = calculatePayoffRatio(transactionsWithProfitPositive, transactionsWithProfitNegative);
             }
-            this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
+            if (this.totalProfit > 0) {
+                this.commissionRatio = calculateCommissionRatio(this.totalProfit, this.totalCommission);
+            }
         }
 
         formationList.forEach(formation -> calculateWinRateFormation(filteredList, formation.getFormation()));
