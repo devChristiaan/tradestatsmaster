@@ -40,9 +40,10 @@
             <TableColumn fx:id="tradeQuantity" editable="false" prefWidth="85" sortable="false" text="Quantity"/>
             <TableColumn fx:id="tradeCommission" editable="false" prefWidth="100" sortable="false" text="Commission"/>
             <TableColumn fx:id="tradeFormation" editable="false" prefWidth="150" sortable="false" text="Formation"/>
+            <TableColumn fx:id="timePeriod" editable="false" prefWidth="95" sortable="false" text="Time Period"/>
+            <TableColumn fx:id="breakEven" editable="false" prefWidth="95" sortable="false" text="Break Even"/>
             <TableColumn fx:id="ATR" editable="false" prefWidth="80" sortable="false" text="ATR"/>
             <TableColumn fx:id="ATRRisk" editable="false" prefWidth="85" sortable="false" text="ATR Risk"/>
-            <TableColumn fx:id="timePeriod" editable="false" prefWidth="95" sortable="false" text="Time Period"/>
             <TableColumn fx:id="possibleProfitTicks" editable="false" prefWidth="150" sortable="false"
                          text="Possible Profit Ticks"/>
             <TableColumn fx:id="possibleLossTicks" editable="false" prefWidth="140" sortable="false"

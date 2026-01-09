@@ -43,6 +43,7 @@ public class StartUpRepository {
                 "open REAL NOT NULL," +
                 "close REAL NOT NULL," +
                 "profit REAL NOT NULL," +
+                "breakEven INTEGER NOT NULL," +
                 "formation TEXT NOT NULL," +
                 "ATR REAL NOT NULL," +
                 "ATRRisk REAL NOT NULL," +

@@ -32,6 +32,7 @@ public class TransactionRepository {
                 rs.getDouble("open"),
                 rs.getDouble("close"),
                 rs.getDouble("profit"),
+                rs.getBoolean("breakEven"),
                 rs.getString("formation"),
                 rs.getDouble("ATR"),
                 rs.getDouble("ATRRisk"),
@@ -55,6 +56,7 @@ public class TransactionRepository {
                 rs.getDouble("open"),
                 rs.getDouble("close"),
                 rs.getDouble("profit"),
+                rs.getBoolean("breakEven"),
                 rs.getString("formation"),
                 rs.getDouble("ATR"),
                 rs.getDouble("ATRRisk"),
@@ -69,9 +71,9 @@ public class TransactionRepository {
         String sql = """
                 INSERT INTO Transactions
                 (date, symbol, quantity, commission, direction, open, close, profit,
-                 formation, ATR, ATRRisk, possibleProfitTicks, possibleLossTicks,
+                 breakEven, formation, ATR, ATRRisk, possibleProfitTicks, possibleLossTicks,
                  actualLossTicks, timePeriod)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """;
 
         update(conn, sql, ps -> {
@@ -83,13 +85,14 @@ public class TransactionRepository {
             ps.setDouble(6, t.getOpen());
             ps.setDouble(7, t.getClose());
             ps.setDouble(8, t.getProfit());
-            ps.setString(9, t.getFormation());
-            ps.setDouble(10, t.getATR());
-            ps.setDouble(11, t.getATRRisk());
-            ps.setDouble(12, t.getPossibleProfitTicks());
-            ps.setDouble(13, t.getPossibleLossTicks());
-            ps.setDouble(14, t.getActualLossTicks());
-            ps.setString(15, t.getTimePeriod());
+            ps.setBoolean(9, t.getBreakEven());
+            ps.setString(10, t.getFormation());
+            ps.setDouble(11, t.getATR());
+            ps.setDouble(12, t.getATRRisk());
+            ps.setDouble(13, t.getPossibleProfitTicks());
+            ps.setDouble(14, t.getPossibleLossTicks());
+            ps.setDouble(15, t.getActualLossTicks());
+            ps.setString(16, t.getTimePeriod());
         });
         log.info("Transaction added successfully");
     }
@@ -109,6 +112,7 @@ public class TransactionRepository {
                 "open = ?, " +
                 "close = ?, " +
                 "profit = ?, " +
+                "breakEven = ?, " +
                 "formation = ?, " +
                 "ATR = ?, " +
                 "ATRRisk = ?, " +
@@ -125,14 +129,15 @@ public class TransactionRepository {
             ps.setDouble(6, t.getOpen());
             ps.setDouble(7, t.getClose());
             ps.setDouble(8, t.getProfit());
-            ps.setString(9, t.getFormation());
-            ps.setDouble(10, t.getATR());
-            ps.setDouble(11, t.getATRRisk());
-            ps.setDouble(12, t.getPossibleProfitTicks());
-            ps.setDouble(13, t.getPossibleLossTicks());
-            ps.setDouble(14, t.getActualLossTicks());
-            ps.setString(15, t.getTimePeriod());
-            ps.setInt(16, t.getId());
+            ps.setBoolean(9, t.getBreakEven());
+            ps.setString(10, t.getFormation());
+            ps.setDouble(11, t.getATR());
+            ps.setDouble(12, t.getATRRisk());
+            ps.setDouble(13, t.getPossibleProfitTicks());
+            ps.setDouble(14, t.getPossibleLossTicks());
+            ps.setDouble(15, t.getActualLossTicks());
+            ps.setString(16, t.getTimePeriod());
+            ps.setInt(17, t.getId());
         });
         log.info("Transaction id:{} updated successfully", t.getId());
     }

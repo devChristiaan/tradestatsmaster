@@ -50,6 +50,8 @@ public class AddTransactionDialog implements Initializable {
     @FXML
     private RadioButton shortEntry;
     @FXML
+    private CheckBox breakEven;
+    @FXML
     public TextField quantity;
     @FXML
     public TextField openAmount;
@@ -110,6 +112,7 @@ public class AddTransactionDialog implements Initializable {
             possibleLossTicks.setText(String.valueOf(tradeController.selectedTransaction.getPossibleLossTicks()));
             possibleProfitTicks.setText(String.valueOf(tradeController.selectedTransaction.getPossibleProfitTicks()));
             timePeriod.setText(tradeController.selectedTransaction.getTimePeriod());
+            breakEven.setSelected(tradeController.selectedTransaction.getBreakEven());
         } else {
             this.date.setValue(LocalDate.now());
         }
@@ -169,7 +172,7 @@ public class AddTransactionDialog implements Initializable {
             Double actualLossTicks = profit < 0 ? tickDifference(pointDifference(direction, new BigDecimal(openAmount.getText()), new BigDecimal(closeAmount.getText())), BigDecimal.valueOf(selectedSymbol.getFluctuation())).doubleValue() : 0;
             Double ATRRisk = calculateATRRisk(new BigDecimal(ATR.getText()), BigDecimal.valueOf(selectedSymbol.getFluctuation()), BigDecimal.valueOf(selectedSymbol.getTickValue()));
 
-            Transaction transaction = updateTransaction(tradeController.selectedTransaction, tradeController.selectedTransaction != null ? tradeController.selectedTransaction.getDate() : date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation, Double.parseDouble(ATR.getText()), ATRRisk, Double.parseDouble(possibleProfitTicks.getText()), Double.parseDouble(possibleLossTicks.getText()), actualLossTicks, timePeriod.getText());
+            Transaction transaction = updateTransaction(tradeController.selectedTransaction, tradeController.selectedTransaction != null ? tradeController.selectedTransaction.getDate() : date.getValue(), symbol.getValue(), Integer.parseInt(quantity.getText()), commission, String.valueOf(direction), Double.parseDouble(openAmount.getText()), Double.parseDouble(closeAmount.getText()), profit, formation, Double.parseDouble(ATR.getText()), ATRRisk, Double.parseDouble(possibleProfitTicks.getText()), Double.parseDouble(possibleLossTicks.getText()), actualLossTicks, timePeriod.getText(), breakEven.isSelected());
             if (tradeController.selectedTransaction != null) {
                 transactionDb.updateTransaction(transaction);
                 GlobalContext.getTransactions().replaceItemInMaster(transaction);
@@ -233,6 +236,7 @@ public class AddTransactionDialog implements Initializable {
         possibleLossTicks.setText("");
         possibleProfitTicks.setText("");
         timePeriod.setText("");
+        breakEven.setSelected(false);
         this.date.setValue(LocalDate.now());
     }
 
@@ -251,7 +255,8 @@ public class AddTransactionDialog implements Initializable {
                                           Double possibleProfitTicks,
                                           Double possibleLossTicks,
                                           Double actualLossTicks,
-                                          String timePeriod) {
+                                          String timePeriod,
+                                          Boolean breakEven) {
 
         if (transaction == null) {
             transaction = new Transaction();
@@ -271,6 +276,7 @@ public class AddTransactionDialog implements Initializable {
         transaction.setPossibleLossTicks(possibleLossTicks);
         transaction.setActualLossTicks(actualLossTicks);
         transaction.setTimePeriod(timePeriod);
+        transaction.setBreakEven(breakEven);
         return transaction;
     }
 }

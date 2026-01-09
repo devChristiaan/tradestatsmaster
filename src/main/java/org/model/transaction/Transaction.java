@@ -32,6 +32,8 @@ public class Transaction {
     Double close;
     @CsvBindByName(column = "profit", required = true)
     Double profit;
+    @CsvBindByName(column = "breakEven", required = true)
+    Boolean breakEven;
     @CsvBindByName(column = "formation", required = true)
     String formation;
     @CsvBindByName(column = "ATR", required = true)

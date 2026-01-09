@@ -58,6 +58,8 @@ public class TradeController extends VBox implements Initializable {
     @FXML
     public TableColumn<Transaction, String> timePeriod;
     @FXML
+    public TableColumn<Transaction, Boolean> breakEven;
+    @FXML
     public Button toolbarDeleteBtn;
     @FXML
     public Button toolbarEditBtn;
@@ -92,6 +94,7 @@ public class TradeController extends VBox implements Initializable {
         possibleLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("possibleLossTicks"));
         actualLossTicks.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("actualLossTicks"));
         timePeriod.setCellValueFactory(new PropertyValueFactory<Transaction, String>("timePeriod"));
+        breakEven.setCellValueFactory(new PropertyValueFactory<Transaction, Boolean>("breakEven"));
 
         //Enable delete btn on select
         tradesTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
