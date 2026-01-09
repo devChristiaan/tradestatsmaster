@@ -13,6 +13,13 @@ New Features Planned:
 
 ### Changed
 
+## [1.8.3] - 2026-01-09
+
+Data Capture and Bugfix update:
+
+- Fixed bug causing app to crash on startup when there are no positive transaction.
+- Added a new break even data field for transaction.
+
 ## [1.8.2] - 2025-12-29
 
 Critical Update:
