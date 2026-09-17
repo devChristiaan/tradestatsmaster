@@ -86,7 +86,8 @@ public class CalculateStatsStopLoss {
     private double calculateAvgAmount(List<Transaction> transactions) {
         double runningTotal = 0;
         for (Transaction transaction : transactions) {
-            runningTotal += transaction.getProfit();
+            //Profit is stored as quantity * difference between open and close (based on direction)
+            runningTotal += transaction.getProfit() / transaction.getQuantity();
         }
         return runningTotal / transactions.size();
     }
@@ -122,7 +123,8 @@ public class CalculateStatsStopLoss {
 
     private void calculateActualLosses(List<Transaction> transactions) {
         for (Transaction transaction : transactions) {
-            actualLosses += transaction.getProfit();
+            //Profit is stored as quantity * difference between open and close (based on direction)
+            actualLosses += transaction.getProfit() / transaction.getQuantity();
         }
     }
 
@@ -134,7 +136,8 @@ public class CalculateStatsStopLoss {
     }
 
     private Double averageListProfit(List<Transaction> transactions) {
-        OptionalDouble average = transactions.stream().mapToDouble(Transaction::getProfit).average();
+        //Profit is stored as quantity * difference between open and close (based on direction)
+        OptionalDouble average = transactions.stream().mapToDouble(t -> t.getProfit() / t.getQuantity()).average();
 
         if (average.isPresent()) {
             return average.getAsDouble();

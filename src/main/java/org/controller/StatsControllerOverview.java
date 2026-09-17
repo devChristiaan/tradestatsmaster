@@ -47,6 +47,8 @@ public class StatsControllerOverview extends VBox implements Initializable {
     @FXML
     Label rh_TTE;
     @FXML
+    Label rrh;
+    @FXML
     Label oneTwoThree;
     @FXML
     Label oneTwoThree_TTE;
@@ -92,13 +94,14 @@ public class StatsControllerOverview extends VBox implements Initializable {
 
         rh.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook")).findFirst().get().getWinRate() + " %");
         rh_TTE.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook - TTE")).findFirst().get().getWinRate() + " %");
+        rrh.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Reverse Ross Hook")).findFirst().get().getWinRate() + " %");
         oneTwoThree.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("1 2 3")).findFirst().get().getWinRate() + " %");
         oneTwoThree_TTE.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("1 2 3 - TTE")).findFirst().get().getWinRate() + " %");
         reversalBar.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Reversal/Gimme Bar")).findFirst().get().getWinRate() + " %");
         consolidation.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Consolidation")).findFirst().get().getWinRate() + " %");
         insideReversalBar.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Inside Reversal Bar")).findFirst().get().getWinRate() + " %");
         HH_LL.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest High/Lowest Low")).findFirst().get().getWinRate() + " %");
-        HH_LL_3_Days.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest high/Lowest Low of 3 days")).findFirst().get().getWinRate() + " %");
+        HH_LL_3_Days.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest high/Lowest Low of 3 Bars")).findFirst().get().getWinRate() + " %");
     }
 
     private void populateAccountBalance() {

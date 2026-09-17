@@ -13,6 +13,13 @@ New Features Planned:
 
 ### Changed
 
+## [1.8.4] - 2026-09-15
+
+Bugfix update:
+
+- Fixed bug where stop loss calculation was calculating with the number of contracts traded not on a per-contract basis.
+- Added transaction type Reverse Ross Hook
+
 ## [1.8.3] - 2026-01-09
 
 Data Capture and Bugfix update:

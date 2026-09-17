@@ -30,6 +30,8 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
     @FXML
     Label rh_TTE_stopLoss;
     @FXML
+    Label rrh_stopLoss;
+    @FXML
     Label oneTwoThree_stopLoss;
     @FXML
     Label oneTwoThree_TTE_stopLoss;
@@ -108,7 +110,7 @@ public class StatsControllerProfitLoss extends VBox implements Initializable {
         consolidation_stopLoss.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Consolidation")).findFirst().get().getWinRate() + " %");
         insideReversalBar_stopLoss.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Inside Reversal Bar")).findFirst().get().getWinRate() + " %");
         HH_LL_stopLoss.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest High/Lowest Low")).findFirst().get().getWinRate() + " %");
-        HH_LL_3_Days_stopLoss.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest high/Lowest Low of 3 days")).findFirst().get().getWinRate() + " %");
+        HH_LL_3_Days_stopLoss.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Highest high/Lowest Low of 3 Bars")).findFirst().get().getWinRate() + " %");
 
         targetProfits.setText("$ " + stats.getDf().format(stats.getTargetProfits()));
         actualLosses.setText("$ " + stats.getDf().format(stats.getActualLosses()));
