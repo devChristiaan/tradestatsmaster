@@ -38,6 +38,12 @@ public class StatsControllerOverview extends VBox implements Initializable {
     @FXML
     Label winRatio;
     @FXML
+    Label totalTrades;
+    @FXML
+    Label wins;
+    @FXML
+    Label losses;
+    @FXML
     Label accountBal;
     @FXML
     Label accountBalPercentage;
@@ -91,6 +97,9 @@ public class StatsControllerOverview extends VBox implements Initializable {
         commissionRatio.setText(String.format("%.2f", stats.getTotalProfit() > 0 ? stats.getCommissionRatio() : 0) + " %");
         payoffRatio.setText(String.format("%.2f", stats.getPayoffRatio()));
         winRatio.setText(String.format("%.2f", stats.getWinRatio()));
+        totalTrades.setText(String.valueOf(stats.getTotalTrades()));
+        wins.setText(String.valueOf(stats.getWins()));
+        losses.setText(String.valueOf(stats.getLosses()));
 
         rh.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook")).findFirst().get().getWinRate() + " %");
         rh_TTE.setText(stats.getFormationsWinRate().stream().filter(formation -> formation.getFormation().equals("Ross Hook - TTE")).findFirst().get().getWinRate() + " %");

@@ -55,7 +55,7 @@ public class ChartController implements Initializable {
             }
         });
         chartData.setName("Profit/Loss");
-        chartMovingAvg.setName("4 Day Moving Avg");
+        chartMovingAvg.setName("Moving Avg");
         ArrayList<String> types = ETradePerformanceTypes.getDescriptions();
         for (int i = 0; i < types.size(); i++) {
             if (i == 0) {

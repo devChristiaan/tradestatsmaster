@@ -13,7 +13,7 @@
             <Font size="18.0" />
         </font>
         <VBox.margin>
-            <Insets bottom="4.0" top="16.0" />
+            <Insets bottom="2.0" top="8.0" />
         </VBox.margin>
     </Label>
     <AnchorPane prefHeight="109.0" prefWidth="450.0">
@@ -79,7 +79,7 @@
             <Insets top="12.0" />
         </VBox.margin>
     </Separator>
-    <TabPane fx:id="tabPane" prefHeight="900.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane fx:id="tabPane" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <Tab closable="false" text="Overview">
             <fx:include source="statsOverview.fxml" />
         </Tab>
