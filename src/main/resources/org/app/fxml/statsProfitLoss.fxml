@@ -359,7 +359,7 @@
                 <FontIcon iconLiteral="mdoal-info" scaleX="0.8" scaleY="0.8" translateX="-4.0" translateY="-4.0" />
             </graphic>
             <tooltip>
-                <Tooltip contentDisplay="RIGHT" text="Avg stop loss is calculated by dividing the avg ATR by half. If your average stop loss is hit. How much wins does it take with the current target to break even." textAlignment="CENTER" wrapText="true" />
+                <Tooltip contentDisplay="RIGHT" text="How many wins does it take with the current target and average ATR as your stop loss to break even." textAlignment="CENTER" wrapText="true" />
             </tooltip>
             <GridPane.margin>
                 <Insets left="20.0" />

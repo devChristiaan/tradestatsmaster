@@ -55,6 +55,7 @@ public class CalculateStatsStopLoss {
 
             List<Transaction> transactionsWithProfitPositive = symbolFilteredList.stream().filter(transaction -> transaction.getProfit() > 0).toList();
             List<Transaction> transactionsWithProfitNegative = symbolFilteredList.stream().filter(transaction -> transaction.getProfit() < 0).toList();
+            Symbol symbol = symbolList.stream().filter(p -> p.getSymbol().equals(selectedSymbol)).findFirst().get();
 
             calculateTargetProfits(symbolFilteredList, targetTicks);
             calculateProfits(symbolFilteredList);
@@ -74,9 +75,9 @@ public class CalculateStatsStopLoss {
                 this.payoffRatio = calculatePayoffRatio(transactionsWithProfitPositive, transactionsWithProfitNegative);
             }
             ///avg loss is multipled by -1 to make the value positive
-            this.avgLossAvgWinRatio = targetProfits > 0 ? (averageLossAmount * -1) / targetProfits : 0.0;
-            ///average atr / 2 is used to calculate the stop loss.
-            this.stopLossObjectiveRatio = targetProfits > 0 && averageATR > 0 ? (averageATR / 2) / targetProfits : 0.0;
+            this.avgLossAvgWinRatio = targetProfits > 0 ? (targetProfits / nrWins) / (averageLossAmount * -1) : 0.0;
+            ///average atr is used to calculate the stop loss.
+            this.stopLossObjectiveRatio = targetProfits > 0 && averageATR > 0 ? ((averageATR / symbol.getFluctuation()) * symbol.getTickValue()) / (targetTicks * symbol.getTickValue()) : 0.0;
             formationList.forEach(formation -> calculateWinRateFormation(symbolFilteredList, formation.getFormation()));
         } else {
             formationList.forEach(formation -> calculateWinRateFormation(filteredList, formation.getFormation()));
@@ -100,13 +101,13 @@ public class CalculateStatsStopLoss {
         averageATR = runningTotal / transactions.size();
     }
 
+    /// Using all transactions because with the new target tick value it does not mean that the trade would have been successful, but it does mean that the target profit was reached. So we are calculating the target profits based on all transactions and not just the winning ones.
     private void calculateTargetProfits(List<Transaction> filteredTransactions,
                                         Double targetTicks) {
         if (!filteredTransactions.isEmpty() || targetTicks != 0) {
             Symbol symbol = symbolList.stream().filter(p -> p.getSymbol().equals(filteredTransactions.get(0).getSymbol())).findFirst().get();
             for (Transaction tran : filteredTransactions) {
-                BigDecimal tradeTicks = tickDifference(pointDifference(Formation.Direction.valueOf(tran.getDirection()), BigDecimal.valueOf(tran.getOpen()), BigDecimal.valueOf(tran.getClose())), BigDecimal.valueOf(symbol.getFluctuation()));
-                if (tradeTicks.doubleValue() >= targetTicks && tran.getPossibleProfitTicks() >= targetTicks) {
+                if (tran.getPossibleProfitTicks() >= targetTicks) {
                     targetProfits += targetTicks * symbol.getTickValue();
                 }
             }

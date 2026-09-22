@@ -25,6 +25,9 @@ public class CalculateStatsOverview {
     private double winRatio = 0.0;
     private double commissionRatio = 0.0;
     private double payoffRatio = 0.0;
+    private int totalTrades = 0;
+    private int wins = 0;
+    private int losses = 0;
     private final List<Formation> formationList = (List<Formation>) GlobalContext.get(GlobalContext.ContextItems.FORMATION_LIST);
     private List<Formation> formationsWinRate = new ArrayList<>();
     DecimalFormat df = getTextFormater();
@@ -36,7 +39,9 @@ public class CalculateStatsOverview {
             }
             List<Transaction> transactionsWithProfitPositive = filteredList.stream().filter(transaction -> transaction.getProfit() > 0).toList();
             List<Transaction> transactionsWithProfitNegative = filteredList.stream().filter(transaction -> transaction.getProfit() < 0).toList();
-
+            this.totalTrades = filteredList.size();
+            this.wins = transactionsWithProfitPositive.size();
+            this.losses = transactionsWithProfitNegative.size();
             this.netIncome = this.totalProfit + this.totalLoss - this.totalCommission;
             this.winRate = Math.round((float) transactionsWithProfitPositive.size() / filteredList.size() * 100);
 
@@ -79,9 +84,19 @@ public class CalculateStatsOverview {
 
     private Double calculatePayoffRatio(List<Transaction> positiveTransactions,
                                         List<Transaction> negativeTransactions) {
-        BigDecimal averageNegativeTrans = BigDecimal.valueOf(this.averageListProfit(negativeTransactions));
-        BigDecimal averagePositiveTrans = BigDecimal.valueOf(this.averageListProfit(positiveTransactions));
-        return averagePositiveTrans.doubleValue() == 0 ? 0.00 : averageNegativeTrans.multiply(new BigDecimal(-1)).divide(averagePositiveTrans, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+        double averageWinningTrade = averageListProfit(positiveTransactions);
+        double averageLosingTrade = averageListProfit(negativeTransactions);
+
+        if (averageWinningTrade == 0.0 || averageLosingTrade == 0.0) {
+            return 0.0;
+        }
+
+        return BigDecimal.valueOf(
+                        averageWinningTrade / Math.abs(averageLosingTrade)
+                )
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 
     private Double calculateWinRate(List<Transaction> positiveTransactions,

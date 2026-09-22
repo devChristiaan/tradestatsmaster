@@ -13,6 +13,13 @@ New Features Planned:
 
 ### Changed
 
+## [1.8.5] - 2026-09-15
+
+Bugfix update:
+
+- Fixed payoff ratio, acg stop loss, avg loss / target profit ratio and target ticks calculation.
+- Added transaction totals
+
 ## [1.8.4] - 2026-09-15
 
 Bugfix update:
